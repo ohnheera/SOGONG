@@ -1,3 +1,5 @@
+//메인화면 '/'
+
 var express = require('express');
 var router = express.Router();
 

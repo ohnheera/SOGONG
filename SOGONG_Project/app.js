@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //이미지 view
-app.use('/viewdogimg',express.static('uploads')); //view를 주소에 치면 dogimg안의 파일이 접근 가능
+app.use('/viewdogimg',express.static('uploads/user/petimg')); //view를 주소에 치면 dogimg안의 파일이 접근 가능
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
