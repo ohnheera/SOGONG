@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/javascripts/jquery-3.3.1.ms.js"></script>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+</head>
+<body>
+  <h1><%= title %></h1>
+
+  <form action="/questboard/update_quest" method="post" onsubmit="return onWriteSubmit()">
+    <table border="1" class="table table-striped">
+      <input type="hidden" name="idx" value="<%=row.idx%>"/>
+      <tr>
+        <td>작성자</td>
+        <td><input type="text" name="creator_id" id="creator_id" value="<%=row.creator_id%>" required/></td>
+      </tr>
+      <tr>
+        <td>제목</td>
+        <td><input type="text" name="title" id="title" value="<%=row.title%>" required/></td>
+      </tr>
+      <tr>
+        <td>내용</td>
+        <td><textarea name="content" id="content" cols="30" rows="10" required><%=row.content%></textarea></td>
+      </tr>
+      <tr>
+        <td>이미지</td>
+        <td>
+          <input type="file" name="image" id="image" value="<%row.image%>"/>
+        </td>
+      </tr>
+      <tr>
+        <td>패스워드</td>
+        <td><input type="password" name="passwd" id="passwd" required/></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button type="submit" class="btn">글쓰기</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+  <script>
+    function onWriteSubmit()
+    {
+      if ($("#creator_id").val().trim()==""){
+        var message = "아이디를 입력해 주세요";
+        $("#creator_id").val("");
+        $("#creator_id").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#title").val().trim()==""){
+        var message = "제목을 입력해 주세요";
+        $("#title").val("");
+        $("#title").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#content").val().trim()==""){
+        var message = "본문 내용을 입력해 주세요";
+        $("#content").val("");
+        $("#content").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#passwd").val().trim()==""){
+        var message = "패스워드를 입력해 주세요";
+        $("#passwd").val("");
+        $("#passwd").focus();
+        alert(message);
+        return false;
+      }
+    }
+
+    $('#image').on('change', function() {
+
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#image').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('#image_preview img').attr('src', blobURL);
+            $('#image_preview').slideDown(); //업로드한 이미지 미리보기
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+
+    /**
+    onclick event handler for the delete button.
+    It removes the image, clears and unhides the file input field.
+    */
+    $('#image_preview a').bind('click', function() {
+        resetFormElement($('#image')); //전달한 양식 초기화
+        $('#image').slideDown(); //파일 양식 보여줌
+        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        return false; //기본 이벤트 막음
+    });
+
+
+    // /**
+    // * 폼요소 초기화
+    // * Reset form element
+    // *
+    // * @param e jQuery object
+    // */
+    // function resetFormElement(e) {
+    //     e.wrap('<form>').closest('form').get(0).reset();
+    //     //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) ,
+    //     //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+    //     //DOM에서 제공하는 초기화 메서드 reset()을 호출
+    //     e.unwrap(); //감싼 <form> 태그를 제거
+    // }
+    </script>
+  </body>
+  </html>
