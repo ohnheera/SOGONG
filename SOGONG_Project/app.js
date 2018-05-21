@@ -3,11 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login');
+var joinRouter = require('./routes/join');
 
 var app = express();
+
+//session 설정
+app.use(session({
+	secret: 'fnwfnqfnqufnw',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,8 +29,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//이미지 view
+app.use('/viewdogimg',express.static('uploads')); //view를 주소에 치면 dogimg안의 파일이 접근 가능
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login',loginRouter);
+app.use('/join',joinRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
