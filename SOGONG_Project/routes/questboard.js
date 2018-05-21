@@ -22,7 +22,7 @@ var pool = mysql.createPool({
   connectionLimit: 5,
   host: 'localhost',
   user: 'root',
-  database: 'questboarddb',
+  database: 'test',
   password: '12345'
 });
 
