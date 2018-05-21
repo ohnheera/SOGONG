@@ -166,7 +166,7 @@ router.get('/delete_info', function(req, res, next){
       //if(err) console.error(err);
       if(err) res.send(arr);
       //console.log("delete에서 1개 글 조회 결과 확인 : ", rows);
-      res.render('delete_info', {title:"글 삭제 시 비밀번호를 입력하세요. ", row:rows[0]});
+      res.render('delete_info', {title:"글 삭제 시 비밀번호를 입력하세요.", row:rows[0]});
     });
   });
 });
