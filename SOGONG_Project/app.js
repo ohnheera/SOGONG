@@ -9,7 +9,7 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
-//var joinRouter = require('./routes/join');
+var joinRouter = require('./routes/join');
 var infoboard = require('./routes/infoboard');
 var noticeboard = require('./routes/noticeboard');
 var questboard = require('./routes/questboard');
@@ -35,12 +35,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //이미지 views
-//app.use('/viewdogimg', express.static('uploads'));
+app.use('/petimg', express.static('uploads/user/petimg'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
-//app.use('/join', joinRouter);
+app.use('/join', joinRouter);
 app.use('/infoboard',infoboard);
 app.use('/noticeboard', noticeboard);
 app.use('/questboard', questboard);
