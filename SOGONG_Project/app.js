@@ -13,6 +13,7 @@ var loginRouter = require('./routes/login');
 var infoboard = require('./routes/infoboard');
 var noticeboard = require('./routes/noticeboard');
 var questboard = require('./routes/questboard');
+var productboard = require('./routes/productBoard');
 
 var app = express();
 
@@ -34,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //이미지 views
-app.use('/viewdogimg', express.static('uploads'));
+//app.use('/viewdogimg', express.static('uploads'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -43,6 +44,7 @@ app.use('/login', loginRouter);
 app.use('/infoboard',infoboard);
 app.use('/noticeboard', noticeboard);
 app.use('/questboard', questboard);
+app.use('/productBoard', productboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
