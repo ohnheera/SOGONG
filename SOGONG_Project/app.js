@@ -3,18 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser=require('body-parser');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
-var joinRouter = require('./routes/join');
+//var joinRouter = require('./routes/join');
+var infoboard = require('./routes/infoboard');
+var noticeboard = require('./routes/noticeboard');
+var questboard = require('./routes/questboard');
 
 var app = express();
 
 //session 설정
 app.use(session({
-	secret: 'fnwfnqfnqufnw',
+  secret:'fnwfnqfnqufnw',
   resave: false,
   saveUninitialized: true
 }));
@@ -29,14 +33,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-//이미지 view
-app.use('/viewdogimg',express.static('uploads')); //view를 주소에 치면 dogimg안의 파일이 접근 가능
+//이미지 views
+app.use('/viewdogimg', express.static('uploads'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/login',loginRouter);
-app.use('/join',joinRouter);
+app.use('/login', loginRouter);
+//app.use('/join', joinRouter);
+app.use('/infoboard',infoboard);
+app.use('/noticeboard', noticeboard);
+app.use('/questboard', questboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
