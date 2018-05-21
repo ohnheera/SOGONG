@@ -1,9 +1,11 @@
 //희라
+
 //로그인 정보 세션 사용 :
 //https://jiwondh.github.io/2017/01/29/session/
 //session 설치: npm install session
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 /*
 로그인 & 탈퇴 - 데이터베이스 (Userinfo)
@@ -17,7 +19,7 @@ var pool = mysql.createPool({
   host:'localhost',
   user:'root',
   database:'test',
-  password:'ty00iy8117051'
+  password:'12345'
 });
 
 //로그인 페이지
@@ -44,13 +46,12 @@ router.post('/',function(req,res,next){
     connection.query(sql,[id,passwd],function(err,row){
       console.log(row);
       if(err) console.error("로그인 중 에러 발생 err: ",err);
-      if(row == null)
+      if(row == 0)
       {
         res.send("<script>alert('아이디/패스워드가 일치하지 않습니다.');history.back();</script>");
       }
       else {
         session.user_id = id; //세션에 'id'로 id 등록
-        console.log("id: ", id, "|",session.user_id);
 				res.redirect('/');
       }
       connection.release();
@@ -70,7 +71,7 @@ router.get('/cancel', function(req, res, next) {
     connection.query(sql,[id],function(err,row){
       console.log(row);
       if(err) console.error("탈퇴 중 에러 발생 err: ",err);
-      res.render('cancel', { title: '탈퇴하기' });
+      res.render('cancel', { title: '탈퇴하기', row:row[0]});
       connection.release();
     });
   });
@@ -79,7 +80,8 @@ router.get('/cancel', function(req, res, next) {
 router.post('/cancel',function(req,res,next){
   var idx = req.body.id;
   var passwd = req.body.passwd;
-  var upFile =req.params.pic;
+  var upFile =req.body.pic;
+  console.log("파일명: ",upFile);
 
   pool.getConnection(function(err,connection)
   {
@@ -93,9 +95,11 @@ router.post('/cancel',function(req,res,next){
       }
       else {
         delete req.session.user_id;//session에서 사용자 정보 삭제
-        fs.exists('uploads/user/petimg/' + upFile, function(exists){ //파일이 존재시 삭제
+        fs.exists('./uploads/user/petimg/' + upFile, function(exists){ //파일이 존재시 삭제
+          console.log("탈퇴: 파일 존재", "./uploads/user/petimg/" , upFile);
           if(exists == true){
-            fs.unlink('uploads/user/petimg'+upFile,function(err){
+            fs.unlink('./uploads/user/petimg/'+upFile,function(err){
+              console.log("탈퇴: 파일 삭제", "./uploads/user/petimg/" , upFile);
               if(err) throw err;
             });
           }
