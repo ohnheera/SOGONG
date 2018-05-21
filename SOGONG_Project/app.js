@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //이미지 views
 app.use('/petimg', express.static('uploads/user/petimg'));
+//app.use('/petimg', express.static('uploads/user/petimg'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="/javascripts/jquery-3.3.1.ms.js"></script>
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
 </head>
@@ -26,7 +26,7 @@
       <tr>
         <td>이미지</td>
         <td>
-          <input type="file" name="image" id="image" value="<%row.image%>"/>
+          <input type="file" name="image" id="image" value="<%='/images/'+row.image%>"/>
         </td>
       </tr>
       <tr>
