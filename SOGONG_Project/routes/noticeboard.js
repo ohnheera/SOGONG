@@ -22,7 +22,7 @@ var pool = mysql.createPool({
   connectionLimit: 5,
   host: 'localhost',
   user: 'root',
-  database: 'noticeboarddb',
+  database: 'test',
   password: '12345'
 });
 
@@ -43,7 +43,7 @@ router.get('/list_notice/:page', function(req, res, next){
       if(err) res.send(err);
       //console.log("rows: " + JSON.stringify(rows));
 
-      res.render('list_notice', { title: '공지사항 ', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 5, pass: true});
+      res.render('list_notice', { title: '공지사항', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 5, pass: true});
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -53,7 +53,7 @@ router.get('/list_notice/:page', function(req, res, next){
 
 //글쓰기 화면 표시 GET
 router.get('/write_notice', function(req, res, next){
-  res.render('write_notice', {title : "글쓰기"});
+  res.render('write_notice', {title : "글쓰기 "});
 });
 
 //글쓰기 로직 처리 POST
@@ -64,7 +64,7 @@ router.post('/write_notice', upload.single('image'), function(req, res, next){
   var content = req.body.content;
   var passwd = req.body.passwd;
   if (!req.file) {
-    var image=0;
+    var image=null;
     //return res.send('Please upload a file');
   }
   else {
@@ -165,7 +165,7 @@ router.get('/delete_notice', function(req, res, next){
       //if(err) console.error(err);
       if(err) res.send(arr);
       //console.log("delete에서 1개 글 조회 결과 확인 : ", rows);
-      res.render('delete_notice', {title:"글 삭제 시 비밀번호를 입력하세요.", row:rows[0]});
+      res.render('delete_notice', {title:"글 삭제 시 비밀번호를 입력하세요. ", row:rows[0]});
     });
   });
 });

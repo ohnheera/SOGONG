@@ -6,16 +6,16 @@ router.use(express.static('public'));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/')
+        cb(null, 'public/uploads/infoboardimg/')
     },
     filename: function (req, file, cb) {
         //req.body is empty...
         //cb(null, file.originalname);
-        cb(null, file.originalname);
+        cb(null, new Date().valueOf()+file.originalname);
     }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 //MySQL 로드
 var mysql = require('mysql');
@@ -23,7 +23,7 @@ var pool = mysql.createPool({
   connectionLimit: 5,
   host: 'localhost',
   user: 'root',
-  database: 'infoboarddb',
+  database: 'test',
   password: '12345'
 });
 
@@ -44,7 +44,7 @@ router.get('/list_info/:page', function(req, res, next){
       if(err) res.send(err);
       //console.log("rows: " + JSON.stringify(rows));
 
-      res.render('list_info', { title: '정보게시판 ', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 5, pass: true});
+      res.render('list_info', { title: '정보게시판', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 5, pass: true});
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -65,7 +65,7 @@ router.post('/write_info', upload.single('image'), function(req, res, next){
   var content = req.body.content;
   var passwd = req.body.passwd;
   if (!req.file) {
-    var image=0;
+    var image=null;
     //return res.send('Please upload a file');
   }
   else {
