@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> <%= title %> </title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+  <h1> <%= title %></h1>
+  <br>
+  <br>
+  <table border="1">
+    <tr>
+      <td>번호</td>
+      <td>상품 사진</td>
+      <td>상품 이름</td>
+      <td>가격</td>
+    </tr>
+<%
+    for(var i=0; i<rows.length;i++) {
+      var oneItem = rows[i];
+%>
+    <tr>
+      <td><%=oneItem.idx%></td>
+      <td><image src=<%=oneItem.main_img%> alt="image" width="200" height="200"></td>
+      <td><a href = "/productBoard/product/<%=oneItem.idx%>"><%=oneItem.prd_name%></a></td>
+      <td><%=oneItem.price%></td>
+    </tr>
+<%
+    }
+%>
+  </table>
+  <button onclick = "addProduct()">추가</button>
+  <script>
+    function addProduct() {
+      location.href = "/productBoard/write";
+    }
+  </script>
+</body>
+</html>

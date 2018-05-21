@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/javascripts/jquery-3.3.1.min.js"></script>
+    <title><%= title %></title>
+    <link rel='stylesheet' href = '/stylesheets/style.css'/>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="/productBoard/update" method="post" onsubmit="return onWriteSubmit()">
+      <table border="1">
+        <input type="hidden" name="idx" value="<%=row.idx%>"/>
+        <tr>
+          <td>상품 사진</td>
+          <td><input type="file" name="main_img" id="main_img" accept="image/*"required/></td>
+        </tr>
+        <tr>
+          <td>상품 이름</td>
+          <td><input type="text" name="prd_name" id="prd_name" value="<%=row.prd_name%>" required/></td>
+        </tr>
+        <tr>
+          <td>가격</td>
+          <td><input type="text" name="price" id="price" value="<%=row.price%>" required/></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="submit">글쓰기</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <script>
+      function onWriteSubmit() {
+        if($("#prd_name").val().trim()=="") {
+          var message = "제목을 입력해 주세요";
+          $("#prd_name").val("");
+          $("#prd_name").focus();
+          alert(message);
+          return false;
+        }
+        if($("#price").val().trim()=="") {
+          var message = "본문 내용을 입력해 주세요";
+          $("#price").val("");
+          $("#price").focus();
+          alert(message);
+          return false;
+        }
+        if($("#main_img").val().trim()=="") {
+          var message = "패스워드를 입력해 주세요";
+          $("#main_img").val("");
+          $("#main_img").focus();
+          alert(message);
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>
