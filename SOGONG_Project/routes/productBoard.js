@@ -36,7 +36,7 @@ router.get('/list/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list', {title : '상품 목록', rows: rows} );
+      res.render('list_product', {web_name : 'MY PET', title : 'PRODUCT LIST', rows: rows} );
       connection.release();
     });
   });
