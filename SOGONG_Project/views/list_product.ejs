@@ -8,6 +8,11 @@
 
     <title><%=web_name%></title>
 
+    <style>
+      #paging {
+        text-align : center;
+      }
+    </style>
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -121,7 +126,7 @@
             <%
               for(var j=0;j<rows.length/5;j++){
             %>
-              [ <a href="/productBoard/list/<%= j+1 %>"><%= j+1 %></a>]
+              [ <a href="/productBoard/list/<%= j+1 %>"><%= j+1 %></a> ]
             <%
               }
             %>
