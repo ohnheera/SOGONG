@@ -5,7 +5,7 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/images')
+    cb(null, 'public/prd_imgs')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -30,13 +30,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/list/:page', function(req, res, next){
+  var page = req.params.page;
+
   pool.getConnection(function(err, connection){
     //Use the connection
     var sqlForSelectList = "SELECT idx, main_img, prd_name, price FROM product";
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'MY PET', title : 'PRODUCT LIST', rows: rows} );
+      res.render('list_product', {web_name : 'MY PET', title : 'PRODUCT LIST', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
