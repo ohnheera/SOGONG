@@ -14,10 +14,10 @@
       }
     </style>
     <!-- Bootstrap core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/template/prd_list/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/shop-homepage.css" rel="stylesheet">
+    <link href="/template/prd_list/css/shop-homepage.css" rel="stylesheet">
 
   </head>
 
@@ -33,18 +33,22 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="#">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="#">LOGOUT</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="#">CART</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="#">MY PAGE</a>
+            </li>
+            <li class="nav-item">
+              <!-- 왜 안될까 -->
+              <a class="nav-link" href="/noticeboard/list_notice/1">COMMUNITY</a>
             </li>
           </ul>
         </div>
@@ -105,10 +109,10 @@
 
                   <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                      <a href="#"><image class="card-img-top" src=<%=oneItem.main_img%> alt="prd_imgs" width="200" height="200"></a>
+                      <a href="productBoard/product/<%=oneItem.idx%>"><image class="card-img-top" src=<%=oneItem.main_img%> alt="prd_imgs" width="200" height="200"></a>
                       <div class="card-body">
                         <h4 class="card-title">
-                          <a href="#"><%=oneItem.prd_name%></a>
+                          <a href="productBoard/product/<%=oneItem.idx%>"><%=oneItem.prd_name%></a>
                         </h4>
                         <h5><%=oneItem.price%>원</h5>
                         <p class="card-text">간략한 설명</p>
@@ -148,8 +152,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/template/prd_list/vendor/jquery/jquery.min.js"></script>
+    <script src="/template/prd_list/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
