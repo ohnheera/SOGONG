@@ -10,26 +10,11 @@
   <form action="/login" method="post" onsubmit="return onWriteSubmit()">
     <table>
         <td colspan="2">
-          <button><a href="/">돌아가기</a></button>
-          <button><a href="/login/logout">로그아웃</a></button>
-          <button><a href="/login/cancel">탈퇴</a></button>
-        </td>
+          <input type="button" value="돌아가기" onClick="location.href='/'">
+          <input type="button" value="로그아웃 - 메인 페이지로 옮길 예정" onClick="location.href='/login/logout'">
+          <input type="button" value="마이페이지 - 메인 페이지로 옮길 예정" onClick="location.href='/users'">
       </tr>
     </table>
   </form>
-
-  <script>
-  function onWriteSubmit()
-  {
-    if($("#passwd").val().trim()=="")
-    {
-      var msg = "패스워드를 입력해 주세요";
-      $("#passwd").val("");
-      $("#passwd").focus();
-      alert(msg);
-      return false;
-    }
-  }
-  </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-//희라
+//희라 : 로그인, 로그아웃, 탈퇴하기
 
 //로그인 정보 세션 사용 :
 //https://jiwondh.github.io/2017/01/29/session/
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 //로그인 유효 검사 - 아이디, 비밀번호 일치 확인 후, 맞으면 main으로 redirect/ 틀리면 login으로 redirect
 router.post('/',function(req,res,next){
   var id = req.body.id;
-  var passwd = req.body.passwd;
+  var passwd = req.body.password;
   var session = req.session;
   pool.getConnection(function(err,connection)
   {
