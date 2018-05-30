@@ -76,11 +76,11 @@
 
         <div class="col-lg-9">
           <div class="card mt-4">
-              <image src=<%=row.main_img%> width = "300" height = "300" alt="">
+            <image src=<%=row.main_img%> width = "300" height = "300" alt="">
             <div class="card-body">
               <h3 class="card-title"><%=row.prd_name%></h3>
               <h4><%=row.price%>원</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+              <p class="card-text">Content</p>
               <!--
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
@@ -93,45 +93,45 @@
               Product Reviews
             </div>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
               <a href="#" class="btn btn-success">Leave a Review</a>
             </div>
           </div>
           <!-- /.card -->
-
         </div>
         <!-- /.col-lg-9 -->
-
       </div>
     </div>
     <!-- /.container -->
-    <button onclick="updateProduct(<%=row.idx%>)">수정</button>
-    <script>
-      function updateProduct(idx) {
-        location.href = "/productBoard/update?idx="+idx;
-      }
-    </script>
-    <button onclick="deleteProduct(<%=row.idx%>)">삭제</button>
-    <script>
-      function deleteProduct(idx) {
-        if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
-          location.href = "/productBoard/delete/"+idx;
-        }
-      }
-    </script>
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
+        <p class="m-0 text-right text-white"><a onclick="deleteProduct(<%=row.idx%>)">delete</a></p>
+        <script>
+          function deleteProduct(idx) {
+            if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
+              location.href = "/productBoard/delete/"+idx;
+            }
+          }
+        </script>
+
+        <p class="m-0 text-right text-white"><a onclick="updateProduct(<%=row.idx%>)">update</a></p>
+        <script>
+          function updateProduct(idx) {
+            location.href = "/productBoard/update?idx="+idx;
+          }
+        </script>
+        <!--
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      -->
       </div>
       <!-- /.container -->
     </footer>
