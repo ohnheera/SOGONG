@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,16 +8,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Item - Start Bootstrap Template</title>
+    <title><%=web_name%></title>
 
     <!-- Bootstrap core CSS -->
     <link href="/template/item_view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/template/item_view/css/shop-item.css" rel="stylesheet">
-
+    <style>
+      .left-box {
+        float: left;
+        width: 50%;
+      }
+      .right-box {
+        float: right;
+        width: 50%;
+      }
+    </style>
   </head>
-
   <body>
 
     <!-- Navigation -->
@@ -68,19 +75,19 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-
           <div class="card mt-4">
-            <image src=<%=row.main_img%> width = "300" height = "300" alt="">
+              <image src=<%=row.main_img%> width = "300" height = "300" alt="">
             <div class="card-body">
               <h3 class="card-title"><%=row.prd_name%></h3>
               <h4><%=row.price%>원</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+              <!--
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
+            -->
             </div>
           </div>
           <!-- /.card -->
-
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Product Reviews
@@ -104,16 +111,29 @@
         <!-- /.col-lg-9 -->
 
       </div>
-
     </div>
     <!-- /.container -->
+    <button onclick="updateProduct(<%=row.idx%>)">수정</button>
+    <script>
+      function updateProduct(idx) {
+        location.href = "/productBoard/update?idx="+idx;
+      }
+    </script>
+    <button onclick="deleteProduct(<%=row.idx%>)">삭제</button>
+    <script>
+      function deleteProduct(idx) {
+        if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
+          location.href = "/productBoard/delete/"+idx;
+        }
+      }
+    </script>
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
       </div>
-      <!-- /.container -->3
+      <!-- /.container -->
     </footer>
 
     <!-- Bootstrap core JavaScript -->
@@ -123,57 +143,3 @@
   </body>
 
 </html>
-
-<!--
-<!DOCTYPE html>
-<html>
-  <head>
-    <script src="/javascripts/jquery-3.3.1.min.js"></script>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-      <table border="1">
-        <input type="hidden" name="idx" value="<%=row.idx%>"/>
-        <tr>
-          <td>상품 사진</td>
-          <td><image src=<%=row.main_img%> alt="image" width="200" height="200"></td>
-        </tr>
-        <tr>
-          <td>상품 이름</td>
-          <td><%=row.prd_name%></td>
-        </tr>
-        <tr>
-          <td>가격</td>
-          <td><%=row.price%></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <button onclick="goBack()">목록</button>
-            <script>
-              function goBack() {
-                window.history.back();
-              }
-            </script>
-            <button onclick="updateProduct(<%=row.idx%>)">수정</button>
-            <script>
-              function updateProduct(idx) {
-                location.href = "/productBoard/update?idx="+idx;
-              }
-            </script>
-            <button onclick="deleteProduct(<%=row.idx%>)">삭제</button>
-            <script>
-              function deleteProduct(idx) {
-                if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
-                  location.href = "/productBoard/delete/"+idx;
-                }
-              }
-            </script>
-          </td>
-        </tr>
-
-      </table>
-  </body>
-</html>
--->
