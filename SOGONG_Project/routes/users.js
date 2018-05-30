@@ -32,12 +32,20 @@ router.get('/', function(req, res, next) {
   var id = null;
   var session = req.session;
   var user_id = session.user_id;
-  if(user_id){
+  if(user_id){if(user_id)
+  {
     pool.getConnection(function(err,connection)
     {
-      res.render('mypage',{title:"My Page"});
-      connection.release();
+      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype from userinfo where id = ?";
+
+      connection.query(sql,[user_id],function(err,row)
+      {
+        if(err) console.error(err);
+        res.render('mypage',{title:"My Page", row:row[0]});
+        connection.release();
+      });
     });
+  }
   }
   else{
     res.redirect('/login')
