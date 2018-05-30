@@ -6,15 +6,16 @@ router.use(express.static('public'));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/')
+        cb(null, 'public/uploads/noticeboardimg/')
     },
     filename: function (req, file, cb) {
         //req.body is empty...
-        cb(null, file.originalname);
+        //cb(null, file.originalname);
+        cb(null, new Date().valueOf()+file.originalname);
     }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 //MySQL 로드
 var mysql = require('mysql');
@@ -80,7 +81,7 @@ router.post('/write_notice', upload.single('image'), function(req, res, next){
       if(err) res.send(err);
       //console.log("rows : " + JSON.stringify(rows));
 
-      res.redirect('/noticeboard');
+      res.redirect('/noticeboard/list_notice/1');
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.

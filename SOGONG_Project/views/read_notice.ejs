@@ -2,49 +2,145 @@
 <html>
 <head>
   <script src="/javascripts/jquery-3.3.1.min.js"></script>
-  <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/shop-item.css" rel="stylesheet">
 </head>
 <body>
-  <h1><%= title %></h1>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">My Pet</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Content -->
+  <div class="container">
 
-  <form action="/noticeboard/update_notice" method="get">
-    <table border="1" class="table table-striped">
-      <input type="hidden" name="idx" value="<%=row.idx%>"/>
-      <tr>
-        <td>작성자</td>
-        <td><%= row.creator_id %></td>
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td><%=row.title%></td>
-      </tr>
-      <tr>
-        <td>내용</td>
-        <td><%=row.content%></td>
-      </tr>
-      <tr>
-        <td>조회수</td>
-        <td><%=row.hit%></td>
-      </tr>
-      <tr>
-        <td>이미지</td>
-        <td>
-          <img src= <%='/images/'+row.image%>>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <button type="submit" class="btn">글 수정</button>
-          <a href="/noticeboard"> 리스트로 돌아가기 </a>
-        </td>
-      </tr>
-    </table>
-  </form>
-  <form action="/noticeboard/delete_notice" method="get">
-    <input type="hidden" name="idx" value="<%=row.idx%>"/>
-    <button type="submit" class="btn">글 삭제</button>
-  </form>
+    <div class="row">
+
+      <div class="col-lg-3">
+        <h1 class="my-4">Community</h1>
+        <div class="list-group">
+          <a href="#" class="list-group-item active">공지사항</a>
+          <a href="#" class="list-group-item">정보 게시판</a>
+          <a href="#" class="list-group-item">고객 게시판</a>
+        </div>
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <form action="/noticeboard/update_notice" method="get">
+              <table border="1" class="table table-striped">
+                <input type="hidden" name="idx" value="<%=row.idx%>"/>
+                <tr>
+                  <td>작성자</td>
+                  <td><%= row.creator_id %></td>
+                </tr>
+                <tr>
+                  <td>제목</td>
+                  <td><%=row.title%></td>
+                </tr>
+                <tr>
+                  <td>내용</td>
+                  <td><%=row.content%></td>
+                </tr>
+                <tr>
+                  <td>조회수</td>
+                  <td><%=row.hit%></td>
+                </tr>
+                <tr>
+                  <td>이미지</td>
+                  <td>
+                    <img src= <%='/uploads/noticeboardimg/'+row.image%>>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <button type="submit" class="btn">글 수정</button>
+                    <a href="/noticeboard/list_notice/1"> 리스트로 돌아가기 </a>
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <form action="/noticeboard/delete_notice" method="get">
+              <input type="hidden" name="idx" value="<%=row.idx%>"/>
+              <button type="submit" class="btn">글 삭제</button>
+            </form>
+            <h3 class="card-title">Product Name</h3>
+            <h4>$24.99</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars
+          </div>
+        </div>
+        <!-- /.card -->
+
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Product Reviews
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <a href="#" class="btn btn-success">Leave a Review</a>
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
 </body>
 </html>

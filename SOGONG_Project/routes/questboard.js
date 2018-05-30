@@ -6,15 +6,16 @@ router.use(express.static('public'));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/')
+        cb(null, 'public/uploads/questboardimg/')
     },
     filename: function (req, file, cb) {
         //req.body is empty...
-        cb(null, file.originalname);
+        //cb(null, file.originalname);
+        cb(null, new Date().valueOf()+file.originalname);
     }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 //MySQL 로드
 var mysql = require('mysql');
@@ -53,7 +54,7 @@ router.get('/list_quest/:page', function(req, res, next){
 
 //글쓰기 화면 표시 GET
 router.get('/write_quest', function(req, res, next){
-  res.render('write_quest', {title : "글쓰기"});
+  res.render('write_quest', {title : "글쓰기 "});
 });
 
 //글쓰기 로직 처리 POST
@@ -80,7 +81,7 @@ router.post('/write_quest', upload.single('image'), function(req, res, next){
       if(err) res.send(err);
       //console.log("rows : " + JSON.stringify(rows));
 
-      res.redirect('/questboard');
+      res.redirect('/questboard/list_quest/1');
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -102,7 +103,7 @@ router.get('/read_quest/:idx', function(req, res, next){
       var sql2="update questboard set hit = hit + 1 where idx=?";
       connection.query(sql2, [idx, hit], function(err, row){
         console.log("1개 글 조회 결과 확인 : ", row);
-        res.render('read_quest', {title:"글 조회", row:rows[0]});
+        res.render('read_quest', {title:"글 조회 ", row:rows[0]});
       });
     });
   });

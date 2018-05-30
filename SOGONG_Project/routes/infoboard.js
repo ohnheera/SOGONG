@@ -54,7 +54,7 @@ router.get('/list_info/:page', function(req, res, next){
 
 //글쓰기 화면 표시 GET
 router.get('/write_info', function(req, res, next){
-  res.render('write_info', {title : "글쓰기 "});
+  res.render('write_info', {title : "글쓰기"});
 });
 
 //글쓰기 로직 처리 POST
@@ -81,7 +81,7 @@ router.post('/write_info', upload.single('image'), function(req, res, next){
       //if(err) res.send(err);
       //console.log("rows : " + JSON.stringify(rows));
 
-      res.redirect('/infoboard');
+      res.redirect('/infoboard/list_info/1');
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -103,7 +103,7 @@ router.get('/read_info/:idx', function(req, res, next){
       var sql2="update infoboard set hit = hit + 1 where idx=?";
       connection.query(sql2, [idx, hit], function(err, row){
         console.log("1개 글 조회 결과 확인 : ", row);
-        res.render('read_info', {title:"글 조회 ", row:rows[0]});
+        res.render('read_info', {title:"글 조회", row:rows[0]});
       });
     });
   });
@@ -166,7 +166,7 @@ router.get('/delete_info', function(req, res, next){
       //if(err) console.error(err);
       if(err) res.send(arr);
       //console.log("delete에서 1개 글 조회 결과 확인 : ", rows);
-      res.render('delete_info', {title:"글 삭제 시 비밀번호를 입력하세요.", row:rows[0]});
+      res.render('delete_info', {title:"글 삭제 시 비밀번호를 입력하세요. ", row:rows[0]});
     });
   });
 });
