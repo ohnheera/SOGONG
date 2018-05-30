@@ -52,19 +52,31 @@ router.post('/',upload.single('pic'), function(req,res,next){
     pic =  req.file.filename; //파일명을 받아온다
   }
   var datas = [id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype];
+  console.log("datas: "+datas);
 
   pool.getConnection(function(err,connection)
   {
-        //use the connection, 파일명 입력
-        var sqlForInsertBoard = "insert into userinfo(id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    var sql = "SELECT ? FROM userinfo GROUP BY id HAVING COUNT (id) > 1";
 
-        connection.query(sqlForInsertBoard,datas,function(err,rows)
-        {
-          if(err) console.error("err: "+err);
-          console.log("rows: "+JSON.stringify(rows));
-          res.redirect('/login');
-          connection.release();
-        });
+    connection.query(sql,id,function(err,rows)
+    {
+      console.log("rows: "+JSON.stringify(rows));
+      if(err) console.error("err: "+err);
+      if(rows){
+        res.send("<script>alert('아이디가 중복입니다.');history.back();</script>");
+      }
+    });
+
+    //use the connection, 파일명 입력
+    var sqlForInsertBoard = "insert into userinfo(id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    connection.query(sqlForInsertBoard,datas,function(err,rows)
+    {
+      if(err) console.error("err: "+err);
+      console.log("rows: "+JSON.stringify(rows));
+      res.redirect('/login');
+      connection.release();
+    });
   });
 });
 
