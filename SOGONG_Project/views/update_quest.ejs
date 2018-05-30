@@ -26,7 +26,11 @@
       <tr>
         <td>이미지</td>
         <td>
-          <input type="file" name="image" id="image" value="<%=row.image%>"/>
+          <td>
+            <img src= <%='/uploads/questboardimg/'+row.image%>>
+            <input type="hidden" name="image" value="<%=row.image%>"/>
+            <input type="file" name="image" id="image" />
+          </td>
         </td>
       </tr>
       <tr>

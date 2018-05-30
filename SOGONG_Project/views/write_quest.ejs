@@ -4,25 +4,31 @@
   <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+  <style>
+    #write_table {
+      width: 70%;
+    }
+  </style>
 </head>
 <body>
   <h1><%= title %></h1>
 
+  <div id="write_table">
   <form action="/questboard/write_quest" method="post" onsubmit="return onWriteSubmit()" enctype='multipart/form-data'>
-    <table border="1" class="table table-striped">
+    <table border="1" class="table table-striped table-bordered" width="500">
       <tr>
         <td>작성자</td>
         <td><input type="text" name="creator_id" id="creator_id" required/></td>
       </tr>
-      <tr>
+      <tr colspan="2">
         <td>제목</td>
         <td><input type="text" name="title" id="title" required/></td>
-      </tf>
-      <tr>
+      </tr>
+      <tr colspan="4">
         <td>내용</td>
         <td><textarea name="content" id="content" cols="30" rows="10" required></textarea></td>
       </tr>
-      <tr>
+      <tr colspan="2">
         <td>이미지</td>
         <td>
           <input type="file" name="image" id="image"/>
@@ -39,6 +45,7 @@
       </tr>
     </table>
   </form>
+  </div>
 
   <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
   <script>
