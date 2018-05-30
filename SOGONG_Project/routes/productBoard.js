@@ -54,7 +54,7 @@ router.get('/product/:idx', function(req, res, next){
       if(err) console.error(err);
 
       console.log("1개 상품 조회 결과 확인 : ", row);
-      res.render('product', {title : "상품 조회", row:row[0]});
+      res.render('product', {web_name : 'MY PET', title : "ITEM VIEW", row:row[0]});
 
       connection.release();
     });
