@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+  <title><%=title%></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+  <h1><%=title%></h1>
+    <table>
+        <td colspan="2">
+          <input type="button" value="돌아가기" onClick="location.href='/login'">
+          <input type="button" value="정보조회" onClick="location.href='/users/view'">
+          <input type="button" value="정보수정" onClick="location.href='/users/edit'">
+          <input type="button" value="탈퇴하기" onClick="location.href='/login/cancel'">
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

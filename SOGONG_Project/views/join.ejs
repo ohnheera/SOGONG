@@ -1,104 +1,110 @@
-<html>
-<head>
-  <title><%= title %></title>
-  <meta charset='utf-8'>
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
-  <script src="/javascripts/jquery-3.3.1.min.js"></script>
-  </head>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-  <body>
-    <h1><%=title %></h1>
-    <form id ="join" action="/join" enctype="multipart/form-data" method="post">
-      <table width="400" >
-        <tr>
-          <th>아이디</th>
-          <td><input type="text" name="id" size="12" maxLength="12"></td>
-        </tr>
-        <tr>
-          <th>비밀번호</th>
-          <td><input type="password" name="passwd" size="12" maxLength="12"></td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td><input type="text" name="name" size="10" maxLength="10"></td>
-        </tr>
-        <tr>
-          <th>이메일</th>
-          <td><input type="email" name="email" size="30" maxLength="50"></td>
-        </tr>
-        <tr>
-          <th>전화번호</th>
-          <td><input type="hidden" name="tel" id="tel">
-            <select name="tel1" id="tel1">
-              <option value="010">010</option>
-              <option value="011">011</option>
-              <option value="016">016</option>
-              <option value="017">017</option>
-              <option value="018">018</option>
-              <option value="019">019</option>
-            </select>
-            -
-            <input type="text" name="tel2" id="tel2" size="4" maxLength="4">
-            -
-            <input type="text" name="tel3" id="tel3" size="4" maxLength="4">
-          </td>
-        </tr>
-        <tr>
-          <th>주소</th>
-          <td><input type="text" id="address" size="30" maxlength="50"></td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <input type="radio" name="gen" value="남">남
-            <input type="radio" name="gen" value="여">여
-          </td>
-        </tr>
-        <tr>
-          <th>생일</th>
-          <td><input type="text" name="birth" id="birth" size="8" maxLength="8">*YYYYMDD</td>
-        </tr>
-        </tr>
-      </table>
-      <h4>반려동물의 정보를 입력해주세요.</h4>
-      <table width="400">
-        <tr>
-          <th>이름</th>
-          <td><input type="text" name="petname" size="10" maxLength="10"></td>
-        </tr>
-        <tr>
-          <th>생일</th>
-          <td><input type="text" name="petbirth" id="petbirth" size="8" maxLength="8">*YYYYMDD</td>
-        </tr>
-        <tr>
-          <th>나이</th>
-          <td><input type="text" name="petage" size="10" maxLength="10"></td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <input type="radio" name="petgen" value="남">남
-            <input type="radio" name="petgen" value="여">여
-          </td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <input type="radio" name="pettype" value="CAT">고양이
-            <input type="radio" name="pettype" value="DOG">강아지
-          </td>
-        </tr>
-        <tr>
-          <td>사진</td>
-          <td><input type="file" name="pic" id="pic"/></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <input type="submit"name="join" value="가입">
-            <input type="reset" name="cancel" value="취소">
-          </td>
-        </tr>
-      </table>
-    </form>
-  </body>
-  </html>
+<div class="container">
+<style>
+body {
+      background-color: #6880A8;
+}
+</style>
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3"  style="background-color:#FFFFFF;">
+		<form id ="join" action="/join" enctype="multipart/form-data" method="post">
+			<h2>회원가입 <small>반려동물의 정보와 함께 더 쉽게 쇼핑하세요.</small></h2>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+            <input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" tabindex="1" required>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="password" name="passwd" id="last_name" class="form-control input-lg" placeholder="비밀번호" tabindex="2" required>
+					</div>
+				</div>
+			</div>
+      <div class="form-group">
+				<input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" tabindex="3" required>
+			</div>
+      <div class="form-group">
+				<input type="text" name="petname" id="petname" class="form-control input-lg" placeholder="반려동물 이름" tabindex="3" required>
+			</div>
+			<div class="form-group">
+				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="이메일" tabindex="4" required>
+			</div>
+      <div class="form-group">
+        <input type="text" name="address" id="address" class="form-control input-lg" placeholder="주소" tabindex="6" required>
+      </div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <h5>전화번호</h5>
+            <input type="hidden" name="tel" id="tel" required>
+                <select name="tel1" id="tel1" >
+                  <option value="010">010</option>
+                  <option value="011">011</option>
+                  <option value="016">016</option>
+                  <option value="017">017</option>
+                  <option value="018">018</option>
+                  <option value="019">019</option>
+                </select>
+                -
+                <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                -
+                <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required>
+          </div>
+          <div class="form-group">
+            <h5> 성별 :
+            <input type="radio" name="gen" value="남" required> 남
+            <input type="radio" name="gen" value="여" required> 여</h5>
+          </div>
+          <div class="form-group">
+            <h5> 반려동물 성별 :
+            <input type="radio" name="petgen" value="남"required > 남
+            <input type="radio" name="petgen" value="여"required> 여</h5>
+          </div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="text" name="birth" id="birth" size="12" maxLength="8" class="form-control input-lg" placeholder="생년월일"required>*YYYYMDD</td>
+					</div>
+          <div class="form-group">
+						<input type="text" name="birth" id="birth" size="12" maxLength="8" class="form-control input-lg" placeholder="반려동물 생년월일"required>*YYYYMDD</td>
+					</div>
+				</div>
+			</div>
+      <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+            반려동물 사진 :
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="form-group">
+						<input type="file" name="pic" id="pic"/>
+					</div>
+				</div>
+			</div>
+      <div class="form-group">
+          <input type="text" name="petage" maxLength="10" class="form-control input-lg" placeholder="반려동물 나이"required>
+      </div>
+			<div class="row">
+				<div class="col-xs-4 col-sm-3 col-md-3">
+					<span class="button-checkbox">
+						<button type="button" class="btn" data-color="info" tabindex="7">Agree</button>
+                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+					</span>
+				</div>
+				<div class="col-xs-8 col-sm-9 col-md-9">
+					 By clicking <strong class="label label-primary">Register</strong>, you agree to the Terms and Conditions</a> set out by this site, including our Cookie Use.
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" style="background-color:#C593FF;" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+				<div class="col-xs-12 col-md-6"><a href="/login" style="background-color:#FF80B5;" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>

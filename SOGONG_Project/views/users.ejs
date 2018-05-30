@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title><%= title %></title>
+  <meta charset='utf-8'>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+  </head>
+
+  <body>
+    <h1><%=title %></h1>
+    <form id ="users" action="/users" method="post">
+      <table width="400" >
+        <tr>
+          <th>아이디</th>
+          <td><%=row.id%></td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><%=row.name%></td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td><%=row.email%></td>
+        </tr>
+        <tr>
+          <th>전화번호</th>
+          <td><%=row.tel%></td>
+        </tr>
+        <tr>
+          <th>주소</th>
+          <td><%=row.address%></td>
+        </tr>
+        <tr>
+          <th>성별</th>
+          <td><%=row.gen%></td>
+        </tr>
+        <tr>
+          <th>생일</th>
+          <td><%=row.birth%></td>
+        </tr>
+        </tr>
+      </table>
+      <h4>반려동물 <%=row.petname%>의 정보</h4>
+      <img src="http://localhost:3000/petimg/<%=row.pic%>" style="max-width: 100%; height: auto;"/>
+      <table width="400">
+        <tr>
+          <th>생일</th>
+          <td><%=row.petbirth%></td>
+        </tr>
+        <tr>
+          <th>나이</th>
+          <td><%=row.petage%></td>
+        </tr>
+        <tr>
+          <th>성별</th>
+          <td><%=row.petgen%></td>
+        </tr>
+        <tr>
+          <th>종류</th>
+          <td><%=row.pettype%></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="button" value="정보수정" onClick="location.href='/users/edit'">
+            <input type="button" value="돌아가기" onClick="location.href='/users'">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+  </html>
