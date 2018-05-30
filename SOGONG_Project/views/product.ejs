@@ -12,10 +12,10 @@
     <title>Shop Item - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="template/item_view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/template/item_view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="template/item_view/css/shop-item.css" rel="stylesheet">
+    <link href="/template/item_view/css/shop-item.css" rel="stylesheet">
 
   </head>
 
@@ -67,9 +67,9 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            <img class="card-img-top img-fluid" src=<%=row.main_img%> width = "200" height = "200" alt="">
             <div class="card-body">
-              <h3 class="card-title">Product Name</h3>
+              <h3 class="card-title"><%=row.prd_name%></h3>
               <h4>$24.99</h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
@@ -110,12 +110,12 @@
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
       </div>
-      <!-- /.container -->
+      <!-- /.container -->3
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="template/item_view/vendor/jquery/jquery.min.js"></script>
-    <script src="template/item_view/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/template/item_view/vendor/jquery/jquery.min.js"></script>
+    <script src="/template/item_view/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
