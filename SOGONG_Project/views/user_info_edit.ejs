@@ -1,99 +1,165 @@
-<html>
-<head>
-  <title><%= title %></title>
-  <meta charset='utf-8'>
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
-  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+<!-- 희라: 정보수정 -->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PETPET - Edit</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://localhost:3000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+
+    </style>
+
   </head>
 
   <body>
-    <h1><%=title %></h1>
-    <form id ="join" action="/join" enctype="multipart/form-data" method="post">
-      <table width="600" >
-        <input type= "hidden" name="pic" value="<%=row.pic%>"/>
-        <tr>
-          <th>아이디</th>
-          <td><input type="text" name="id" size="12" maxLength="12" value="<%=row.id%>"required></td>
-        </tr>
-        <tr>
-          <th>비밀번호</th>
-          <td><input type="password" name="passwd" size="12" maxLength="12" value="<%=row.passwd%>"required></td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td><input type="text" name="name" size="10" maxLength="10" value="<%=row.name%>"required></td>
-        </tr>
-        <tr>
-          <th>이메일</th>
-          <td><input type="email" name="email" size="30" maxLength="50" value="<%=row.email%>"required></td>
-        </tr>
-        <tr>
-          <th>전화번호</th>
-          <td><input type="hidden" name="tel" id="tel">
-            <select name="tel1" id="tel1">
-              <option value="010">010</option>
-              <option value="011">011</option>
-              <option value="016">016</option>
-              <option value="017">017</option>
-              <option value="018">018</option>
-              <option value="019">019</option>
-            </select>
-            -
-            <input type="text" name="tel2" id="tel2" size="4" maxLength="4"required>
-            -
-            <input type="text" name="tel3" id="tel3" size="4" maxLength="4"required>
-          </td>
-        </tr>
-        <tr>
-          <th>주소</th>
-          <td><input type="text" id="address" size="30" maxlength="50" value="<%=row.address%>"required></td>
-        </tr>
-        <tr>
-          <th>생일</th>
-          <td><input type="text" name="birth" id="birth" size="8" maxLength="8" value="<%=row.birth%>">*YYYYMDD</td>
-        </tr>
-        </tr>
-      </table>
-      <h4>반려동물 정보</h4>
-      <table width="600">
-        <tr>
-          <th>이름</th>
-          <td><input type="text" name="petname" size="10" maxLength="10" value="<%=row.petname%>"></td>
-        </tr>
-        <tr>
-          <th>생일</th>
-          <td><input type="text" name="petbirth" id="petbirth" size="8" maxLength="8" value="<%=row.petbirth%>">*YYYYMDD</td>
-        </tr>
-        <tr>
-          <th>나이</th>
-          <td><input type="text" name="petage" size="10" maxLength="10" value="<%=row.petage%>"></td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <input type="radio" name="petgen" value="남">남
-            <input type="radio" name="petgen" value="여">여
-          </td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td>
-            <input type="radio" name="pettype" value="CAT">고양이
-            <input type="radio" name="pettype" value="DOG">강아지
-          </td>
-        </tr>
-        <tr>
-          <th>사진</th>
-          <td><img src="http://localhost:3000/petimg/<%=row.pic%>" style="max-width: 100%; height: auto;"></td>
-          <td><input type="file" name="pic" id="pic" /></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <input type="submit"name="join" value="수정">
-            <input type="button" value="돌아가기" onClick="location.href='/users'">
-          </td>
-        </tr>
-      </table>
-    </form>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
+      <div class="container">
+        <a class="navbar-brand" href="/">PETPET</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/logout">logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/productBoard">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/infoboard">Community</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+          <div style="margin-top:20px;background-color:#FFFFFF;">
+      		<form id ="join" action="/join" enctype="multipart/form-data" method="post">
+      			<h2>정보 수정 </h2>
+      			<div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+                  <input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" tabindex="1" value ="<%=row.id%>" required>
+      					</div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="password" name="passwd" id="last_name" class="form-control input-lg" placeholder="비밀번호" tabindex="2" required>
+      					</div>
+      				</div>
+      			</div>
+            <div class="form-group">
+      				<input type="text" name="name" id="name" class="form-control input-lg" value ="<%=row.name%>" placeholder="이름" tabindex="3" required>
+      			</div>
+            <div class="form-group">
+      				<input type="text" name="petname" id="petname" class="form-control input-lg"  value ="<%=row.petname%>" placeholder="반려동물 이름" tabindex="3" required>
+      			</div>
+      			<div class="form-group">
+      				<input type="email" name="email" id="email" class="form-control input-lg" value ="<%=row.email%>" placeholder="이메일" tabindex="4" required>
+      			</div>
+            <div class="form-group">
+              <input type="text" name="address" id="address" class="form-control input-lg" value ="<%=row.address%>" placeholder="주소" tabindex="6" required>
+            </div>
+      			<div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <h5>전화번호</h5>
+                  <input type="hidden" name="tel" id="tel" required>
+                      <select name="tel1" id="tel1" >
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                      </select>
+                      -
+                      <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                      -
+                      <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required>
+                </div>
+                <div class="form-group">
+                  <h5> 성별 : 
+                  <input type="radio" name="gen" value="남" required> 남
+                  <input type="radio" name="gen" value="여" required> 여</h5>
+                </div>
+                <div class="form-group">
+                  <h5> 반려동물 성별 :
+                  <input type="radio" name="petgen" value="남"required > 남
+                  <input type="radio" name="petgen" value="여"required> 여</h5>
+                </div>
+                <div class="form-group">
+                  <h5> 반려동물 종류 :
+                  <input type="radio" name="pettype" value="cat"required > 고양이
+                  <input type="radio" name="pettype" value="dog"required> 강아지</h5>
+                </div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="text"  value ="<%=row.birth%>" name="birth" id="birth" size="12" maxLength="8" class="form-control input-lg" placeholder="생년월일"required>*YYYYMDD</td>
+      					</div>
+                <div class="form-group">
+      						<input type="text" value ="<%=row.petbirth%>" name="petbirth" id="petbirth" size="12" maxLength="8" class="form-control input-lg" placeholder="반려동물 생년월일"required>*YYYYMDD</td>
+      					</div>
+      				</div>
+      			</div>
+            <div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+                  <h5>반려동물 사진 : <%=row.pic%>
+      					</div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="file" name="pic" id="pic"/></h5>
+      					</div>
+      				</div>
+      			</div>
+            <div class="form-group">
+                <input type="text" value = "<%=row.petage%>" name="petage" maxLength="10" class="form-control input-lg" placeholder="반려동물 나이"required>
+            </div>
+      			<div class="row">
+      				<div class="col-xs-12 col-md-6"><input type="submit" value="EDIT" style="background-color:#C593FF;" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+      				<div class="col-xs-12 col-md-6"><a href="/users" style="background-color:#FF80B5;" class="btn btn-success btn-block btn-lg">CANCEL</a></div>
+      			</div>
+      		</form>
+      	</div>
+      </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   </body>
-  </html>
+
+</html>
