@@ -124,8 +124,27 @@
         <div class="card card-outline-secondary my-4">
           <div class="card-body">
             <div id="write">
-              <form action="/infoboard/write_info">
+              <%
+                if(id == null){
+                  var act="/login"
+                }
+                else{
+                  var act="/infoboard/write_info"
+                }
+              %>
+              <form action="<%=act%>">
+                <%
+                  if(id==null){
+                %>
+                <button type="submit" class="btn" onclick="return confirm('로그인 후 이용가능합니다.')">글쓰기</button>
+                <%
+                  }
+                  else{
+                %>
                 <button type="submit" class="btn">글쓰기</button>
+                <%
+                  }
+                %>
               </form>
             </div>
             <div id="paging">

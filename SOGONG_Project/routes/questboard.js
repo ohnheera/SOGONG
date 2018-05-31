@@ -34,6 +34,8 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/list_quest/:page', function(req, res, next){
+  var session = req.session;
+  var id=session.user_id;
   var page=req.params.page;
 
   pool.getConnection(function (err, connection){
@@ -44,7 +46,7 @@ router.get('/list_quest/:page', function(req, res, next){
       if(err) res.send(err);
       //console.log("rows: " + JSON.stringify(rows));
 
-      res.render('list_quest', { title: '고객문의게시판', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 5, pass: true });
+      res.render('list_quest', { title: '고객문의게시판', rows: rows, id: session.user_id, page: page, leng: Object.keys(rows).length-1, page_num: 10, pass: true });
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -54,7 +56,9 @@ router.get('/list_quest/:page', function(req, res, next){
 
 //글쓰기 화면 표시 GET
 router.get('/write_quest', function(req, res, next){
-  res.render('write_quest', {title : "글쓰기 "});
+  var session = req.session;
+  var id=session.user_id;
+  res.render('write_quest', {title : "글쓰기", id:session.user_id});
 });
 
 //글쓰기 로직 처리 POST
@@ -91,6 +95,8 @@ router.post('/write_quest', upload.single('image'), function(req, res, next){
 
 //글쓰기 로직 처리 GET
 router.get('/read_quest/:idx', function(req, res, next){
+  var session = req.session;
+  var id=session.user_id;
   var idx = req.params.idx;
 
   pool.getConnection(function(err, connection){
@@ -103,7 +109,7 @@ router.get('/read_quest/:idx', function(req, res, next){
       var sql2="update questboard set hit = hit + 1 where idx=?";
       connection.query(sql2, [idx, hit], function(err, row){
         console.log("1개 글 조회 결과 확인 : ", row);
-        res.render('read_quest', {title:"글 조회 ", row:rows[0]});
+        res.render('read_quest', {title:"글 조회 ", row:rows[0], id:session.user_id});
       });
     });
   });
@@ -111,6 +117,8 @@ router.get('/read_quest/:idx', function(req, res, next){
 
 //글수정 화면 표시 GET
 router.get('/update_quest', function(req, res, next){
+  var session = req.session;
+  var id=session.user_id;
   var idx = req.query.idx;
 
   pool.getConnection(function(err, connection){
@@ -122,7 +130,7 @@ router.get('/update_quest', function(req, res, next){
       //if(err) console.error(err);
       if(err) res.send(err);
       //console.log("update에서 1개 글 조회 결과 확인 : ", rows);
-      res.render('update_quest', {title:"글 수정", row:rows[0]});
+      res.render('update_quest', {title:"글 수정", row:rows[0], id:session.user_id});
     });
   });
 });
@@ -155,27 +163,11 @@ router.post('/update_quest', function(req, res, next){
   });
 });
 
-router.get('/delete_quest', function(req, res, next){
-  var idx = req.query.idx;
-
-  pool.getConnection(function(err, connection){
-    //if(err) console.error("커넥션 객체 얻어오기 에러 : ", err);
-    if(err) res.send(err);
-    var sql = "select idx, creator_id, title, content, image, hit from questboard where idx=?";
-    connection.query(sql, [idx], function(err, rows){
-      //if(err) console.error(err);
-      if(err) res.send(arr);
-      //console.log("delete에서 1개 글 조회 결과 확인 : ", rows);
-      res.render('delete_quest', {title:"글 삭제 시 비밀번호를 입력하세요.", row:rows[0]});
-    });
-  });
-});
-
 router.post('/delete_quest', function (req, res, next) {
   var passwd = req.body.passwd;
   var idx = req.body.idx;
   var datas = [idx, passwd];
-  var sql = "delete from questboard where idx=? and passwd=?";
+  var sql = "delete from questboard where idx=?";
 
     pool.getConnection(function(err, connection) {
         connection.query(sql, datas, function (err, rows) {

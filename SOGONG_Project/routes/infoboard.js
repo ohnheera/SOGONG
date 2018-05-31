@@ -34,6 +34,8 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/list_info/:page', function(req, res, next){
+  var session = req.session;
+  var id=session.user_id;
   var page=req.params.page;
 
   pool.getConnection(function (err, connection){
@@ -44,7 +46,7 @@ router.get('/list_info/:page', function(req, res, next){
       if(err) res.send(err);
       //console.log("rows: " + JSON.stringify(rows));
 
-      res.render('list_info', { title: '정보게시판', rows: rows, page: page, leng: Object.keys(rows).length-1, page_num: 10, pass: true});
+      res.render('list_info', { title: '정보게시판', rows: rows, id: session.user_id, page: page, leng: Object.keys(rows).length-1, page_num: 10, pass: true});
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.

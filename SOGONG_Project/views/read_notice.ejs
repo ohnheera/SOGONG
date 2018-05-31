@@ -9,6 +9,20 @@
 
   <!-- Custom styles for this template -->
   <link href="/css/shop-item.css" rel="stylesheet">
+  <%
+    var user=id;
+    var creator=row.creator_id;
+    var visi=true;
+    if(id != creator){
+  %>
+  <style>
+    .onlyUser_button{
+      visibility: hidden;
+    }
+  </style>
+  <%
+    }
+  %>
 </head>
 <body>
   <!-- Navigation -->
@@ -62,7 +76,7 @@
 
         <div class="card mt-4">
           <div class="card-body">
-            <form action="/noticeoard/update_notice" method="get">
+            <form action="/noticeboard/update_notice" method="get">
               <table border="1" class="table table-striped table-bordered">
                 <input type="hidden" name="idx" value="<%=row.idx%>"/>
                 <tr>
@@ -96,17 +110,20 @@
 
         <div class="card card-outline-secondary my-4">
           <div class="card-body">
-            <form action="/noticeboard/update_notice" method="get">
-              <input type="hidden" name="idx" value="<%=row.idx%>"/>
-              <button type="submit" class="btn">글 수정</button>
-            </form>
-            <hr>
-            <form action="/noticeboard/delete_notice" method="get">
-              <input type="hidden" name="idx" value="<%=row.idx%>"/>
-              <button type="submit" class="btn">글 삭제</button>
-            </form>
-            <hr>
             <a href="/noticeboard/list_notice/1"> 리스트로 돌아가기 </a>
+            <hr>
+            <div class="onlyUser_button">
+              <form action="/noticeboard/update_notice" method="get">
+                <input type="hidden" name="idx" value="<%=row.idx%>"/>
+                <button type="submit" class="btn">글 수정</button>
+              </form>
+              <hr>
+              <form action="/noticeboard/delete_notice" method="post">
+                <input type="hidden" name="idx" value="<%=row.idx%>"/>
+                <button type="submit" class="btn" onclick="return confirm('삭제하시겠습니까?')">글 삭제</button>
+              </form>
+              <hr>
+            </div>
           </div>
         </div>
         <!-- /.card -->
