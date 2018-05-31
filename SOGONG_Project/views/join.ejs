@@ -1,110 +1,170 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container">
-<style>
-body {
-      background-color: #6880A8;
-}
-</style>
-<div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3"  style="margin-top:20px;background-color:#FFFFFF;">
-		<form id ="join" action="/join" enctype="multipart/form-data" method="post">
-			<h2>회원가입 <small>반려동물의 정보와 함께 더 쉽게 쇼핑하세요.</small></h2>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-            <input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" tabindex="1" required>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="password" name="passwd" id="last_name" class="form-control input-lg" placeholder="비밀번호" tabindex="2" required>
-					</div>
-				</div>
-			</div>
-      <div class="form-group">
-				<input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" tabindex="3" required>
-			</div>
-      <div class="form-group">
-				<input type="text" name="petname" id="petname" class="form-control input-lg" placeholder="반려동물 이름" tabindex="3" required>
-			</div>
-			<div class="form-group">
-				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="이메일" tabindex="4" required>
-			</div>
-      <div class="form-group">
-        <input type="text" name="address" id="address" class="form-control input-lg" placeholder="주소" tabindex="6" required>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bare - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
+      <div class="container">
+        <a class="navbar-brand" href="/">PETPET</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">링크1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">링크2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">링크3</a>
+            </li>
+          </ul>
+        </div>
       </div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-          <div class="form-group">
-            <h5>전화번호</h5>
-            <input type="hidden" name="tel" id="tel" required>
-                <select name="tel1" id="tel1" >
-                  <option value="010">010</option>
-                  <option value="011">011</option>
-                  <option value="016">016</option>
-                  <option value="017">017</option>
-                  <option value="018">018</option>
-                  <option value="019">019</option>
-                </select>
-                -
-                <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
-                -
-                <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required>
-          </div>
-          <div class="form-group">
-            <h5> 성별 :
-            <input type="radio" name="gen" value="남" required> 남
-            <input type="radio" name="gen" value="여" required> 여</h5>
-          </div>
-          <div class="form-group">
-            <h5> 반려동물 성별 :
-            <input type="radio" name="petgen" value="남"required > 남
-            <input type="radio" name="petgen" value="여"required> 여</h5>
-          </div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="text" name="birth" id="birth" size="12" maxLength="8" class="form-control input-lg" placeholder="생년월일"required>*YYYYMDD</td>
-					</div>
-          <div class="form-group">
-						<input type="text" name="petbirth" id="petbirth" size="12" maxLength="8" class="form-control input-lg" placeholder="반려동물 생년월일"required>*YYYYMDD</td>
-					</div>
-				</div>
-			</div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
       <div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-            반려동물 사진 :
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="file" name="pic" id="pic"/>
-					</div>
-				</div>
-			</div>
-      <div class="form-group">
-          <input type="text" name="petage" maxLength="10" class="form-control input-lg" placeholder="반려동물 나이"required>
+          <div style="margin-top:20px;background-color:#FFFFFF;">
+      		<form id ="join" action="/join" enctype="multipart/form-data" method="post">
+      			<h2>회원가입 <small>반려동물의 정보와 함께 더 쉽게 쇼핑하세요.</small></h2>
+      			<div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+                  <input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" tabindex="1" required>
+      					</div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="password" name="passwd" id="last_name" class="form-control input-lg" placeholder="비밀번호" tabindex="2" required>
+      					</div>
+      				</div>
+      			</div>
+            <div class="form-group">
+      				<input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" tabindex="3" required>
+      			</div>
+            <div class="form-group">
+      				<input type="text" name="petname" id="petname" class="form-control input-lg" placeholder="반려동물 이름" tabindex="3" required>
+      			</div>
+      			<div class="form-group">
+      				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="이메일" tabindex="4" required>
+      			</div>
+            <div class="form-group">
+              <input type="text" name="address" id="address" class="form-control input-lg" placeholder="주소" tabindex="6" required>
+            </div>
+      			<div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <h5>전화번호</h5>
+                  <input type="hidden" name="tel" id="tel" required>
+                      <select name="tel1" id="tel1" >
+                        <option value="010">010</option>
+                        <option value="011">011</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                        <option value="018">018</option>
+                        <option value="019">019</option>
+                      </select>
+                      -
+                      <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                      -
+                      <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required>
+                </div>
+                <div class="form-group">
+                  <h5> 성별 :
+                  <input type="radio" name="gen" value="남" required> 남
+                  <input type="radio" name="gen" value="여" required> 여</h5>
+                </div>
+                <div class="form-group">
+                  <h5> 반려동물 성별 :
+                  <input type="radio" name="petgen" value="남"required > 남
+                  <input type="radio" name="petgen" value="여"required> 여</h5>
+                </div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="text" name="birth" id="birth" size="12" maxLength="8" class="form-control input-lg" placeholder="생년월일"required>*YYYYMDD</td>
+      					</div>
+                <div class="form-group">
+      						<input type="text" name="petbirth" id="petbirth" size="12" maxLength="8" class="form-control input-lg" placeholder="반려동물 생년월일"required>*YYYYMDD</td>
+      					</div>
+      				</div>
+      			</div>
+            <div class="row">
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+                  <h5>반려동물 사진 :
+      					</div>
+      				</div>
+      				<div class="col-xs-12 col-sm-6 col-md-6">
+      					<div class="form-group">
+      						<input type="file" name="pic" id="pic"/></h5>
+      					</div>
+      				</div>
+      			</div>
+            <div class="form-group">
+                <input type="text" name="petage" maxLength="10" class="form-control input-lg" placeholder="반려동물 나이"required>
+            </div>
+      			<div class="row">
+      				<div class="col-xs-4 col-sm-3 col-md-3">
+      					<span class="button-checkbox">
+      						<button type="button" class="btn" data-color="info" tabindex="7">Agree</button>
+                              <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+      					</span>
+      				</div>
+      				<div class="col-xs-8 col-sm-9 col-md-9">
+      					 By clicking <strong class="label label-primary">Register</strong>, you agree to the Terms and Conditions</a> set out by this site, including our Cookie Use.
+      				</div>
+      			</div>
+      			<div class="row">
+      				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" style="background-color:#C593FF;" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+      				<div class="col-xs-12 col-md-6"><a href="/login" style="background-color:#FF80B5;" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+      			</div>
+      		</form>
+      	</div>
       </div>
-			<div class="row">
-				<div class="col-xs-4 col-sm-3 col-md-3">
-					<span class="button-checkbox">
-						<button type="button" class="btn" data-color="info" tabindex="7">Agree</button>
-                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
-					</span>
-				</div>
-				<div class="col-xs-8 col-sm-9 col-md-9">
-					 By clicking <strong class="label label-primary">Register</strong>, you agree to the Terms and Conditions</a> set out by this site, including our Cookie Use.
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-md-6"><input type="submit" value="Register" style="background-color:#C593FF;" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-				<div class="col-xs-12 col-md-6"><a href="/login" style="background-color:#FF80B5;" class="btn btn-success btn-block btn-lg">Sign In</a></div>
-			</div>
-		</form>
-	</div>
-</div>
-</div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
