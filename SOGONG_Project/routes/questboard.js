@@ -65,7 +65,7 @@ router.post('/write_quest', upload.single('image'), function(req, res, next){
   var content = req.body.content;
   var passwd = req.body.passwd;
   if (!req.file) {
-    var image=0;
+    var image=null;
     //return res.send('Please upload a file');
   }
   else {
