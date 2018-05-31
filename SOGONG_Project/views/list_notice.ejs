@@ -123,13 +123,32 @@
         <div class="card card-outline-secondary my-4">
           <div class="card-body">
             <div id="write">
-              <form action="/noticeboard/write_notice">
+              <%
+                if(id == null){
+                  var act="/login"
+                }
+                else{
+                  var act="/noticeboard/write_notice"
+                }
+              %>
+              <form action="<%=act%>">
+                <%
+                  if(id==null){
+                %>
+                <button type="submit" class="btn" onclick="return confirm('로그인 후 이용가능합니다.')">글쓰기</button>
+                <%
+                  }
+                  else{
+                %>
                 <button type="submit" class="btn">글쓰기</button>
+                <%
+                  }
+                %>
               </form>
             </div>
             <div id="paging">
               <%
-                for(var j=0;j<rows.length/5;j++){
+                for(var j=0;j<rows.length/10;j++){
               %>
                 [ <a href="/noticeboard/list_notice/<%= j+1 %>"><%= j+1 %></a>]
               <%
