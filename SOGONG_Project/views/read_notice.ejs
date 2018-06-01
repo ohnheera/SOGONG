@@ -9,6 +9,20 @@
 
   <!-- Custom styles for this template -->
   <link href="/css/shop-item.css" rel="stylesheet">
+  <%
+    var user=id;
+    var creator=row.creator_id;
+    var visi=true;
+    if(id != creator){
+  %>
+  <style>
+    .onlyUser_button{
+      visibility: hidden;
+    }
+  </style>
+  <%
+    }
+  %>
 </head>
 <body>
   <!-- Navigation -->
@@ -20,19 +34,24 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="#">Cart</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">MyPage</a>
+          </li>
+          <li class="nav-item active">
+            <!-- 왜 안될까 -->
+            <a class="nav-link" href="/noticeboard/list_notice/1">Community
+              <span class="sr-only">(current)</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -46,9 +65,9 @@
       <div class="col-lg-3">
         <h1 class="my-4">Community</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item active">공지사항</a>
-          <a href="#" class="list-group-item">정보 게시판</a>
-          <a href="#" class="list-group-item">고객 게시판</a>
+          <a href="/noticeboard/list_notice/1" class="list-group-item active">공지사항</a>
+          <a href="/infoboard/list_info/1" class="list-group-item">정보 게시판</a>
+          <a href="/questboard/list_quest/1" class="list-group-item">고객 게시판</a>
         </div>
       </div>
       <!-- /.col-lg-3 -->
@@ -58,66 +77,53 @@
         <div class="card mt-4">
           <div class="card-body">
             <form action="/noticeboard/update_notice" method="get">
-              <table border="1" class="table table-striped">
+              <table border="1" class="table table-striped table-bordered">
                 <input type="hidden" name="idx" value="<%=row.idx%>"/>
                 <tr>
-                  <td>작성자</td>
-                  <td><%= row.creator_id %></td>
+                  <th width="20%">작성자</th>
+                  <td width="30%"><%= row.creator_id %></td>
+                  <th width="20%">조회수</th>
+                  <td width="30%"><%=row.hit%></td>
                 </tr>
                 <tr>
-                  <td>제목</td>
-                  <td><%=row.title%></td>
+                  <th colspan="1">제목</th>
+                  <td colspan="3"><%=row.title%></td>
                 </tr>
-                <tr>
-                  <td>내용</td>
-                  <td><%=row.content%></td>
-                </tr>
-                <tr>
-                  <td>조회수</td>
-                  <td><%=row.hit%></td>
-                </tr>
-                <tr>
-                  <td>이미지</td>
-                  <td>
-                    <img src= <%='/uploads/noticeboardimg/'+row.image%>>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <button type="submit" class="btn">글 수정</button>
-                    <a href="/noticeboard/list_notice/1"> 리스트로 돌아가기 </a>
+                <tr height="200">
+                  <th colspan="1">내용</th>
+                  <td colspan="3">
+                    <%
+                      if(row.image!=null){
+                    %>
+                    <img src= "<%='/uploads/noticeboardimg/'+row.image%>" style="max-width: 100%; height: auto;"><br><br>
+                    <%
+                      }
+                    %>
+                    <%=row.content%>
                   </td>
                 </tr>
               </table>
             </form>
-            <form action="/noticeboard/delete_notice" method="get">
-              <input type="hidden" name="idx" value="<%=row.idx%>"/>
-              <button type="submit" class="btn">글 삭제</button>
-            </form>
-            <h3 class="card-title">Product Name</h3>
-            <h4>$24.99</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-            4.0 stars
           </div>
         </div>
         <!-- /.card -->
 
         <div class="card card-outline-secondary my-4">
-          <div class="card-header">
-            Product Reviews
-          </div>
           <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <a href="/noticeboard/list_notice/1"> 리스트로 돌아가기 </a>
             <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <a href="#" class="btn btn-success">Leave a Review</a>
+            <div class="onlyUser_button">
+              <form action="/noticeboard/update_notice" method="get">
+                <input type="hidden" name="idx" value="<%=row.idx%>"/>
+                <button type="submit" class="btn">글 수정</button>
+              </form>
+              <hr>
+              <form action="/noticeboard/delete_notice" method="post">
+                <input type="hidden" name="idx" value="<%=row.idx%>"/>
+                <button type="submit" class="btn" onclick="return confirm('삭제하시겠습니까?')">글 삭제</button>
+              </form>
+              <hr>
+            </div>
           </div>
         </div>
         <!-- /.card -->
