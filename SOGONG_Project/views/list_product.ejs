@@ -147,10 +147,17 @@
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
-      <div class="container">
+      <div class="container text-right">
+        <a class="m-0 text-white" onclick="updateProduct(<%=rows.idx%>)">AddItem</a>
+        <script>
+          function updateProduct(idx) {
+            location.href = "/productBoard/update?idx="+idx;
+          }
+        </script>
+        <!--
         <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      -->
       </div>
-      <!-- /.container -->
     </footer>
 
     <!-- Bootstrap core JavaScript -->
