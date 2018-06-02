@@ -5,10 +5,10 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/prd_imgs')
+    cb(null, 'public/upload/productImg')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, new Date().valueOf() + file.originalname);
   }
 });
 var upload = multer({storage : storage});
@@ -44,6 +44,33 @@ router.get('/list/:page', function(req, res, next){
   });
 });
 
+//상품등록 화면 표시 GET
+router.get('/write_product', function(req, res, next) {
+  res.render('write_product', {web_name : 'MY PET', title : 'WRITE PRODUCT'});
+});
+
+//상품등록 로직 처리 POST
+router.post('/write_product', upload.single('image'), function(req,res,next){
+  var idx = req.body.creator_id;
+  var prd_name = req.body.prd_name;
+  var main_img = req.file.filename;
+  var price = req.body.price;
+  var datas = [idx, main_img, prd_name, price];
+
+  pool.getConnection(function(err, connection) {
+    //Use the connection
+    var sqlForInsert = "insert into board(idx, main_img, prd_name, price) values(?,?,?,?)";
+    connection.query(sqlForInsert, datas, function(err, rows){
+      if(err) console.error("err : " + err);
+      console.log("rows : " + JSON.stringify(rows));
+
+      res.redirect('/productBoard/product/'+idx);
+      connection.release();
+
+      //Don't use the connection here, it has been returned to the pool.
+    });
+  });
+});
 //상품 조회
 router.get('/product/:idx', function(req, res, next){
   var idx = req.params.idx;
