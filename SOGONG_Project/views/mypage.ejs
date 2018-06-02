@@ -9,31 +9,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PETPET - Mypage</title>
+    <title>PETPET - My Page</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/portfolio-item.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 54px;
-      }
-      @media (min-width: 992px) {
-        body {
-          padding-top: 56px;
-        }
-      }
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    </style>
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.min.css" rel="stylesheet">
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-dark bg-dark static-top">
       <div class="container">
         <a class="navbar-brand" href="/">PETPET</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,77 +54,101 @@
       </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">My Page
-        <small>Welcome, <%=row.name%></small>
-      </h1>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-8">
-          <img class="img-fluid" style="width: 300px; height:auto; object-fit:contain;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px;" src="http://localhost:3000/user/petimg/<%=row.pic%>" alt="">
-        </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">My Pet</h3>
-          <p><%=row.petname%></p>
-          <p><%=row.petbirth%>, <%=row.petage%>살, <%=row.petgen%></p>
-          <h3 class="my-3">Your Interests.</h3>
-          <p>원하는 특성</p>
-          <p>원하는 특성2 예) 눈물, 관절 등을 show</p>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-      <!-- Related Projects Row -->
-      <h3 class="my-4">Menu</h3>
-
-      <div class="row">
-        <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">주문내역</h3>
-          <a href="#">
-            <img class="img-fluid" src="http://localhost:3000/icons/list.png" alt="">
-          </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">장바구니</h3>
-          <a href="#">
-            <img class="img-fluid" src="http://localhost:3000/icons/shopping-bag.png" alt="">
-          </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">정보조회</h3>
-          <a href="/users/view">
-            <img class="img-fluid" src="http://localhost:3000/icons/user.png" alt="">
-          </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">메뉴4</h3>
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-          </a>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <!-- Masthead -->
+    <header class="masthead text-white text-center" style="background: url(http://localhost:3000/user/petimg/<%=row.pic%>);">
+      <div class="overlay"></div>
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; PETPET 2018</p>
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <h1 class="mb-5"><%=row.name%>님 환영합니다.</h1>
+          </div>
+          <div class="col-xl-9 mx-auto">
+            <a class="btn " style="width:100px; color:#ffff; background-color:transparent;" href="#"><h3><span>적립금<br><small>0 원</small></span></h3></a>
+            <a class="btn " style="width:100px; color:#ffff; background-color:transparent;" href="#"><h3><span>쿠폰<br><small>0 개</small></span></h3></a>
+          </div>
+        </div>
       </div>
-      <!-- /.container -->
+    </header>
+
+  <!-- Related Projects Row -->
+  <div class="row" align="center" style="padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px;">
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h3 class="my-3">주문내역</h3>
+      <a href="#">
+        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/list.png" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h3 class="my-3">장바구니</h3>
+      <a href="#">
+        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/shopping-bag.png" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h3 class="my-3">정보조회</h3>
+      <a href="/users/view">
+        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/user.png" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h3 class="my-3">혜택관리</h3>
+      <a href="#">
+        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/search.png" alt="">
+      </a>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- Footer -->
+<footer class="footer bg-dark">
+  <div class="container">
+    <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <a href="#">About</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Contact</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="#">Privacy Policy</a>
+              </li>
+            </ul>
+            <p class="text-muted small mb-4 mb-lg-0">&copy; PETPET 2018. All Rights Reserved.</p>
+          </div>
+          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-3">
+                <a href="#">
+                  <i class="fa fa-facebook fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item mr-3">
+                <a href="#">
+                  <i class="fa fa-twitter fa-2x fa-fw"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram fa-2x fa-fw"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- Bootstrap core JavaScript -->
