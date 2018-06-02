@@ -1,3 +1,4 @@
+<!-- 희라: 마이페이지 -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,17 +72,16 @@
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" style="width: 300px; height:auto; object-fit:contain;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px;" src="http://localhost:3000/petimg/<%=row.pic%>" alt="">
+          <img class="img-fluid" style="width: 300px; height:auto; object-fit:contain;border-radius: 7px;-moz-border-radius: 7px;-khtml-border-radius: 7px;-webkit-border-radius: 7px;" src="http://localhost:3000/user/petimg/<%=row.pic%>" alt="">
         </div>
 
         <div class="col-md-4">
           <h3 class="my-3">My Pet</h3>
           <p><%=row.petname%></p>
           <p><%=row.petbirth%>, <%=row.petage%>살, <%=row.petgen%></p>
-          <h3 class="my-3">Your Information.</h3>
-            <input type="button" value="정보조회" onClick="location.href='/users/view'">
-            <input type="button" value="정보수정" onClick="location.href='/users/edit'">
-            <input type="button" value="탈퇴하기" onClick="location.href='/login/cancel'">
+          <h3 class="my-3">Your Interests.</h3>
+          <p>원하는 특성</p>
+          <p>원하는 특성2 예) 눈물, 관절 등을 show</p>
         </div>
 
       </div>
@@ -91,25 +91,24 @@
       <h3 class="my-4">Menu</h3>
 
       <div class="row">
-
         <div class="col-md-3 col-sm-6 mb-4">
           <h3 class="my-3">주문내역</h3>
           <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="http://localhost:3000/icons/list.png" alt="">
           </a>
         </div>
 
         <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">메뉴2</h3>
+          <h3 class="my-3">장바구니</h3>
           <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+            <img class="img-fluid" src="http://localhost:3000/icons/shopping-bag.png" alt="">
           </a>
         </div>
 
         <div class="col-md-3 col-sm-6 mb-4">
-          <h3 class="my-3">메뉴3</h3>
-          <a href="#">
-            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          <h3 class="my-3">정보조회</h3>
+          <a href="/users/view">
+            <img class="img-fluid" src="http://localhost:3000/icons/user.png" alt="">
           </a>
         </div>
 

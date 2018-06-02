@@ -9,7 +9,7 @@ var multer = require('multer');
 var upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './uploads/user/petimg/');
+      cb(null, 'uploads-/user/petimg/');
     },
     filename: function (req, file, cb) {
       cb(null, new Date().valueOf() + file.originalname);
@@ -117,7 +117,7 @@ router.get('/edit', function(req, res, next) {
 });
 
 //정보수정 POST, 새로운 이미지를 업로드한다, 이미가 없으면 업로드되지 않는다.
-router.post('/update',upload.single('image'),function(req,res,next){
+router.post('/edit',upload.single('pic'),function(req,res,next){
   var id = req.body.id;
   var passwd = req.body.passwd;
   var name = req.body.name;
@@ -131,26 +131,25 @@ router.post('/update',upload.single('image'),function(req,res,next){
   var petbirth = req.body.petbirth;
   var petgen = req.body.petgen;
   var pettype = req.body.pettype;
-  var pic = req.body.pic;
+  var pic = req.body.upFile; //기존 파일
+  var newFile = null; //새로운 파일
   var session = req.session;
   var user_id = session.user_id;
 
   if(req.file != null){
-    var newFile =  req.file.filename;
-  }
-  else {
-    newFile = null;
+    newFile =  req.file.filename;
   }
   console.log("기존 파일: " + pic);
-  if(newFile != null){
+  if(pic != null){ //기존 파일 존재, 삭제 후 새로운 파일 업로드
     console.log("새로운 파일 업로드, 기존 이미지 삭제");
-    fs.exists('./uploads/user/petimg/' + pic, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
+    fs.exists('uploads-/user/petimg/' + pic, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
       if(exists == true){
-        fs.unlink('./uploads/user/petimg/' + pic,function(err){ //기존 파일 삭제
+        fs.unlink('uploads-/user/petimg/' + pic,function(err){ //기존 파일 삭제
           if(err) throw err;
           pic = newFile;
           pool.getConnection(function(err,connection)
           {
+            if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
             //데이터베이스의 파일명 등을 바꿔준다.
             //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
             var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=? where id=? and passwd=?";
@@ -177,6 +176,7 @@ router.post('/update',upload.single('image'),function(req,res,next){
         pic = newFile;
         pool.getConnection(function(err,connection)
         {
+          if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
           //새로운 파일명만 업로드, 삭제 필요 x
           var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=? where id=? and passwd=?";
 
@@ -221,7 +221,6 @@ router.post('/update',upload.single('image'),function(req,res,next){
       });
     });
   }
-  console.log("업로드 파일: " + upFile);
 });
 
 module.exports = router;

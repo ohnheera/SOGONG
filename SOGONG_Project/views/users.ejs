@@ -1,22 +1,100 @@
-<html>
-<head>
-  <title><%= title %></title>
-  <meta charset='utf-8'>
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
-  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+<!-- 희라: 정보조회 -->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PETPET - Your profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://localhost:3000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://localhost:3000/css/one-page-wonder.min.css" rel="stylesheet">
+
   </head>
 
   <body>
-    <h1><%=title %></h1>
-    <form id ="users" action="/users" method="post">
-      <table width="400" >
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">PETPET</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/productBoard">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/infoboard">Community</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/cancel">탈퇴하기</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white">
+      <div class="masthead-content">
+        <div class="container">
+          <h1 class="masthead-heading mb-0">Welcome to PETPET</h1>
+          <h2 class="masthead-subheading mb-0">You <%=row.name%> and Your Pet <%=row.petname%></h2>
+          <a href="/users/edit" class="btn btn-primary btn-xl rounded-pill mt-5">Edit</a>
+        </div>
+      </div>
+      <div class="bg-circle-1 bg-circle"></div>
+      <div class="bg-circle-2 bg-circle"></div>
+      <div class="bg-circle-3 bg-circle"></div>
+      <div class="bg-circle-4 bg-circle"></div>
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img src="/user/avatar/0.jpg" name="randomimage" width=360 border="0" >
+                <script>
+                var maximgno = 50;
+                var imgno;
+
+                do imgno = Math.random().toString().charAt(2);
+                while (imgno > maximgno || imgno < 1);
+                var imgfile="/user/avatar/"+imgno+".png";
+
+                document.randomimage.src=imgfile;
+              </script>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <h2 class="display-4">Users Information</h2>
+              <p><table width="400" >
         <tr>
           <th>아이디</th>
           <td><%=row.id%></td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td><%=row.name%></td>
         </tr>
         <tr>
           <th>이메일</th>
@@ -39,33 +117,60 @@
           <td><%=row.birth%></td>
         </tr>
         </tr>
-      </table>
-      <h4>반려동물 <%=row.petname%>의 정보</h4>
-      <img style="width: 200px; height:auto; object-fit:contain;border-radius: 70px;-moz-border-radius: 70px;-khtml-border-radius: 70px;-webkit-border-radius: 70px;" src="http://localhost:3000/petimg/<%=row.pic%>"></img>
-      <table width="400">
-        <tr>
-          <th>생일</th>
-          <td><%=row.petbirth%></td>
-        </tr>
-        <tr>
-          <th>나이</th>
-          <td><%=row.petage%></td>
-        </tr>
-        <tr>
-          <th>성별</th>
-          <td><%=row.petgen%></td>
-        </tr>
-        <tr>
-          <th>종류</th>
-          <td><%=row.pettype%></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <input type="button" value="정보수정" onClick="location.href='/users/edit'">
-            <input type="button" value="돌아가기" onClick="location.href='/users'">
-          </td>
-        </tr>
-      </table>
-    </form>
+      </table></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" style="width: 360px; height:auto;" src="http://localhost:3000/user/petimg/<%=row.pic%>" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <h2 class="display-4">Your Pets Information</h2>
+              <table width="400">
+                <tr>
+                  <th>생일</th>
+                  <td><%=row.petbirth%></td>
+                </tr>
+                <tr>
+                  <th>나이</th>
+                  <td><%=row.petage%></td>
+                </tr>
+                <tr>
+                  <th>성별</th>
+                  <td><%=row.petgen%></td>
+                </tr>
+                <tr>
+                  <th>종류</th>
+                  <td><%=row.pettype%></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-black">
+      <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; PETPET 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
   </body>
-  </html>
+
+</html>

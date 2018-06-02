@@ -90,15 +90,16 @@ router.post('/cancel',function(req,res,next){
       }
       else {
         delete req.session.user_id;//session에서 사용자 정보 삭제
-        fs.exists('./uploads/user/petimg/' + upFile, function(exists){ //파일이 존재시 삭제
-          console.log("탈퇴: 파일 존재", "./uploads/user/petimg/" , upFile);
+        fs.exists('./uploads-/user/petimg/' + upFile, function(exists){ //파일이 존재시 삭제
+          console.log("탈퇴: 파일 존재", "./uploads-/user/petimg/" , upFile);
           if(exists == true){
             fs.unlink('./uploads/user/petimg/'+upFile,function(err){
-              console.log("탈퇴: 파일 삭제", "./uploads/user/petimg/" , upFile);
+              console.log("탈퇴: 파일 삭제", "./uploads-/user/petimg/" , upFile);
               if(err) throw err;
             });
           }
         });
+        delete req.session.user_id;//session에서 사용자 정보 삭제
         res.redirect('/');
       }
       connection.release();

@@ -35,9 +35,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //이미지 views
-app.use('/petimg', express.static('uploads/user/petimg'));
-app.use('/mainpage', express.static('uploads/mainpage_'));
-//app.use('/petimg', express.static('uploads/user/petimg'));
+app.use('/icons', express.static('uploads-/ecommerce'));
+app.use('/user', express.static('uploads-/user'));
+app.use('/mainpage', express.static('uploads-/mainpage_'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
