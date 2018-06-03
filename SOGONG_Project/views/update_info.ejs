@@ -20,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="/">Home
             </a>
           </li>
           <li class="nav-item">
@@ -30,7 +30,7 @@
             <a class="nav-link" href="#">Cart</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">MyPage</a>
+            <a class="nav-link" href="/users">MyPage</a>
           </li>
           <li class="nav-item active">
             <!-- 왜 안될까 -->
@@ -79,10 +79,11 @@
               <tr>
                 <td>이미지</td>
                 <td>
+                  <input type="hidden" name="image_previous" value="<%=row.image%>" />
                   <%
                     if(row.image!=null){
                   %>
-                  <img src= "<%='/uploads/infoboardimg/'+row.image%>" style="max-width: 100%; height: auto;">
+                  <img src= "/uploads/infoboardimg/<%=row.image%>" style="max-width: 100%; height: auto;">
                   <%
                     }
                   %>
@@ -147,11 +148,6 @@
         $("#content").focus();
         alert(message);
         return false;
-      }
-
-      if($("#image").val().trim()=="<%=row.image%>"){
-        $("#image").attr("src","#image_new");
-        alert("#image_new");
       }
 
       if($("#passwd").val().trim()==""){

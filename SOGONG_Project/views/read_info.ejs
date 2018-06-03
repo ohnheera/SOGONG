@@ -35,7 +35,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Home
+            <a class="nav-link" href="/">Home
             </a>
           </li>
           <li class="nav-item">
@@ -93,9 +93,9 @@
                   <th colspan="1">내용</th>
                   <td colspan="3">
                     <%
-                      if(row.image!=null){
+                      if(row.image!=null||row.image!=' '){
                     %>
-                    <img src= "<%='/uploads/infoboardimg/'+row.image%>" style="max-width: 100%; height: auto;"><br><br>
+                    <img src= "/uploads/infoboardimg/<%=row.image%>" style="max-width: 100%; height: auto;"><br><br>
                     <%
                       }
                     %>
