@@ -2,49 +2,126 @@
 <html>
 <head>
   <script src="/javascripts/jquery-3.3.1.min.js"></script>
-  <title><%= title %></title>
   <link rel='stylesheet' href='/stylesheets/bootstrap.css'/>
+  <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/css/shop-item.css" rel="stylesheet">
 </head>
 <body>
-  <h1><%= title %></h1>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">My Pet</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users">MyPage</a>
+          </li>
+          <li class="nav-item active">
+            <!-- 왜 안될까 -->
+            <a class="nav-link" href="/noticeboard/list_notice/1">Community
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <form action="/noticeboard/update_notice" method="post" onsubmit="return onWriteSubmit()">
-    <table border="1" class="table table-striped">
-      <input type="hidden" name="idx" value="<%=row.idx%>"/>
-      <tr>
-        <td>작성자</td>
-        <td><input type="text" name="creator_id" id="creator_id" value="<%=row.creator_id%>" required/></td>
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td><input type="text" name="title" id="title" value="<%=row.title%>" required/></td>
-      </tr>
-      <tr>
-        <td>내용</td>
-        <td><textarea name="content" id="content" cols="30" rows="10" required><%=row.content%></textarea></td>
-      </tr>
-      <tr>
-        <td>이미지</td>
-        <td>
-          <td>
-            <img src= <%='/uploads/noticeboardimg/'+row.image%>>
-            <input type="hidden" name="image" value="<%=row.image%>"/>
-            <input type="file" name="image" id="image" />
-          </td>
-        </td>
-      </tr>
-      <tr>
-        <td>패스워드</td>
-        <td><input type="password" name="passwd" id="passwd" required/></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <button type="submit" class="btn">글쓰기</button>
-        </td>
-      </tr>
-    </table>
-  </form>
+  <!-- Page Content -->
+  <div class="container">
 
+    <div class="row">
+
+      <div class="col-lg-3">
+        <h1 class="my-4">Community</h1>
+        <div class="list-group">
+          <a href="/noticeboard/list_notice/1" class="list-group-item active">공지사항</a>
+          <a href="/infoboard/list_info/1" class="list-group-item">정보 게시판</a>
+          <a href="/questboard/list_quest/1" class="list-group-item">고객 게시판</a>
+        </div>
+      </div>
+
+      <!-- /.col-lg-3 -->
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <form action="/noticeboard/update_notice" method="post" onsubmit="return onWriteSubmit()">
+            <table border="1" class="table table-striped table-bordered">
+              <input type="hidden" name="idx" value="<%=row.idx%>"/>
+              <tr>
+                <td>작성자</td>
+                <td><input type="text" name="creator_id" id="creator_id" value="<%=row.creator_id%>" required/></td>
+              </tr>
+              <tr>
+                <td>제목</td>
+                <td><input type="text" name="title" id="title" value="<%=row.title%>" required/></td>
+              </tr>
+              <tr>
+                <td>내용</td>
+                <td><textarea name="content" id="content" cols="30" rows="10" required><%=row.content%></textarea></td>
+              </tr>
+              <tr>
+                <td>이미지</td>
+                <td>
+                  <input type="hidden" name="image_previous" value="<%=row.image%>" />
+                  <%
+                    if(row.image!=null){
+                  %>
+                  <img src= "/uploads/noticeboardimg/<%=row.image%>" style="max-width: 100%; height: auto;">
+                  <%
+                    }
+                  %>
+                  <input type="file" name="image" id="image" />
+                </td>
+              </tr>
+              <tr>
+                <td>패스워드</td>
+                <td><input type="password" name="passwd" id="passwd" required/></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <button type="submit" class="btn">수정하기</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; 소공녀 2018</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
   <script>
     function onWriteSubmit()
@@ -80,50 +157,50 @@
         alert(message);
         return false;
       }
+
+      $('#image').on('change', function() {
+
+          ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+
+          //배열에 추출한 확장자가 존재하는지 체크
+          if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+              resetFormElement($(this)); //폼 초기화
+              window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+          } else {
+              file = $('#image').prop("files")[0];
+              blobURL = window.URL.createObjectURL(file);
+              $('#image_preview img').attr('src', blobURL);
+              $('#image_preview').slideDown(); //업로드한 이미지 미리보기
+              $(this).slideUp(); //파일 양식 감춤
+          }
+      });
+
+      /**
+      onclick event handler for the delete button.
+      It removes the image, clears and unhides the file input field.
+      */
+      $('#image_preview a').bind('click', function() {
+          resetFormElement($('#image')); //전달한 양식 초기화
+          $('#image').slideDown(); //파일 양식 보여줌
+          $(this).parent().slideUp(); //미리 보기 영역 감춤
+          return false; //기본 이벤트 막음
+      });
+
+
+      // /**
+      // * 폼요소 초기화
+      // * Reset form element
+      // *
+      // * @param e jQuery object
+      // */
+      // function resetFormElement(e) {
+      //     e.wrap('<form>').closest('form').get(0).reset();
+      //     //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) ,
+      //     //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+      //     //DOM에서 제공하는 초기화 메서드 reset()을 호출
+      //     e.unwrap(); //감싼 <form> 태그를 제거
+      // }
     }
-
-    $('#image').on('change', function() {
-
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#image').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('#image_preview img').attr('src', blobURL);
-            $('#image_preview').slideDown(); //업로드한 이미지 미리보기
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
-
-    /**
-    onclick event handler for the delete button.
-    It removes the image, clears and unhides the file input field.
-    */
-    $('#image_preview a').bind('click', function() {
-        resetFormElement($('#image')); //전달한 양식 초기화
-        $('#image').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
-        return false; //기본 이벤트 막음
-    });
-
-
-    // /**
-    // * 폼요소 초기화
-    // * Reset form element
-    // *
-    // * @param e jQuery object
-    // */
-    // function resetFormElement(e) {
-    //     e.wrap('<form>').closest('form').get(0).reset();
-    //     //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) ,
-    //     //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-    //     //DOM에서 제공하는 초기화 메서드 reset()을 호출
-    //     e.unwrap(); //감싼 <form> 태그를 제거
-    // }
     </script>
   </body>
   </html>
