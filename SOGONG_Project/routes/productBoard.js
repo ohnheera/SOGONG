@@ -46,12 +46,12 @@ router.get('/list/:page', function(req, res, next){
 
 //상품등록 화면 표시 GET
 router.get('/write_product', function(req, res, next) {
-  res.render('write_product', {web_name : 'MY PET', title : 'WRITE PRODUCT'});
+  res.render('write_product', {web_name : 'Pit A Pet', title : 'WRITE PRODUCT'});
 });
 
 //상품등록 로직 처리 POST
 router.post('/write_product', upload.single('main_img'), function(req,res,next){
-  var idx = req.body.creator_id;
+  var idx = req.body.idx;
   var main_img = "/uploads/productImg/"+req.file.filename;
   var prd_name = req.body.prd_name;
   var prd_des = req.body.prd_des;
@@ -88,7 +88,7 @@ router.get('/product/:idx', function(req, res, next){
 
       connection.query(updateSql, [idx, hit], function(err, row){
         console.log("1개 상품 조회 결과 확인 : ", row);
-        res.render('product', {web_name : 'MY PET', title : "ITEM VIEW", row:rows[0]});
+        res.render('product', {web_name : 'Pit A Pet', title : "ITEM VIEW", row:rows[0]});
       });
     });
   });
@@ -109,7 +109,7 @@ router.get('/delete/:idx', function(req, res){
 });
 
 //상품 수정 화면 가져오기
-router.get('/update', function(req, res, next){
+router.get('/update_product', function(req, res, next){
   var idx = req.query.idx;
 
   pool.getConnection(function(err, connection){
@@ -119,19 +119,20 @@ router.get('/update', function(req, res, next){
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
-      res.render('update', {title:"상품 수정", row:rows[0]});
+      res.render('update_product', {web_name : 'Pit A Pet', title : 'UPDATE PRODUCT', row:rows[0]});
       connection.release();
     });
   });
 });
 
 //상품 수정하기
-router.post('/update', function(req, res, next){
+router.post('/update_product', upload.single('main_img'), function(req, res, next){
   var idx = req.body.idx;
-  var main_img = "/images/"+req.file.filename;
+  var main_img = "/uploads/productImg/"+req.file.filename;
   var prd_name = req.body.prd_name;
+  var prd_des = req.body.prd_des;
   var price = req.body.price;
-  var datas = [main_img, prd_name, price];
+  var datas = [main_img, prd_name, prd_des, price, idx];
 
   pool.getConnection(function(err, connection) {
     var sql = "update product set main_img=?, prd_name=?, prd_des=?, price=? where idx=?";
