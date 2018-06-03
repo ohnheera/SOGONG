@@ -71,19 +71,24 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-          <form action="/productBoard/write_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
+          <form action="/productBoard/update_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
+              <input type="hidden" name="idx" value="<%=row.idx%>"/>
               <div class="card-header">
                 Product Name
               </div>
               <div class="card-body">
-                <input type="text" name="prd_name" id="prd_name" size="40" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/>
+                <input type="text" name="prd_name" id="prd_name" value="<%=row.prd_name%>" size="40" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/>
               </div>
               <hr>
               <div class="card-header">
                 Product Image
               </div>
               <div class="card-body">
+                <p>
+                  <input type="hidden" name="image_previous" value="<%=row.main_img%>" />
+                  <img src= "<%=row.main_img%>" width="200" height="200">
+                </p>
                 <input type="file" name="main_img" id="main_img" accept="image/*" required/>
               </div>
               <hr>
@@ -91,18 +96,18 @@
                 Product Description
               </div>
               <div class="card-body">
-                <textarea name="prd_des" id="prd_des" cols="90" rows="15" required/></textarea>
+                <textarea name="prd_des" id="prd_des" cols="90" rows="15" required/><%=row.prd_des%></textarea>
               </div>
               <hr>
               <div class="card-header">
                 Product Price
               </div>
               <div class="card-body">
-                <input type="text" name="price" id="price" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
+                <input type="text" name="price" id="price" value="<%=row.price%>" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
               </div>
             </div>
             <div align="right">
-              <button type="upload" class="btn btn-success"><span>SAVE</span></button>
+              <button type="submit" class="btn btn-success"><span>SAVE</span></button>
             </div>
           </form>
           <script>

@@ -120,7 +120,7 @@
         <script>
           function deleteProduct(idx) {
             if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
-              location.href = "/productBoard/delete/"+idx;
+              location.href = "/productBoard/delete_product/"+idx;
             }
           }
         </script>
@@ -128,7 +128,7 @@
         <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">Edit</a>
         <script>
           function updateProduct(idx) {
-            location.href = "/productBoard/update?idx="+idx;
+            location.href = "/productBoard/update_product?idx="+idx;
           }
         </script>
         <!--
