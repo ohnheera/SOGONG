@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
   {
     pool.getConnection(function(err,connection)
     {
-      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype from userinfo where id = ?";
+      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3 from userinfo where id = ?";
 
       connection.query(sql,[user_id],function(err,row)
       {
@@ -74,7 +74,7 @@ router.get('/view', function(req, res, next) {
   if(user_id){
     pool.getConnection(function(err,connection)
     {
-      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype from userinfo where id = ?";
+      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3 from userinfo where id = ?";
 
       connection.query(sql,[user_id],function(err,row)
       {
@@ -99,7 +99,7 @@ router.get('/edit', function(req, res, next) {
   if(user_id){
     pool.getConnection(function(err,connection)
     {
-      var sql="select id,passwd,name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype from userinfo where id = ?";
+      var sql="select id,passwd,name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3 from userinfo where id = ?";
       connection.query(sql,[user_id],function(err,row)
       {
         if(err) console.error(err);
@@ -135,6 +135,22 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
   var newFile = null; //새로운 파일
   var session = req.session;
   var user_id = session.user_id;
+  var interest0 = 0;
+  var interest1 = 0;
+  var interest2 = 0;
+  var interest3 = 0;
+  if(req.body.checkbox0){
+    interest0 = 1;
+  }
+  if(req.body.checkbox1){
+    interest1 = 1;
+  }
+  if(req.body.checkbox2){
+    interest2 = 1;
+  }
+  if(req.body.checkbox3){
+    interest3 = 1;
+  }
 
   if(req.file != null){
     newFile =  req.file.filename;
@@ -152,9 +168,9 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
             if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
             //데이터베이스의 파일명 등을 바꿔준다.
             //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
-            var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=? where id=? and passwd=?";
+            var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=?,interest0=?,interest1=?,interest2=?,interest3=? where id=? and passwd=?";
 
-            connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,id,passwd],function(err,result){
+            connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,id,passwd,interest0,interest1,interest2,interest3],function(err,result){
               console.log(result);
               if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
 
