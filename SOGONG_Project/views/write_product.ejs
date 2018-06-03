@@ -65,14 +65,8 @@
     <div class="container">
 
       <div class="row">
-
         <div class="col-lg-3">
           <h1 class="my-4"><%=title%></h1>
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
         </div>
         <!-- /.col-lg-3 -->
 
@@ -85,29 +79,32 @@
               <div class="card-body">
                 <input type="text" name="prd_name" id="prd_name" size="40" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/>
               </div>
-
+              <hr>
               <div class="card-header">
                 Product Image
               </div>
               <div class="card-body">
                 <input type="file" name="main_img" id="main_img" accept="image/*" required/>
               </div>
-
+              <hr>
               <div class="card-header">
                 Product Description
               </div>
               <div class="card-body">
                 <textarea name="prd_des" id="prd_des" cols="90" rows="15" required/></textarea>
               </div>
-
+              <hr>
               <div class="card-header">
                 Product Price
               </div>
               <div class="card-body">
                 <input type="text" name="price" id="price" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
               </div>
-
             </div>
+            <div align="right">
+              <button type="upload" class="btn btn-success"><span>SAVE</span></button>
+            </div>
+
           </form>
         </div>
         <!-- /.col-lg-9 -->
@@ -118,9 +115,6 @@
     <footer class="py-5 bg-dark">
       <div class="container text-right">
 
-        <!--
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      -->
       </div>
       <!-- /.container -->
     </footer>
