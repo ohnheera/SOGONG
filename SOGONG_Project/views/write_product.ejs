@@ -71,7 +71,7 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-          <form action="/productBoard/write_product" method="post"  enctype = "multipart/form-data">
+          <form action="/productBoard/write_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
               <div class="card-header">
                 Product Name
@@ -104,8 +104,46 @@
             <div align="right">
               <button type="upload" class="btn btn-success"><span>SAVE</span></button>
             </div>
-
           </form>
+          <script>
+            function onWriteSubmit() {
+              if($("#prd_name").val().trim()=="") {
+                var message = "상품명을 입력해주세요";
+                $("#prd_name").val("");
+                $("#prd_name").focus();
+                alert(message);
+                return false;
+              }
+              if($("#main_img").val().trim()=="") {
+                var message = "상품 사진을 등록해 주세요";
+                $("#main_img").val("");
+                $("#main_img").focus();
+                alert(message);
+                return false;
+              }
+              if($("#prd_des").val().trim()=="") {
+                var message = "상품을 소개해 주세요";
+                $("#prd_des").val("");
+                $("#prd_des").focus();
+                alert(message);
+                return false;
+              }
+              if($("#price").val().trim()=="") {
+                var message = "가격을 입력해 주세요";
+                $("#price").val("");
+                $("#price").focus();
+                alert(message);
+                return false;
+              }
+              if($("#image").val().trim()=="") {
+                var message = "이미지를 업로드해 주세요";
+                $("#image").val("");
+                $("#image").focus();
+                alert(message);
+                return false;
+              }
+            }
+          </script>
         </div>
         <!-- /.col-lg-9 -->
       </div>
