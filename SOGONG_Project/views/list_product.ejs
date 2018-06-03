@@ -119,9 +119,11 @@
                         <h5><%=oneItem.price%>원</h5>
                         <p class="card-text">간략한 설명</p>
                       </div>
-                      <div class="card-footer"> <!-- Star Rate -->
+                      <!--
+                      <div class="card-footer">
                         <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                       </div>
+                    -->
                     </div>
                   </div>
           <% }
@@ -148,10 +150,10 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container text-right">
-        <a class="m-0 text-white" onclick="updateProduct(<%=rows.idx%>)">AddItem</a>
+        <a class="m-0 text-white" onclick="addItem()">상품등록</a>
         <script>
-          function updateProduct(idx) {
-            location.href = "/productBoard/update?idx="+idx;
+          function addItem() {
+            location.href = "/productBoard/write_product";
           }
         </script>
         <!--

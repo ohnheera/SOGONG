@@ -116,7 +116,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container text-right">
-        <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">delete</a>
+        <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">Delete</a>
         <script>
           function deleteProduct(idx) {
             if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
@@ -125,7 +125,7 @@
           }
         </script>
 
-        <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">update</a>
+        <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">Edit</a>
         <script>
           function updateProduct(idx) {
             location.href = "/productBoard/update?idx="+idx;
