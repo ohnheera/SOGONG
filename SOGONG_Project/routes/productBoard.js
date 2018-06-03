@@ -76,16 +76,20 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
 //상품 조회
 router.get('/product/:idx', function(req, res, next){
   var idx = req.params.idx;
+
   pool.getConnection(function(err, connection) {
     var sql = "select idx, main_img, prd_name, prd_des, price from product where idx=?";
 
-    connection.query(sql,[idx], function(err, row){
+    connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
 
-      console.log("1개 상품 조회 결과 확인 : ", row);
-      res.render('product', {web_name : 'MY PET', title : "ITEM VIEW", row:row[0]});
+      var hit = req.body.hit;
+      var updateSql = "update product set hit = hit + 1 where idx=?";
 
-      connection.release();
+      connection.query(updateSql, [idx, hit], function(err, row){
+        console.log("1개 상품 조회 결과 확인 : ", row);
+        res.render('product', {web_name : 'MY PET', title : "ITEM VIEW", row:rows[0]});
+      });
     });
   });
 });
