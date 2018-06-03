@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PETPET - Your profile</title>
+    <title>PITAPET - Your profile</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://localhost:3000/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -116,7 +116,6 @@
           <th>생일</th>
           <td><%=row.birth%></td>
         </tr>
-        </tr>
       </table></p>
             </div>
           </div>
@@ -129,7 +128,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-1">
             <div class="p-5">
-              <img class="img-fluid rounded-circle" style="width: 360px; height:auto;" src="http://localhost:3000/user/petimg/<%=row.pic%>" alt="">
+              <img class="img-fluid rounded-circle" src="http://localhost:3000/user/petimg/<%=row.pic%>" alt="">
             </div>
           </div>
           <div class="col-lg-6 order-lg-2">
@@ -152,6 +151,35 @@
                   <th>종류</th>
                   <td><%=row.pettype%></td>
                 </tr>
+                <tr>
+                  <th>눈물</th>
+                  <td>
+                    <script>
+                      if(<%=row.interest0%> == 1) document.write("yes");
+                      else document.write("no");
+                    </script>
+                </tr>
+                <tr>
+                  <th>관절</th>
+                  <td><script>
+                    if(<%=row.interest1%> == 1) document.write("yes");
+                    else document.write("no");
+                  </script></td>
+                </tr>
+                <tr>
+                  <th>모질</th>
+                  <td><script>
+                    if(<%=row.interest2%> == 1) document.write("yes");
+                    else document.write("no");
+                  </script></td>
+                </tr>
+                <tr>
+                  <th>다이어트</th>
+                  <td><script>
+                    if(<%=row.interest3%> == 1) document.write("yes");
+                    else document.write("no");
+                  </script></td>
+                </tr>
               </table>
             </div>
           </div>
@@ -162,7 +190,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
-        <p class="m-0 text-center text-white small">Copyright &copy; PETPET 2018</p>
+        <p class="m-0 text-center text-white small">Copyright &copy; PITAPET 2018</p>
       </div>
       <!-- /.container -->
     </footer>

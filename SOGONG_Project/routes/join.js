@@ -47,11 +47,27 @@ router.post('/',upload.single('pic'), function(req,res,next){
   var petbirth = req.body.petbirth;
   var petgen = req.body.petgen;
   var pettype = req.body.pettype;
+  var interest0 = 0;
+  var interest1 = 0;
+  var interest2 = 0;
+  var interest3 = 0;
   var pic = 0;
+  if(req.body.checkbox0){
+    interest0 = 1;
+  }
+  if(req.body.checkbox1){
+    interest1 = 1;
+  }
+  if(req.body.checkbox2){
+    interest2 = 1;
+  }
+  if(req.body.checkbox3){
+    interest3 = 1;
+  }
   if(req.file != null){
     pic =  req.file.filename; //파일명을 받아온다
   }
-  var datas = [id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype];
+  var datas = [id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3];
   console.log("datas: "+datas);
 
   pool.getConnection(function(err,connection)
@@ -67,7 +83,7 @@ router.post('/',upload.single('pic'), function(req,res,next){
       }
       else{
           //use the connection, 파일명 입력
-          var sqlForInsertBoard = "insert into userinfo(id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+          var sqlForInsertBoard = "insert into userinfo(id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
           connection.query(sqlForInsertBoard,datas,function(err,rows)
           {

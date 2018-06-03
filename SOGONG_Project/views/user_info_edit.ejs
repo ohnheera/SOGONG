@@ -148,6 +148,39 @@
             <div class="form-group">
                 <input type="text" value = "<%=row.petage%>" name="petage" maxLength="10" class="form-control input-lg" placeholder="반려동물 나이"required>
             </div>
+            <!-- Select Multiple -->
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+              <div class="row">
+              <h5>관심사를 선택해주세요:    </h5>
+                  <div class="checkbox" style="padding-left:15px">
+                    <label for="checkbox-0">
+                      <input type="checkbox" name="checkbox0" id="checkbox-0" value="1">
+                      눈물 개선
+                    </label>
+                  </div>
+                  <div class="checkbox" style="padding-left:5px">
+                    <label for="checkbox-1">
+                      <input type="checkbox" name="checkbox1" id="checkbox-1" value="2">
+                      관절 개선
+                    </label>
+                  </div>
+                  <div class="checkbox" style="padding-left:5px">
+                    <label for="checkbox-2">
+                      <input type="checkbox" name="checkbox2" id="checkbox-2" value="3">
+                      모질 개선
+                    </label>
+                  </div>
+
+                  <div class="checkbox" style="padding-left:5px">
+                    <label for="checkbox-3">
+                      <input type="checkbox" name="checkbox3" id="checkbox-3" value="4">
+                      다이어트
+                    </label>
+                  </div>
+                </div>
+
+            </div>
       			<div class="row">
       				<div class="col-xs-12 col-md-6"><input type="submit" value="EDIT" style="background-color:#C593FF;" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
       				<div class="col-xs-12 col-md-6"><a href="/users" style="background-color:#FF80B5;" class="btn btn-success btn-block btn-lg">CANCEL</a></div>
