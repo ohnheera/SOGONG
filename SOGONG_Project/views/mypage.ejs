@@ -38,28 +38,50 @@
     </script>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-dark bg-dark static-top">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="/">PITAPET</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home
-                <span class="sr-only">(current)</span>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login/logout">logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/productBoard">Shop</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="/productBoard/list/1">Dog Food</a>
+                <a class="dropdown-item" href="portfolio-2-col.html">Dog Clothes</a>
+                <a class="dropdown-item" href="portfolio-3-col.html">Dog House</a>
+                <a class="dropdown-item" href="portfolio-4-col.html">Dog Snack</a>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/infoboard">Community</a>
             </li>
+            <%
+            if(id == null){
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <%
+            }
+            else{
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="/cart">Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">Mypage</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login/logout">Logout</a>
+              </li>
+              <%
+            }
+            %>
           </ul>
         </div>
       </div>
@@ -75,7 +97,6 @@
           </div>
           <div class="col-xl-9 mx-auto">
             <a class="btn " onclick="window_point()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>적립금<br></span></h3></a>
-            <a class="btn " onclick="window_coupon()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>쿠폰<br></span></h3></a>
           </div>
         </div>
       </div>
@@ -92,7 +113,7 @@
 
     <div class="col-md-3 col-sm-6 mb-4">
       <h3 class="my-3">장바구니</h3>
-      <a href="#">
+      <a href="/cart">
         <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/shopping-bag.png" alt="">
       </a>
     </div>
@@ -105,9 +126,9 @@
     </div>
 
     <div class="col-md-3 col-sm-6 mb-4">
-      <h3 class="my-3">혜택관리</h3>
-      <a href="#">
-        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/search.png" alt="">
+      <h3 class="my-3">고객문의</h3>
+      <a href="/questboard/list_quest/1">
+        <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/chat.png" alt="">
       </a>
     </div>
 

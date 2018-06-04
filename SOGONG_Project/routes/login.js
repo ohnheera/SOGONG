@@ -26,7 +26,8 @@ var pool = mysql.createPool({
 router.get('/', function(req, res, next) {
   var id = null;
   var session = req.session;
-  res.render('login', { title: 'Login' });
+  var user_id = session.user_id;
+  res.render('login', { title: 'Login' , id:id});
 });
 
 //로그인 유효 검사 - 아이디, 비밀번호 일치 확인 후, 맞으면 main으로 redirect/ 틀리면 login으로 redirect

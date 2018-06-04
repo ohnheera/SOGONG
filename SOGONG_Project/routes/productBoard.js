@@ -31,6 +31,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/list/:page', function(req, res, next){
   var page = req.params.page;
+  var session = req.session;
+  var id = session.user_id;
 
   pool.getConnection(function(err, connection){
     //Use the connection
@@ -38,7 +40,7 @@ router.get('/list/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'PRODUCT LIST', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'PRODUCT LIST', rows: rows, page:page, len:Object.keys(rows).length-1, id:id, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -76,6 +78,8 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
 //상품 조회
 router.get('/product/:idx', function(req, res, next){
   var idx = req.params.idx;
+  var session = req.session;
+  var id = session.user_id;
 
   pool.getConnection(function(err, connection) {
     var sql = "select idx, main_img, prd_name, prd_des, price from product where idx=?";
@@ -88,7 +92,7 @@ router.get('/product/:idx', function(req, res, next){
 
       connection.query(updateSql, [idx, hit], function(err, row){
         console.log("1개 상품 조회 결과 확인 : ", row);
-        res.render('product', {web_name : 'Pit-A-Pet', title : "ITEM VIEW", row:rows[0]});
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ITEM VIEW", row:rows[0], id: id});
       });
     });
   });
