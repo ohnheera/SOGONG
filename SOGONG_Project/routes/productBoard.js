@@ -24,13 +24,7 @@ var pool = mysql.createPool({
   password: '12345'
 });
 
-//Get Product List
-/*
-router.get('/', function(req, res, next) {
-  res.redirect('productBoard/list/1');
-});
-
-*/
+/***********************************PRODUCT LIST****************************************/
 //FOOD LIST
 router.get('/foodList/:page', function(req, res, next){
   var page = req.params.page;
@@ -41,7 +35,7 @@ router.get('/foodList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'FOOD', web_product : 'foodList', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'FOOD', web_product : 'foodList', product : "product_food", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -57,7 +51,7 @@ router.get('/clothesList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'CLOTHES', web_product : 'clothesList', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'CLOTHES', web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -73,7 +67,7 @@ router.get('/toyList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'TOY', web_product : 'toyList', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'TOY', web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -89,11 +83,12 @@ router.get('/healthCareList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'HEALTH CARE', web_product : 'healthCareList', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'HEALTH CARE', web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
 });
+/******************************************************************************************************************/
 
 //상품등록 화면 표시 GET
 router.get('/write_product', function(req, res, next) {
@@ -127,9 +122,11 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
   });
 });
 
-//상품 조회
-router.get('/product/:idx', function(req, res, next){
+/***********************************************상품 조회************************************************/
+//FOOD 상품 조회
+router.get('/product_food/:idx', function(req, res, next){
   var idx = req.params.idx;
+  var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
     var sql = "select idx, main_img, prd_name, prd_des, price from product_food where idx=?";
@@ -142,12 +139,78 @@ router.get('/product/:idx', function(req, res, next){
 
       connection.query(updateSql, [idx, hit], function(err, row){
         console.log("1개 상품 조회 결과 확인 : ", row);
-        res.render('product', {web_name : 'Pit-A-Pet', title : "ITEM VIEW", row:rows[0]});
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ENJOY FOOD SHOPPING", row:rows[0]});
       });
     });
   });
 });
 
+//CLOTHES 상품 조회
+router.get('/product_clothes/:idx', function(req, res, next){
+  var idx = req.params.idx;
+  var web_product = req.params.web_product;
+
+  pool.getConnection(function(err, connection) {
+    var sql = "select idx, main_img, prd_name, prd_des, price from product_clothes where idx=?";
+
+    connection.query(sql, [idx], function(err, rows){
+      if(err) console.error(err);
+
+      var hit = req.body.hit;
+      var updateSql = "update product_clothes set hit = hit + 1 where idx=?";
+
+      connection.query(updateSql, [idx, hit], function(err, row){
+        console.log("1개 상품 조회 결과 확인 : ", row);
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ENJOY CLOTHES SHOPPING", row:rows[0]});
+      });
+    });
+  });
+});
+
+//TOY 상품 조회
+router.get('/product_toy/:idx', function(req, res, next){
+  var idx = req.params.idx;
+  var web_product = req.params.web_product;
+
+  pool.getConnection(function(err, connection) {
+    var sql = "select idx, main_img, prd_name, prd_des, price from product_toy where idx=?";
+
+    connection.query(sql, [idx], function(err, rows){
+      if(err) console.error(err);
+
+      var hit = req.body.hit;
+      var updateSql = "update product_toy set hit = hit + 1 where idx=?";
+
+      connection.query(updateSql, [idx, hit], function(err, row){
+        console.log("1개 상품 조회 결과 확인 : ", row);
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ENJOY TOY SHOPPING", row:rows[0]});
+      });
+    });
+  });
+});
+
+//HEALTH CARE 상품 조회
+router.get('/product_health/:idx', function(req, res, next){
+  var idx = req.params.idx;
+  var web_product = req.params.web_product;
+
+  pool.getConnection(function(err, connection) {
+    var sql = "select idx, main_img, prd_name, prd_des, price from product_health where idx=?";
+
+    connection.query(sql, [idx], function(err, rows){
+      if(err) console.error(err);
+
+      var hit = req.body.hit;
+      var updateSql = "update product_health set hit = hit + 1 where idx=?";
+
+      connection.query(updateSql, [idx, hit], function(err, row){
+        console.log("1개 상품 조회 결과 확인 : ", row);
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ENJOY HEALTH CARE SHOPPING", row:rows[0]});
+      });
+    });
+  });
+});
+/*****************************************************************************************************/
 //상품 삭제
 router.get('/delete/:idx', function(req, res){
   var idx = req.params.idx;
