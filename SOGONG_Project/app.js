@@ -14,6 +14,7 @@ var infoboard = require('./routes/infoboard');
 var noticeboard = require('./routes/noticeboard');
 var questboard = require('./routes/questboard');
 var productboard = require('./routes/productBoard');
+var cartRouter = require('./routes/cart');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/infoboard',infoboard);
 app.use('/noticeboard', noticeboard);
 app.use('/questboard', questboard);
 app.use('/productBoard', productboard);
+app.use('/cart', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

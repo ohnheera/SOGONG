@@ -1,0 +1,146 @@
+<!-- 희라: 장바구니 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PETPET - Join</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">PITAPET</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Shop
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="/productBoard/list/1">Dog Food</a>
+              <a class="dropdown-item" href="portfolio-2-col.html">Dog Clothes</a>
+              <a class="dropdown-item" href="portfolio-3-col.html">Dog House</a>
+              <a class="dropdown-item" href="portfolio-4-col.html">Dog Snack</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/infoboard">Community</a>
+          </li>
+          <%
+          if(id == null){
+            %>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <%
+          }
+          else{
+            %>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart">Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">Mypage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/logout">Logout</a>
+            </li>
+            <%
+          }
+          %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Custom styles for this template -->
+
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!--Include the above in your HEAD tag ---------->
+</head>
+<body>
+  <!-- Page Content -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>상품</th>
+              <th class="text-center">가격</th>
+              <th class="text-center">총액</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-sm-8 col-md-6">
+                <div class="media">
+                  <a class="thumbnail pull-left"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">상품명</h4>
+                  </div>
+                </div>
+                <td class="col-sm-1 col-md-1 text-center"><strong>가격</strong></td>
+                <td class="col-sm-1 col-md-1 text-center"><strong>총액</strong></td>
+                <td class="col-sm-1 col-md-1">
+                  <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span> 취소
+                  </button></td>
+                </tr>
+
+                <tr>
+                  <td>   </td>
+                  <td><h5>금액</h5></td>
+                  <td class="text-right"><h5><strong>20000</strong></h5></td>
+                </tr>
+                <tr>
+                  <td>   </td>
+                  <td><h5>배송비</h5></td>
+                  <td class="text-right"><h5><strong>3000</strong></h5></td>
+                </tr>
+                <tr>
+                  <td>   </td>
+                  <td><h3>총 비용</h3></td>
+                  <td class="text-right"><h3><strong>23000</strong></h3></td>
+                </tr>
+                <tr>
+                  <td>   </td>
+                  <td>
+                    <a href="/productBoard" button type="button" class="btn btn-default">
+                      <span class="glyphicon glyphicon-shopping-cart"></span> 쇼핑 계속하기
+                    </button></td>
+                    <td>
+                      <a href="#" button type="button" class="btn btn-success">
+                        결제하기 <span class="glyphicon glyphicon-play"></span>
+                      </button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Bootstrap core JavaScript -->
+          <script src="vendor/jquery/jquery.min.js"></script>
+          <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        </body>
+
+        </html>
