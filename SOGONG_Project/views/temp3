@@ -75,6 +75,18 @@
             <div class="card card-outline-secondary my-4">
               <input type="hidden" name="idx" value="<%=row.idx%>"/>
               <div class="card-header">
+                Category
+              </div>
+              <div class="card-body">
+                <select name="Category" id="Category" >
+                  <option value="0">FOOD</option>
+                  <option value="1">CLOTHES</option>
+                  <option value="2">HOUSE</option>
+                  <option value="3">HEALTH CARE</option>
+                </select>
+              </div>
+              <hr>
+              <div class="card-header">
                 Product Name
               </div>
               <div class="card-body">
