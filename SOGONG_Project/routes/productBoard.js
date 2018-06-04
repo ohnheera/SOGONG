@@ -38,7 +38,7 @@ router.get('/list/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'MY PET', title : 'PRODUCT LIST', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'Pit-A-Pet', title : 'PRODUCT LIST', rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -46,7 +46,7 @@ router.get('/list/:page', function(req, res, next){
 
 //상품등록 화면 표시 GET
 router.get('/write_product', function(req, res, next) {
-  res.render('write_product', {web_name : 'Pit A Pet', title : 'WRITE PRODUCT'});
+  res.render('write_product', {web_name : 'Pit-A-Pet', title : 'WRITE PRODUCT'});
 });
 
 //상품등록 로직 처리 POST
@@ -88,7 +88,7 @@ router.get('/product/:idx', function(req, res, next){
 
       connection.query(updateSql, [idx, hit], function(err, row){
         console.log("1개 상품 조회 결과 확인 : ", row);
-        res.render('product', {web_name : 'Pit A Pet', title : "ITEM VIEW", row:rows[0]});
+        res.render('product', {web_name : 'Pit-A-Pet', title : "ITEM VIEW", row:rows[0]});
       });
     });
   });
@@ -119,7 +119,7 @@ router.get('/update_product', function(req, res, next){
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
-      res.render('update_product', {web_name : 'Pit A Pet', title : 'UPDATE PRODUCT', row:rows[0]});
+      res.render('update_product', {web_name : 'Pit-A-Pet', title : 'UPDATE PRODUCT', row:rows[0]});
       connection.release();
     });
   });
