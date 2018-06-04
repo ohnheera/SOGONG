@@ -74,6 +74,18 @@
           <form action="/productBoard/write_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
               <div class="card-header">
+                Category
+              </div>
+              <div class="card-body">
+                <select name="category" id="category" >
+                  <option value="0">FOOD</option>
+                  <option value="1">CLOTHES</option>
+                  <option value="2">HOUSE</option>
+                  <option value="3">HEALTH CARE</option>
+                </select>
+              </div>
+              <hr>
+              <div class="card-header">
                 Product Name
               </div>
               <div class="card-body">
