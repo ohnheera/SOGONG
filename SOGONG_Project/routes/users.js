@@ -27,6 +27,7 @@ var pool = mysql.createPool({
   password:'12345'
 });
 
+
 //Mypage '/users'
 router.get('/', function(req, res, next) {
   var id = null;
@@ -65,6 +66,55 @@ router.post('/', function(req, res, next) {
   }
 });
 
+
+
+//포인트 뷰
+router.get('/pointview', function(req, res, next) {
+  var session = req.session;
+  var user_id = session.user_id;
+  if(user_id){
+    pool.getConnection(function(err,connection)
+    {
+      var sql="select order_num,point,date from point where id = ?";
+      connection.query(sql,[user_id],function(err,row)
+      {
+        if(err) console.error(err);
+        console.log("포인트 이력 조회를 위한 정보 조회: ", row);
+        res.render('point_view',{title:"point", row:row[0]});
+        connection.release();
+      });
+    });
+  }
+  else{
+    console.log("포인트 정보 조회 실패");
+    res.redirect('/users');
+    connection.release();
+  }
+});
+
+//쿠폰 뷰
+router.get('/couponview', function(req, res, next) {
+  var session = req.session;
+  var user_id = session.user_id;
+  if(user_id){
+    pool.getConnection(function(err,connection)
+    {
+      var sql="select coupontype,end_date,start_date from coupon where id = ?";
+      connection.query(sql,[user_id],function(err,row)
+      {
+        if(err) console.error(err);
+        console.log("포인트 이력 조회를 위한 정보 조회: ", row);
+        res.render('coupon_view',{title:"coupon", row:row[0]});
+        connection.release();
+      });
+    });
+  }
+  else{
+    console.log("쿠폰 정보 조회 실패");
+    res.redirect('/users');
+    connection.release();
+  }
+});
 
 //로그인 된 user만 접근 가능, 로그인 안된 사용자는 login page로 redirect 'users/view'
 router.get('/view', function(req, res, next) {

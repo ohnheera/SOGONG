@@ -26,6 +26,17 @@
 
   <body>
 
+    <script>
+           function window_point(){
+               var url="/users/pointview";
+               window.open(url,"","width=400,height=400,left=600");
+           }
+           function window_coupon(){
+               var url="/users/couponview";
+               window.open(url,"","width=400,height=400,left=600");
+           }
+    </script>
+
     <!-- Navigation -->
     <nav class="navbar navbar-dark bg-dark static-top">
       <div class="container">
@@ -63,8 +74,8 @@
             <h1 class="mb-5"><%=row.name%>님 환영합니다.</h1>
           </div>
           <div class="col-xl-9 mx-auto">
-            <a class="btn " style="width:100px; color:#ffff; background-color:transparent;" href="#"><h3><span>적립금<br><small>0 원</small></span></h3></a>
-            <a class="btn " style="width:100px; color:#ffff; background-color:transparent;" href="#"><h3><span>쿠폰<br><small>0 개</small></span></h3></a>
+            <a class="btn " onclick="window_point()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>적립금<br></span></h3></a>
+            <a class="btn " onclick="window_coupon()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>쿠폰<br></span></h3></a>
           </div>
         </div>
       </div>
