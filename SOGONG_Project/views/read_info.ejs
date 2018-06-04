@@ -39,7 +39,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
+            <%
+              if(id==null){
+            %>
+            <a class="nav-link" href="/login">LogIn</a>
+            <%
+              }
+              else{
+            %>
+            <a class="nav-link" href="/">LogOut</a>
+            <%
+            }
+            %>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Cart</a>

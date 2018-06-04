@@ -62,7 +62,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">LogOut</a>
+            <%
+              if(id==null){
+            %>
+            <a class="nav-link" href="/login">LogIn</a>
+            <%
+              }
+              else{
+            %>
+            <a class="nav-link" href="/">LogOut</a>
+            <%
+            }
+            %>
           </li>
         </ul>
       </div>
