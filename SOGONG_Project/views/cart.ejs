@@ -74,7 +74,8 @@
 </head>
 <body>
   <!-- Page Content -->
-
+  <% var TOTAL = 0;
+    var shipping = 0;%>
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -88,36 +89,49 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="col-sm-8 col-md-6">
-                <div class="media">
-                  <a class="thumbnail pull-left"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
-                  <div class="media-body">
-                    <h4 class="media-heading">상품명</h4>
+            <%
+            for(var i=0;i<row.length;i++)
+            {
+              var oneItem=row[i];
+              var total = oneItem.price * oneItem.amount;
+              TOTAL += total;
+              %>
+              <tr>
+                <td class="col-sm-8 col-md-6">
+                  <div class="media">
+                    <a class="thumbnail pull-left"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                    <div class="media-body">
+                      <h4 class="media-heading"><%=oneItem.name%> <small><%=oneItem.product_num%></small></h4>
+                    </div>
                   </div>
-                </div>
-                <td class="col-sm-1 col-md-1 text-center"><strong>가격</strong></td>
-                <td class="col-sm-1 col-md-1 text-center"><strong>총액</strong></td>
-                <td class="col-sm-1 col-md-1">
-                  <button type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-remove"></span> 취소
-                  </button></td>
-                </tr>
+                  <td class="col-sm-1 col-md-1 text-center"><strong><%=oneItem.price%></strong></td>
+                  <td class="col-sm-1 col-md-1 text-center"><strong><%=total%></strong></td>
+                  <td class="col-sm-1 col-md-1">
+                    <button type="button" class="btn btn-danger">
+                      <span class="glyphicon glyphicon-remove"></span> 취소
+                    </button></td>
+                  </tr>
+                  <%
+                }
+                %>
+
 
                 <tr>
                   <td>   </td>
                   <td><h5>금액</h5></td>
-                  <td class="text-right"><h5><strong>20000</strong></h5></td>
+                  <td class="text-right"><h5><strong><%=TOTAL%></strong></h5></td>
                 </tr>
+                <% if(TOTAL <= 30000) shipping = 0;
+                  TOTAL += shipping;%>
                 <tr>
                   <td>   </td>
                   <td><h5>배송비</h5></td>
-                  <td class="text-right"><h5><strong>3000</strong></h5></td>
+                  <td class="text-right"><h5><strong><%=shipping%></strong></h5></td>
                 </tr>
                 <tr>
                   <td>   </td>
                   <td><h3>총 비용</h3></td>
-                  <td class="text-right"><h3><strong>23000</strong></h3></td>
+                  <td class="text-right"><h3><strong><%=TOTAL%></strong></h3></td>
                 </tr>
                 <tr>
                   <td>   </td>

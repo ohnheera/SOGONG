@@ -29,6 +29,17 @@
 </head>
 
 <body>
+  <script>
+  var interval = setInterval(timestamphome, 1000);
+
+  function timestamphome(){
+    var date;
+    date = new Date();
+
+    var time = document.getElementById('timediv');
+    time.innerHTML = date.toLocaleTimeString();
+  }
+  </script>
 
   <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -81,7 +92,7 @@
   </nav>
 
   <!-- Content -->
-<!-- "메인 화면에 이미지 올리는 법" Slide 이미지는 'uploads/mainpage_'에 '1,2,3'으로 저장시 각각 display -->
+  <!-- "메인 화면에 이미지 올리는 법" Slide 이미지는 'uploads/mainpage_'에 '1,2,3'으로 저장시 각각 display -->
 
   <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -127,40 +138,42 @@
   <!-- Page Content -->
   <div class="container">
 
-    <h1 class="my-4">Menu1</h1>
+    <h1 class="my-4" align="center">Special Offer</h1>
 
     <!-- Marketing Icons Section -->
-    <div class="row">
+    <div class="row" align="center" >
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
-          <h4 class="card-header">Card Title</h4>
+          <h4 class="card-header" style="background-color: #FF80B5; color: white;">이벤트</h4>
           <div class="card-body">
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
+            <a href="#" class="btn" style="background-color: #FF80B5; color: white;">Learn More</a>
           </div>
         </div>
       </div>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
-          <h4 class="card-header">Card Title</h4>
+          <h4 class="card-header" style="background-color: #C593FF; color: white;">오늘의 특가<small>
+            <div class="body_" id="body_"><div id="timediv"></div></div></small>
+          </h4>
           <div class="card-body">
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
+            <a href="#" class="btn" style="background-color: #C593FF; color: white;">Learn More</a>
           </div>
         </div>
       </div>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
-          <h4 class="card-header">Card Title</h4>
+          <h4 class="card-header" style="background-color: #9EC2FF; color: white;">맞춤상품</h4>
           <div class="card-body">
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
+            <a href="#" class="btn" style="background-color: #9EC2FF; color: white;">Learn More</a>
           </div>
         </div>
       </div>
@@ -168,70 +181,74 @@
     <!-- /.row -->
 
     <!-- Portfolio Section -->
-    <h2>Menu2</h2>
+    <h1 align ="center">BEST 3</h1>
 
     <div class="row">
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFE49B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project One</a>
+              <a href="#" style="color: black;" >Project One</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFE49B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Two</a>
+              <a href="#" style="color: black;">Project Two</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFE49B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Three</a>
+              <a href="#"style="color: black;" >Project Three</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
           </div>
         </div>
       </div>
+    </div>
+
+    <h1 align ="center">NEW ARRIVAL</h1>
+    <div class="row">
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFB28B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
+          <div class="card-body" >
             <h4 class="card-title">
-              <a href="#">Project Four</a>
+              <a href="#" style="color: black;">Project Four</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFB28B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Five</a>
+              <a href="#"style="color: black;">Project Five</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100">
+        <div class="card h-100" style="background-color: #FFB28B;">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#">Project Six</a>
+              <a href="#" style="color: black;">Project Six</a>
             </h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
           </div>
@@ -256,7 +273,7 @@
         <p>PITAPET by SOGONG</p>
       </div>
       <div class="col-lg-6">
-        <img class="img-fluid rounded" style="width: 300px; height:auto;" src="http://localhost:3000/mainpage/logo.png" alt="">
+        <img class="img-fluid rounded" align="right" style="width: 300px; height:auto;" src="http://localhost:3000/mainpage/logo.png" alt="">
       </div>
     </div>
     <!-- /.row -->
