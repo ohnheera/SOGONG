@@ -22,17 +22,20 @@ router.get('/', function(req, res, next) {
 
   pool.getConnection(function(err,connection)
   {
-    var sql1 = "SELECT idx,main_img,prd_name,prd_des,price,sell_rate FROM product_food UNION ALL SELECT idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_toy UNION ALL SELECT idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_health UNION ALL SELECT idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_clothes ORDER BY sell_rate LIMIT 3"
+    var sql1 = "SELECT category,idx,main_img,prd_name,prd_des,price,sell_rate FROM product_food UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_toy UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_health UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_clothes ORDER BY sell_rate LIMIT 3"
     //best3
-    var sql2 = "SELECT idx,main_img,prd_name,prd_des,price,event FROM product_food WHERE event > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price,event FROM product_health WHERE event > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price,event FROM product_toy WHERE event > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price,event FROM product_clothes WHERE event > 0 ORDER BY event LIMIT 1";
+    var sql2 = "SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_food WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_health WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_toy WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_clothes WHERE event > 0 ORDER BY event LIMIT 1";
     //event중인 prd
-    var sql3 = "SELECT idx,main_img,prd_name,prd_des,price FROM product_food WHERE td_special > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price FROM product_health WHERE td_special > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price FROM product_toy WHERE td_special > 0  UNION ALL SELECT idx,main_img,prd_name,prd_des,price FROM product_clothes WHERE td_special > 0 ORDER BY idx LIMIT 1";
+    var sql3 = "SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_food WHERE td_special > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_health WHERE td_special > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_toy WHERE td_special > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_clothes WHERE td_special > 0 ORDER BY idx LIMIT 1";
     //오늘의 특가, 4개의 table에서
+    var sql4 = "SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_food UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_toy UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_health UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_clothes ORDER BY idx LIMIT 3"
+    //NEW
+
 
     //prd에 들어가는 정보
     //0: best from food / 1: best from health / 2: best from toy
-    //3: event / 4: today's deal / 5: match to user
-    //6: new1 / 7: new2 / 8 new3
+    //3: event / 4: today's deal / 8: match to user
+    //5: new1 / 6: new2 / 7: new3
 
     connection.query(sql1 ,function(err,prd1)
     {
@@ -46,10 +49,14 @@ router.get('/', function(req, res, next) {
         {
           if(err) console.error(err);
           console.log("특가: ", prd3);
+          connection.query(sql4 ,function(err,prd4)
+          {
+            if(err) console.error(err);
+            console.log("NEW: ", prd4);
 
-
-          res.render('index',{title:"Home", prd1,prd2,prd3, id:user_id});
-          connection.release();
+            res.render('index',{title:"Home", prd1,prd2,prd3,prd4, id:user_id});
+            connection.release();
+          });
         });
       });
     });
