@@ -65,6 +65,13 @@
             <a class="nav-link" href="/infoboard">Community</a>
           </li>
           <%
+          if(id == "seller"){
+            %>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><strong>Manage</strong></a>
+            </li>
+            <%}%>
+          <%
           if(id == null){
             %>
             <li class="nav-item">
@@ -170,8 +177,15 @@
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #9EC2FF; color: white;">맞춤상품</h4>
           <div class="card-body">
-            <p class="card-text">상품정보</p>
-          </div>
+            <%
+            if(id == null){
+              %>
+              <p class="card-text"><a href="/join">가입</a>하시면 맞춤상품을 추천해드립니다.</p></div>
+            <%}
+            else{%>
+              <p class="card-text">맞춤상품의 이미지 show</p></div>
+              <%}%>
+
           <div class="card-footer">
             <a href="#" class="btn" style="background-color: #9EC2FF; color: white;">Learn More</a>
           </div>
@@ -183,72 +197,82 @@
     <!-- Portfolio Section -->
     <h1 align ="center">BEST 3</h1>
 
-    <div class="row">
+
+    <div class="row"  align="center">
+      <%if(prd[0] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFE49B;">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <div class="card h-100" >
+          <a href="/productBoard/product_food/<%=prd[0].idx%>"><img class="card-img-top" src=<%=prd[0].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#" style="color: black;" >Project One</a>
+              <a href="/productBoard/product_food/<%=prd[0].idx%>" style="color: black;"><%=prd[0].prd_name%></a>
             </h4>
-            <p class="card-text">상품정보</p>
+            <p class="card-text">BEST FOOD</p>
+            <p class="card-text"><%=prd[0].prd_des%></p>
           </div>
         </div>
       </div>
+      <%}%>
+      <%if(prd[1] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFE49B;">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <div class="card h-100" >
+          <a href="/productBoard/product_food/<%=prd[1].idx%>"><img class="card-img-top" src=<%=prd[1].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#" style="color: black;">Project Two</a>
+              <a href="/productBoard/product_food/<%=prd[1].idx%>" style="color: black;"><%=prd[1].prd_name%></a>
             </h4>
-            <p class="card-text">상품정보</p>
+            <p class="card-text">BEST HEALTH</p>
+            <p class="card-text"><%=prd[1].prd_des%></p>
           </div>
         </div>
       </div>
+      <%}%>
+      <%if(prd[2] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFE49B;">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <div class="card h-100" >
+          <a href="/productBoard/product_food/<%=prd[2].idx%>"><img class="card-img-top" src=<%=prd[2].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#"style="color: black;" >Project Three</a>
+              <a href="/productBoard/product_food/<%=prd[2].idx%>" style="color: black;"><%=prd[2].prd_name%></a>
             </h4>
-            <p class="card-text">상품정보</p>
+            <p class="card-text">BEST TOY</p>
+            <p class="card-text"><%=prd[2].prd_des%></p>
           </div>
         </div>
       </div>
+      <%}%>
     </div>
 
     <h1 align ="center">NEW ARRIVAL</h1>
-    <div class="row">
+    <div class="row"  align="center">
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFB28B;">
+        <div class="card h-100" >
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body" >
             <h4 class="card-title">
-              <a href="#" style="color: black;">Project Four</a>
+              <a href="#" style="color: black;">상품이름</a>
+            </h4>
+            <p class="card-text">상품정보(가격 등)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100" >
+          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#"style="color: black;">상품이름</a>
             </h4>
             <p class="card-text">상품정보</p>
           </div>
         </div>
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFB28B;">
+        <div class="card h-100">
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="#"style="color: black;">Project Five</a>
-            </h4>
-            <p class="card-text">상품정보</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100" style="background-color: #FFB28B;">
-          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#" style="color: black;">Project Six</a>
+              <a href="#" style="color: black;">상품이름</a>
             </h4>
             <p class="card-text">상품정보</p>
           </div>
