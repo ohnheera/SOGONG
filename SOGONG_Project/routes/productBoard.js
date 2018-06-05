@@ -117,6 +117,8 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
   var joint = 0;
   var hair = 0;
   var diet = 0;
+  var td_special = 0;
+  var price_event = 0;
 
 
   if(req.body.tear){
@@ -131,12 +133,18 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
   if(req.body.diet){
     diet = 1;
   }
+  if(req.body.td_special!=0) {
+    td_special = req.body.td_special;
+  }
+  if(req.body.event!=0) {
+    price_event = req.body.event;
+  }
 
-  var datas = [idx, main_img, prd_name, prd_des, price, tear, joint, hair, diet];
+  var datas = [idx, category, main_img, prd_name, prd_des, price, td_special, price_event, tear, joint, hair, diet];
   pool.getConnection(function(err, connection) {
     //Use the connection
-    if(category==0) {
-      var sqlForInsert = "insert into product_food(idx, main_img, prd_name, prd_des, price, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?)";
+    if(category==0) { //FOOD Category
+      var sqlForInsert = "insert into product_food(idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?,?,?,?)";
       connection.query(sqlForInsert, datas, function(err, rows){
         if(err) console.error("err : " + err);
         console.log("rows : " + JSON.stringify(rows));
@@ -147,8 +155,8 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
         //Don't use the connection here, it has been returned to the pool.
       });
     }
-    else if(category==1) {
-      var sqlForInsert = "insert into product_clothes(idx, main_img, prd_name, prd_des, price, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?)";
+    else if(category==1) { //CLOTHES Category
+      var sqlForInsert = "insert into product_clothes(idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?,?,?,?)";
       connection.query(sqlForInsert, datas, function(err, rows){
         if(err) console.error("err : " + err);
         console.log("rows : " + JSON.stringify(rows));
@@ -159,8 +167,8 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
         //Don't use the connection here, it has been returned to the pool.
       });
     }
-    else if(category==2) {
-      var sqlForInsert = "insert into product_toy(idx, main_img, prd_name, prd_des, price, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?)";
+    else if(category==2) { //TOY Category
+      var sqlForInsert = "insert into product_toy(idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?,?,?,?)";
       connection.query(sqlForInsert, datas, function(err, rows){
         if(err) console.error("err : " + err);
         console.log("rows : " + JSON.stringify(rows));
@@ -171,8 +179,8 @@ router.post('/write_product', upload.single('main_img'), function(req,res,next){
         //Don't use the connection here, it has been returned to the pool.
       });
     }
-    else if(category==3) {
-      var sqlForInsert = "insert into product_health(idx, main_img, prd_name, prd_des, price, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?)";
+    else if(category==3) { //HeALTH CARE Category
+      var sqlForInsert = "insert into product_health(idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?,?,?,?)";
       connection.query(sqlForInsert, datas, function(err, rows){
         if(err) console.error("err : " + err);
         console.log("rows : " + JSON.stringify(rows));
