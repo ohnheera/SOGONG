@@ -98,6 +98,17 @@
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
             -->
+            <small><input type="text" name="num_prd" id="num_prd" size="20" maxLength="20" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/></small>
+            <a onclick="addProduct(<%=row.idx%>,<%=row.category%>)">장바구니에 추가</a>
+            <script>
+              function addProduct(idx, category) {
+                if(confirm("상품을 장바구니에 추가하시겠습니까?")==true) {
+                  var text1 = "/productBoard/addProduct?idx="
+                  var num_prd = document.getElementById("num_prd").value;
+                  location.href = text1.concat(idx,"&category=",category,"&num_prd=",num_prd);
+                }
+              }
+            </script>
             </div>
           </div>
           <!-- /.card -->

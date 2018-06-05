@@ -91,54 +91,85 @@
           <form action="/productBoard/update_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
               <input type="hidden" name="idx" value="<%=row.idx%>"/>
-              <div class="card-header">
-                Category
-              </div>
-              <div class="card-body">
-                <select name="Category" id="Category" >
-                  <option value="0">FOOD</option>
-                  <option value="1">CLOTHES</option>
-                  <option value="2">HOUSE</option>
-                  <option value="3">HEALTH CARE</option>
-                </select>
-              </div>
-              <hr>
-              <div class="card-header">
-                Product Name
-              </div>
-              <div class="card-body">
-                <input type="text" name="prd_name" id="prd_name" value="<%=row.prd_name%>" size="40" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/>
-              </div>
-              <hr>
-              <div class="card-header">
-                Product Image
-              </div>
-              <div class="card-body">
-                <p>
-                  <input type="hidden" name="image_previous" value="<%=row.main_img%>" />
-                  <img src= "<%=row.main_img%>" width="200" height="200">
-                </p>
-                <input type="file" name="main_img" id="main_img" accept="image/*" required/>
-              </div>
-              <hr>
-              <div class="card-header">
-                Product Description
-              </div>
-              <div class="card-body">
-                <textarea name="prd_des" id="prd_des" cols="90" rows="15" required/><%=row.prd_des%></textarea>
-              </div>
-              <hr>
-              <div class="card-header">
-                Product Price
-              </div>
-              <div class="card-body">
-                <input type="text" name="price" id="price" value="<%=row.price%>" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
-              </div>
+              <div class="form-group" style="padding-left:5px; padding-top:5px;">
+              <h5>카테고리
+              <small><select name="category" id="category" value=<%=row.category%> >
+                <option value="0">FOOD</option>
+                <option value="1">CLOTHES</option>
+                <option value="2">Toy</option>
+                <option value="3">HEALTH CARE</option>
+              </select></small>
+              </h5>
             </div>
-            <div align="right">
-              <button type="submit" class="btn btn-success"><span>SAVE</span></button>
-            </div>
-          </form>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상품이름
+                  <small><input type="text" name="prd_name" id="prd_name" value="<%=row.prd_name%>" size="20" maxLength="20" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"placeholder="상품명을 입력하세요"required/></small>
+                </h5>
+              </div>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상품사진
+                  <p>
+                    <input type="hidden" name="image_previous" value="<%=row.main_img%>" />
+                    <img src= "<%=row.main_img%>" width="200" height="200">
+                  </p>
+                  <small><input type="file" name="main_img" id="main_img" accept="image/*" required/></small>
+                </h5>
+              </div>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상세설명</h5>
+                <div style="padding-left:15px">
+                  <small><textarea name="prd_des" id="prd_des" cols="90" rows="15" required/><%=row.prd_des%></textarea></small>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>판매가격
+                  <small><input type="text" name="price" id="price" value="<%=row.price%>" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
+                  </small></h5>
+              </div>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5> 관심사 분류 </h5>
+                    <div class="checkbox" style="padding-left:15px">
+                      <label for="checkbox-0">
+                        <input type="checkbox" name="tear" id="tear" value="1">
+                        눈물 개선
+                      </label>
+                      <label for="checkbox-1">
+                        <input type="checkbox" name="joint" id="joint" value="2">
+                        관절 개선
+                      </label>
+                      <label for="checkbox-2">
+                        <input type="checkbox" name="hair" id="hair" value="3">
+                        모질 개선
+                      </label>
+                      <label for="checkbox-3">
+                        <input type="checkbox" name="diet" id="diet" value="4">
+                        다이어트
+                      </label>
+                    </div>
+                </div>
+                <!-- 특가 퍼센트가 0이면 오늘의 특가 적용 안한다는 의미 -->
+                <div class="form-group" style="padding-left:5px">
+                  <h5>오늘의 특가
+                    <small><input type="text" name="td_special" id="td_special" size="5" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>%
+                    </small></h5>
+                </div>
+
+                <!-- 이벤트 퍼센트가 0이면 이벤트 적용 안한다는 의미 -->
+                <div class="form-group" style="padding-left:5px">
+                  <h5>이벤트
+                    <small><input type="text" name="event" id="event" size="5" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>%
+                    </small></h5>
+                </div>
+              </div>
+              <div align="right">
+                <button type="submit" class="btn btn-success"><span>SAVE</span></button>
+              </div>
+            </form>
           <script>
             function onWriteSubmit() {
               if($("#prd_name").val().trim()=="") {
