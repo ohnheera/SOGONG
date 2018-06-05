@@ -309,6 +309,8 @@ router.get('/delete/:idx', function(req, res){
 //상품 수정 화면 가져오기
 router.get('/update_product', function(req, res, next){
   var idx = req.query.idx;
+  var session = req.session;
+  var id=session.user_id;
 
   pool.getConnection(function(err, connection){
     if(err) console.error("커넥션 객체 얻어오기 에러 : ", err);
@@ -317,7 +319,7 @@ router.get('/update_product', function(req, res, next){
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
-      res.render('update_product', {web_name : 'Pit-A-Pet', title : 'UPDATE PRODUCT', row:rows[0]});
+      res.render('update_product', {web_name : 'Pit-A-Pet',id:id, title : 'UPDATE PRODUCT', row:rows[0]});
       connection.release();
     });
   });
