@@ -76,11 +76,11 @@ router.post('/',upload.single('pic'), function(req,res,next){
 
   pool.getConnection(function(err,connection)
   {
-    var sql = "SELECT ? FROM userinfo GROUP BY id HAVING COUNT (id) > 1";
+    var sql = "SELECT id FROM userinfo where id = ?";
 
     connection.query(sql,id,function(err,rows)
     {
-      console.log("rows: "+JSON.stringify(rows[0]));
+      console.log("rows: " + rows);
       if(err) console.error("err: "+err);
       if(rows[0]!=null){
         res.send("<script>alert('아이디가 중복입니다.');history.back();</script>");
