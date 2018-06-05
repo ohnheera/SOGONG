@@ -30,7 +30,12 @@ router.get('/', function(req, res, next) {
     //오늘의 특가, 4개의 table에서
     var sql4 = "SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_food UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_toy UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_health UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_clothes ORDER BY idx LIMIT 3"
     //NEW
+    var sql5 = "SELECT  interest0,interest1,interest2,interest3 FROM userinfo WHERE id = ?"
+    //USER의 선호 가져오기
+    var sql6 = "SELECT  category,idx,main_img,prd_name,prd_des,price FROM product_food WHERE tear = ? or joint = ? or hair = ? or diet = ? UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_toy WHERE tear = ? or joint = ? or hair = ? or diet = ? UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_health WHERE tear = ? or joint = ? or hair = ? or diet = ? UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price FROM  product_clothes WHERE tear = ? or joint = ? or hair = ? or diet = ?"
+    //USER의 선호 PRODUCT 가져오기
 
+    //선호 PRODUCT중 하나만 랜덤하게 보내기
 
     //prd에 들어가는 정보
     //0: best from food / 1: best from health / 2: best from toy
@@ -53,9 +58,32 @@ router.get('/', function(req, res, next) {
           {
             if(err) console.error(err);
             console.log("NEW: ", prd4);
+            if(user_id!=null){
+            connection.query(sql5 ,[user_id],function(err,interests)
+            {
+              if(err) console.error(err);
 
-            res.render('index',{title:"Home", prd1,prd2,prd3,prd4, id:user_id});
+              //interest가 0인것은 5로 바꿔 select에 포함되지 않도록 함
+              if(interests[0].interest0==0) interests[0].interest0=5;
+              if(interests[0].interest1==0) interests[0].interest1=5;
+              if(interests[0].interest2==0) interests[0].interest2=5;
+              if(interests[0].interest3==0) interests[0].interest3=5;
+
+              console.log("interest: ", interests);
+              connection.query(sql6 ,[interests[0].interest0,interests[0].interest1,interests[0].interest2,interests[0].interest3,interests[0].interest0,interests[0].interest1,interests[0].interest2,interests[0].interest3,interests[0].interest0,interests[0].interest1,interests[0].interest2,interests[0].interest3,interests[0].interest0,interests[0].interest1,interests[0].interest2,interests[0].interest3],function(err,prd5)
+              {
+                if(err) console.error(err);
+                console.log("interested product: ", prd5);
+
+                res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5, id:user_id});
+                connection.release();
+              });
+            });
+          }
+          else {
+            res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5:null, id:user_id});
             connection.release();
+          }
           });
         });
       });
