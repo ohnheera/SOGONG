@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PITAPET</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+
+    <style>
+      /* CSS for Credit Card Payment form */
+      .credit-card-box .panel-title {
+        display: inline;
+        font-weight: bold;
+      }
+      .credit-card-box .form-control.error {
+        border-color: red;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+      }
+      .credit-card-box label.error {
+      font-weight: bold;
+      color: red;
+      padding: 2px 8px;
+      margin-top: 2px;
+      }
+      .credit-card-box .payment-errors {
+      font-weight: bold;
+      color: red;
+      padding: 2px 8px;
+      margin-top: 2px;
+      }
+      .credit-card-box label {
+        display: block;
+      }
+      /* The old "center div vertically" hack */
+      .credit-card-box .display-table {
+        display: table;
+      }
+      .credit-card-box .display-tr {
+        display: table-row;
+      }
+      .credit-card-box .display-td {
+        display: table-cell;
+        vertical-align: middle;
+        width: 50%;
+      }
+      /* Just looks nicer */
+      .credit-card-box .panel-heading img {
+        min-width: 180px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">PITAPET</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">MyPage
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/productBoard/list/1">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Cart</a>
+            </li>
+            <li class="nav-item active">
+              <!-- 왜 안될까 -->
+              <a class="nav-link" href="/noticeboard/list_notice/1">Community
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <%
+                if(id==null){
+              %>
+              <a class="nav-link" href="/login">LogIn</a>
+              <%
+                }
+                else{
+              %>
+              <a class="nav-link" href="/login/logout">LogOut</a>
+              <%
+              }
+              %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading -->
+      <h1 class="my-4">주문서
+        <small>결제 하기</small>
+      </h1>
+      <%
+        var user=id;
+      %>
+
+      <h4 class="my-4">* 상품확인</h4>
+      <!-- Project One -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="project_table">
+            <table border="1" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="60%">상품명</th>
+                  <th width="10%">정가</th>
+                  <th width="10%">할인</th>
+                  <th width="10%">수량</th>
+                  <th width="10%">합계</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%
+                var total_price=0;
+                var total_discount=0;
+                for(var i=0;i<(leng);i++){
+                  var cart=row_cart[i];
+                %>
+                <tr>
+                  <td><img src= "<%=cart.pic%>" style="max-width: 50%; height: auto;"><%=cart.name%></td>
+                  <td><%=cart.price%></td>
+                  <td>
+                    <%
+                      if(cart.sale==1){
+                    %>
+                    -10%
+                    <%
+                      }
+                    %>
+                  </td>
+                  <td><%=cart.amount%></td>
+                  <td>
+                    <%
+                      var before=cart.price;
+                      var amount=cart.amount;
+                      var discount=0;
+                      if(cart.sale==1){
+                        discount=before*amount*0.1;
+                      }
+                      var after=(before*amount)-discount;
+                      total_price+=after;
+                      total_discount+=discount;
+                    %>
+                    <%=after%>원
+                  </td>
+                </tr>
+                <%
+                }
+                %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <form action="/cart">
+        * 상품변경을 원하시면 <button type="submit" class="btn" onclick="return confirm('장바구니로 이동하시겠습니까?')">장바구니 ></button>
+      </form>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="price">
+            <table border="1" class="table table-striped table-bordered" id="price_table">
+              <thead>
+                <tr>
+                  <th width="20%">총 상품금액</th>
+                  <th width="20%">총 할인금액</th>
+                  <th width="20%">사용할 적립금</th>
+                  <th width="40%">최종결제금액</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%=total_price%>원</td>
+                  <td><%=total_discount%>원</td>
+                  <td><%=row_user.point%>원</td>
+                  <td>
+                    <%
+                      var real_price=total_price-total_discount;
+                      var real_price2=total_price-total_discount;
+                      if(row_user.point!=null){
+                        real_price=real_price-row_user.point;
+                      }
+                    %>
+                    <%=real_price%>원
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            * 보유적립금 : <%=row_user.point%>원
+            <%
+              if(row_user.point==null||row_user.point<=10){
+            %>
+              <br><small>사용할 수 있는 적립금이 없습니다. 10원 이상부터 사용 가능합니다.</small>
+            <%
+              }
+              else{
+            %>
+              <br>
+              <small>사용할 적립금을 입력하세요.
+                <input type="number" name="point" id="point" class="input-lg" placeholder="적립금입력" value="<%=row_user.point%>" tabindex="1">
+                <button type="button" class="btn-sm" onclick="point_apply();">적용</button>
+              </small>
+            <%
+              }
+            %>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <%
+            var getp = real_price2 * 0.05;
+          %>
+          * 적립혜택 : <%=getp%>원
+        </div>
+      </div>
+      <!-- /.row -->
+      <script>
+        function point_apply(){
+          var point = document.getElementById('point').value;
+          var table1 = document.getElementById("price_table");
+          var table2=document.getElementById("final_check");
+          var have = "<%=row_user.point%>";
+          var tp="<%=real_price2%>";
+          if(point>have){
+            alert("보유 포인트를 초과하여 입력하였습니다.");
+          }
+          else{
+            tp=tp-point;
+            table1.rows[1].cells[2].innerHTML = point+"원";
+            table1.rows[1].cells[3].innerHTML = tp+"원";
+            table2.rows[2].cells[1].innerHTML = tp+"원";
+          }
+        }
+      </script>
+      <hr>
+      <!-- Project Two -->
+      <div class="row">
+        <div class="col-md-7">
+          <h4 class="my-4">* 배송주소</h4>
+          <div class="deliver_table">
+            <table border="1" class="table table-striped table-bordered">
+              <tr>
+                <th width="20%">받는 분 이름</th>
+                <td width="80%"><input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" value="<%=row_user.name%>" tabindex="3" required></td>
+              </tr>
+              <tr>
+                <th width="20%">배송주소</th>
+                <td width="80%"><input type="text" name="address" id="address" class="form-control input-lg" placeholder="주소" value="<%=row_user.address%>" tabindex="6" required></td>
+              </tr>
+              <tr>
+                <th width="20%">핸드폰</th>
+                <td width="80%"><input type="hidden" name="tel" id="tel" required>
+                <select name="tel1" id="tel1" >
+                  <option value="010">010</option>
+                  <option value="011">011</option>
+                  <option value="016">016</option>
+                  <option value="017">017</option>
+                  <option value="018">018</option>
+                  <option value="019">019</option>
+                </select>
+                -
+                <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                -
+                <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <h4 class="my-4">* 주문고객</h4>
+          <div class="user_table table-sm">
+            <table border="1" class="table table-striped table-bordered">
+              <tr>
+                <th width="30%">아이디</th>
+                <td width="70%"><input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" value="<%=user%>" tabindex="2" required></td>
+              </tr>
+              <tr>
+                <th width="30%">이름</th>
+                <td width="70%"><input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" value="<%=row_user.name%>" tabindex="3" required></td>
+              </tr>
+              <tr>
+                <th width="30%">핸드폰</th>
+                <td width="70%"><input type="hidden" name="tel" id="tel" required>
+                  <select name="tel1" id="tel1" >
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="016">016</option>
+                    <option value="017">017</option>
+                    <option value="018">018</option>
+                    <option value="019">019</option>
+                  </select>
+                  -
+                  <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                  -
+                  <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required><br>
+                  <small>* 이 번호로 주문진행과정이 SMS로 안내됩니다.</small>
+                </td>
+              </tr>
+              <tr>
+                <th width="30%">이메일</th>
+                <td width="70%"><input type="email" name="email" id="email" class="form-control input-lg" placeholder="이메일" value="<%=row_user.email%>" tabindex="4" required></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <hr>
+
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+      <!-- If you're using Stripe for payments -->
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+      <!-- Project Three -->
+      <div class="row">
+        <div class="col-md-7">
+          <h4 class="my-4">* 결제하기</h4>
+          <div class="container">
+              <div class="row">
+                  <!-- You can make it whatever width you want. I'm making it full width
+                       on <= small devices and 4/12 page width on >= medium devices -->
+                  <div class="col-md-12 col-md-6">
+                      <!-- CREDIT CARD FORM STARTS HERE -->
+                      <div class="panel panel-default credit-card-box">
+                          <div class="panel-heading display-table" >
+                              <div class="row display-tr" >
+                                  <h4 class="panel-title display-td" >Payment Details</h4>
+                                  <div class="display-td" >
+                                      <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="panel-body">
+                              <form role="form" id="payment-form" method="POST">
+                                  <div class="row">
+                                      <div class="col-xs-7 col-md-7">
+                                          <div class="form-group">
+                                              <label for="cardNumber">CARD NUMBER</label>
+                                              <div class="input-group">
+                                                  <input
+                                                      type="tel"
+                                                      class="form-control"
+                                                      name="cardNumber"
+                                                      placeholder="Valid Card Number"
+                                                      autocomplete="cc-number"
+                                                      required
+                                                  />
+                                                  <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-xs-7 col-md-7">
+                                          <div class="form-group">
+                                              <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                              <input
+                                                  type="tel"
+                                                  class="form-control"
+                                                  name="cardExpiry"
+                                                  placeholder="MM / YY"
+                                                  autocomplete="cc-exp"
+                                                  required
+                                              />
+                                          </div>
+                                      </div>
+                                      <div class="col-xs-5 col-md-5 pull-right">
+                                          <div class="form-group">
+                                              <label for="cardCVC">CV CODE</label>
+                                              <input
+                                                  type="tel"
+                                                  class="form-control"
+                                                  name="cardCVC"
+                                                  placeholder="CVC"
+                                                  autocomplete="cc-csc"
+                                                  required
+                                              />
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-xs-7 col-md-7">
+                                          <div class="form-group">
+                                              <label for="couponCode">COUPON CODE</label>
+                                              <input type="text" class="form-control" name="couponCode" />
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row" style="display:none;">
+                                      <div class="col-xs-12">
+                                          <p class="payment-errors"></p>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <!-- CREDIT CARD FORM ENDS HERE -->
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <table border="1" name="final_check" id="final_check" class="table table-striped table-bordered">
+            <tr>
+              <th>택배사직원에게</th>
+              <td><input type="text" name="ms1"/></td>
+            </tr>
+            <tr>
+              <th>받는분께</th>
+              <td><input type="text" name="ms2"/></td>
+            </tr>
+            <tr>
+              <th>최종결제금액</th>
+              <td><%=real_price%>원</td>
+            </tr>
+          </table>
+          <small>* 주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?<small>
+          <div class="col-xs-7 col-md-4">
+            <form action="/payment/ordercomplete" method="post">
+              <button class="subscribe btn btn-success btn-lg btn-block" type="submit" onclick="return confirm('결제하시겠습니까?')">결제하기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+    <hr>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; PITAPET 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+    /*
+    The MIT License (MIT)
+
+    Copyright (c) 2015 William Hilton
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+    */
+    /* GET users listing. */
+
+    var $form = jQuery('#payment');
+    $form.find('.subscribe').on('click', payWithStripe);
+
+    /* If you're using Stripe for payments */
+    function payWithStripe(e) {
+        e.preventDefault();
+
+        /* Abort if invalid form data */
+        if (!validator.form()) {
+            return;
+        }
+
+        /* Visual feedback */
+        $form.find('.subscribe').html('Validating <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true);
+
+        var PublishableKey = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'; // Replace with your API publishable key
+        Stripe.setPublishableKey(PublishableKey);
+
+        /* Create token */
+        var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
+        var ccData = {
+            number: $form.find('[name=cardNumber]').val().replace(/\s/g,''),
+            cvc: $form.find('[name=cardCVC]').val(),
+            exp_month: expiry.month,
+            exp_year: expiry.year
+        };
+
+        Stripe.card.createToken(ccData, function stripeResponseHandler(status, response) {
+            if (response.error) {
+                /* Visual feedback */
+                $form.find('.subscribe').html('Try again').prop('disabled', false);
+                /* Show Stripe errors on the form */
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('.payment-errors').closest('.row').show();
+            } else {
+                /* Visual feedback */
+                $form.find('.subscribe').html('Processing <i class="fa fa-spinner fa-pulse"></i>');
+                /* Hide Stripe errors on the form */
+                $form.find('.payment-errors').closest('.row').hide();
+                $form.find('.payment-errors').text("");
+                // response contains id and card, which contains additional card details
+                console.log(response.id);
+                console.log(response.card);
+                var token = response.id;
+                // AJAX - you would send 'token' to your server here.
+                $.post('/account/stripe_card_token', {
+                        token: token
+                    })
+                    // Assign handlers immediately after making the request,
+                    .done(function(data, textStatus, jqXHR) {
+                        $form.find('.subscribe').html('Payment successful <i class="fa fa-check"></i>');
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        $form.find('.subscribe').html('There was a problem').removeClass('success').addClass('error');
+                        /* Show Stripe errors on the form */
+                        $form.find('.payment-errors').text('Try refreshing the page and trying again.');
+                        $form.find('.payment-errors').closest('.row').show();
+                    });
+                  }
+              });
+          }
+          /* Fancy restrictive input formatting via jQuery.payment library*/
+          $('input[name=cardNumber]').payment('formatCardNumber');
+          $('input[name=cardCVC]').payment('formatCardCVC');
+          $('input[name=cardExpiry').payment('formatCardExpiry');
+
+          /* Form validation using Stripe client-side validation helpers */
+          jQuery.validator.addMethod("cardNumber", function(value, element) {
+              return this.optional(element) || Stripe.card.validateCardNumber(value);
+          }, "Please specify a valid credit card number.");
+
+          jQuery.validator.addMethod("cardExpiry", function(value, element) {
+              /* Parsing month/year uses jQuery.payment library */
+              value = $.payment.cardExpiryVal(value);
+              return this.optional(element) || Stripe.card.validateExpiry(value.month, value.year);
+          }, "Invalid expiration date.");
+
+          jQuery.validator.addMethod("cardCVC", function(value, element) {
+              return this.optional(element) || Stripe.card.validateCVC(value);
+          }, "Invalid CVC.");
+
+          validator = $form.validate({
+              rules: {
+                  cardNumber: {
+                      required: true,
+                      cardNumber: true
+                  },
+                  cardExpiry: {
+                      required: true,
+                      cardExpiry: true
+                  },
+                  cardCVC: {
+                      required: true,
+                      cardCVC: true
+                  }
+              },
+              highlight: function(element) {
+                  $(element).closest('.form-control').removeClass('success').addClass('error');
+              },
+              unhighlight: function(element) {
+                  $(element).closest('.form-control').removeClass('error').addClass('success');
+              },
+              errorPlacement: function(error, element) {
+                  $(element).closest('.form-group').append(error);
+              }
+          });
+
+          paymentFormReady = function() {
+              if ($form.find('[name=cardNumber]').hasClass("success") &&
+                  $form.find('[name=cardExpiry]').hasClass("success") &&
+                  $form.find('[name=cardCVC]').val().length > 1) {
+                  return true;
+              } else {
+                  return false;
+              }
+          }
+
+          $form.find('.subscribe').prop('disabled', true);
+          var readyInterval = setInterval(function() {
+              if (paymentFormReady()) {
+                  $form.find('.subscribe').prop('disabled', false);
+                  clearInterval(readyInterval);
+              }
+          }, 250);
+
+    </script>
+
+  </body>
+
+</html>

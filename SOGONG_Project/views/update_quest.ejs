@@ -78,7 +78,7 @@
       <div class="col-lg-9">
 
         <div class="card mt-4">
-          <form action="/questboard/update_quest" method="post" onsubmit="return onWriteSubmit()">
+          <form action="/questboard/update_quest" method="post" onsubmit="return onWriteSubmit()" enctype="multipart/form-data">
             <table border="1" class="table table-striped table-bordered">
               <input type="hidden" name="idx" value="<%=row.idx%>"/>
               <tr>
