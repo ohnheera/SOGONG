@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
   {
     pool.getConnection(function(err,connection)
     {
-      var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3 from userinfo where id = ?";
+      var sql="select point,id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3 from userinfo where id = ?";
 
       connection.query(sql,[user_id],function(err,row)
       {
