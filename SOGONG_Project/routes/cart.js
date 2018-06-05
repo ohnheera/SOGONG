@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   pool.getConnection(function(err,connection)
   {
     if(err) console.error("커넥션 객체 얻어오기 에러 : ",err);
-    var sql="select id,product_num,price,amount,name,pic,sale from cart where id=?";
+    var sql="select id,product_num,price,amount,name,pic,sell_rate,event from cart where id=?";
     connection.query(sql,[id],function(err,row){
       console.log(row);
       if(err) console.error("에러 발생 err: ",err);
