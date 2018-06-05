@@ -67,7 +67,7 @@ router.get('/cancel', function(req, res, next) {
     connection.query(sql,[id],function(err,row){
       console.log(row);
       if(err) console.error("탈퇴 중 에러 발생 err: ",err);
-      res.render('cancel', { title: '탈퇴하기', row:row[0]});
+      res.render('cancel', { title: '탈퇴하기', row:row[0], id:id});
       connection.release();
     });
   });
@@ -77,17 +77,19 @@ router.post('/cancel',function(req,res,next){
   var idx = req.body.id;
   var passwd = req.body.passwd;
   var upFile =req.body.pic;
+  var pw =req.body.pw;
   console.log("파일명: ",upFile);
+  console.log(idx + " " + passwd);
 
   pool.getConnection(function(err,connection)
   {
-    var sql = "delete from userinfo where id=? and passwd=?"; //삭제
+    var sql = "delete from userinfo where id=?"; //삭제
     connection.query(sql,[idx,passwd],function(err,result){
       console.log(result);
-      if(err) console.error("글 삭제 중 에러 발생 err: ",err);
+      if(err) console.error("탈퇴 중 에러 발생 err: ",err);
       if(result.affectedRows==0)
       {
-        res.send("<script>alert('패스워드가 일치하지 않습니다.');history.back();</script>");
+        res.send("<script>alert('비밀번호와 아이-를 다시 확인하세요.');history.back();</script>");
       }
       else {
         delete req.session.user_id;//session에서 사용자 정보 삭제

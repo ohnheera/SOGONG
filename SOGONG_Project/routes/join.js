@@ -29,7 +29,7 @@ var pool = mysql.createPool({
 
 //회원가입 get
 router.get('/', function (req, res, next) {
-    res.render('join',{title:'회원가입'});
+    res.render('join',{title:'회원가입', id:null});
 });
 
 //회원가입 post

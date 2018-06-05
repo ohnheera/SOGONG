@@ -79,6 +79,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/login/logout">Logout</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login/cancel"><small>탈퇴하기<small></a>
+              </li>
               <%
             }
             %>
@@ -96,7 +99,7 @@
             <h1 class="mb-5"><%=row.name%>님 환영합니다.</h1>
           </div>
           <div class="col-xl-9 mx-auto">
-            <a class="btn " onclick="window_point()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>적립금<br></span></h3></a>
+            <a class="btn " onclick="window_point()" style="width:100px; color:#ffff; background-color:transparent;"><h3><span>적립금<br><small><%=row.point%>원</small></span></h3></a>
           </div>
         </div>
       </div>
