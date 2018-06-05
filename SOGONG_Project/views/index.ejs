@@ -148,36 +148,37 @@
     <h1 class="my-4" align="center">Special Offer</h1>
 
     <!-- Marketing Icons Section -->
-    <% event_rand = Math.floor(Math.random()*4 + 3); %>
-
     <div class="row" align="center" >
-      <%if(prd[event_rand] != null){%>
+      <%if(prd2[0] != null){%>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #FF80B5; color: white;">이벤트</h4>
           <div class="card-body">
-            <a href="/productBoard/product_food/<%=prd[event_rand].idx%>"><img class="card-img-top" src=<%=prd[event_rand].main_img%> alt="prd_imgs" width="auto" height="300"></a>
-            <p class="card-text"><%=prd[event_rand].prd_name%></p>
+            <a href="#"><img class="card-img-top" src=<%=prd2[0].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+            <p class="card-text"><%=prd2[0].prd_name%></p>
           </div>
           <div class="card-footer">
-            <a href="/productBoard/product_food/<%=prd[event_rand].idx%>" class="btn" style="background-color: #FF80B5; color: white;">Learn More</a>
+            <a href="#" class="btn" style="background-color: #FF80B5; color: white;">Learn More</a>
           </div>
         </div>
       </div>
       <%}%>
+      <%if(prd3[0] != null){%>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #C593FF; color: white;">오늘의 특가<small>
             <div class="body_" id="body_"><div id="timediv"></div></div></small>
           </h4>
           <div class="card-body">
-            <p class="card-text">상품정보</p>
+            <a href="#"><img class="card-img-top" src=<%=prd3[0].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+            <p class="card-text"><%=prd3[0].prd_name%></p>
           </div>
           <div class="card-footer">
             <a href="#" class="btn" style="background-color: #C593FF; color: white;">Learn More</a>
           </div>
         </div>
       </div>
+      <%}%>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #9EC2FF; color: white;">맞춤상품</h4>
@@ -204,44 +205,44 @@
 
 
     <div class="row"  align="center">
-      <%if(prd[0] != null){%>
+      <%if(prd1[0] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100" >
-          <a href="/productBoard/product_food/<%=prd[0].idx%>"><img class="card-img-top" src=<%=prd[0].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+          <a href="#"><img class="card-img-top" src=<%=prd1[0].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="/productBoard/product_food/<%=prd[0].idx%>" style="color: black;"><%=prd[0].prd_name%></a>
+              <a href="#" style="color: black;"><%=prd1[0].prd_name%></a>
             </h4>
             <p class="card-text">BEST FOOD</p>
-            <p class="card-text"><%=prd[0].prd_des%></p>
+            <p class="card-text"><%=prd1[0].prd_des%></p>
           </div>
         </div>
       </div>
       <%}%>
-      <%if(prd[1] != null){%>
+      <%if(prd1[1] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100" >
-          <a href="/productBoard/product_food/<%=prd[1].idx%>"><img class="card-img-top" src=<%=prd[1].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+          <a href="#"><img class="card-img-top" src=<%=prd1[1].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="/productBoard/product_food/<%=prd[1].idx%>" style="color: black;"><%=prd[1].prd_name%></a>
+              <a href="#" style="color: black;"><%=prd1[1].prd_name%></a>
             </h4>
             <p class="card-text">BEST HEALTH</p>
-            <p class="card-text"><%=prd[1].prd_des%></p>
+            <p class="card-text"><%=prd1[1].prd_des%></p>
           </div>
         </div>
       </div>
       <%}%>
-      <%if(prd[2] != null){%>
+      <%if(prd1[2] != null){%>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100" >
-          <a href="/productBoard/product_food/<%=prd[2].idx%>"><img class="card-img-top" src=<%=prd[2].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+          <a href="#"><img class="card-img-top" src=<%=prd1[2].main_img%> alt="prd_imgs" width="auto" height="300"></a>
           <div class="card-body">
             <h4 class="card-title">
-              <a href="/productBoard/product_food/<%=prd[2].idx%>" style="color: black;"><%=prd[2].prd_name%></a>
+              <a href="#" style="color: black;"><%=prd1[2].prd_name%></a>
             </h4>
             <p class="card-text">BEST TOY</p>
-            <p class="card-text"><%=prd[2].prd_des%></p>
+            <p class="card-text"><%=prd1[2].prd_des%></p>
           </div>
         </div>
       </div>
