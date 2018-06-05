@@ -204,7 +204,7 @@ router.get('/product_food/:idx', function(req, res, next){
   var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
-    var sql = "select idx, main_img, prd_name, prd_des, price from product_food where idx=?";
+    var sql = "select idx, category, main_img, prd_name, prd_des, price from product_food where idx=?";
 
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
@@ -228,7 +228,7 @@ router.get('/product_clothes/:idx', function(req, res, next){
   var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
-    var sql = "select idx, main_img, prd_name, prd_des, price from product_clothes where idx=?";
+    var sql = "select idx, category, main_img, prd_name, prd_des, price from product_clothes where idx=?";
 
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
@@ -252,7 +252,7 @@ router.get('/product_toy/:idx', function(req, res, next){
   var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
-    var sql = "select idx, main_img, prd_name, prd_des, price from product_toy where idx=?";
+    var sql = "select idx, category, main_img, prd_name, prd_des, price from product_toy where idx=?";
 
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
@@ -276,7 +276,7 @@ router.get('/product_health/:idx', function(req, res, next){
   var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
-    var sql = "select idx, main_img, prd_name, prd_des, price from product_health where idx=?";
+    var sql = "select idx, category, main_img, prd_name, prd_des, price from product_health where idx=?";
 
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
@@ -293,23 +293,63 @@ router.get('/product_health/:idx', function(req, res, next){
 });
 /*****************************************************************************************************/
 //상품 삭제
-router.get('/delete/:idx', function(req, res){
+router.get('/delete_product/:idx', function(req, res){
   var idx = req.params.idx;
   pool.getConnection(function(err, connection) {
     var sql = "delete from product_food where idx=?";
     connection.query(sql, [idx], function(err, result){
       console.log(result);
       if(err) console.error("글 삭제 중 에러 발생 err : ", err);
-      res.redirect('/productBoard/list/1');
+      res.redirect('/productBoard/foodList/1');
       connection.release();
     });
   });
 });
 
+router.get('/addProduct', function(req, res){
+  var session = req.session;
+  var id=session.user_id;
+  var idx = req.query.idx;
+  var category=req.query.category;
+  var num_prd=req.query.num_prd;
+
+  pool.getConnection(function(err, connection) {
+    //insert into cart(idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet) values(?,?,?,?,?,?,?,?,?,?,?,?)
+    if(category==0) { //FOOD
+      var selectSql = "select category, main_img, prd_name, prd_des, price, sell_rate, event from product_food where idx=?";
+    }
+    else if(category==1) { //CLOTHES
+      var selectSql = "select category, main_img, prd_name, prd_des, price, sell_rate, event from product_clothes where idx=?";
+    }
+    else if(category==2) { //TOY
+      var selectSql = "select category, main_img, prd_name, prd_des, price, sell_rate, event from product_toy where idx=?";
+    }
+    else if(category==3) { //HEALTH CARE
+      var selectSql = "select category, main_img, prd_name, prd_des, price, sell_rate, event from product_health where idx=?";
+    }
+    connection.query(selectSql, [idx], function(err, row){
+      if(err) console.error("상품 선택 에러 발생 err : ", err);
+      //id, product_num, price, amount, name, pic, sell_rate, event
+      var datas = [id, row[0].category, row[0].price, num_prd, row[0].prd_name, row[0].main_img, row[0].sell_rate, row[0].event];
+      var insertSql = "insert into cart(id, product_num, price, amount, name, pic, sell_rate, event) values(?,?,?,?,?,?,?,?)";
+      connection.query(insertSql, datas, function(err, result){
+        if(err) console.error("err : " + err);
+        console.log("rows : " + JSON.stringify(result));
+
+        res.redirect('/productBoard/foodList/1');
+        connection.release();
+      });
+    });
+  });
+});
+
+
+/**********************************************************************************************************/
 //상품 수정 화면 가져오기
 router.get('/update_product', function(req, res, next){
   var idx = req.query.idx;
-
+  var session = req.session;
+  var id=session.user_id;
   pool.getConnection(function(err, connection){
     if(err) console.error("커넥션 객체 얻어오기 에러 : ", err);
 
@@ -317,7 +357,7 @@ router.get('/update_product', function(req, res, next){
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
-      res.render('update_product', {web_name : 'Pit-A-Pet', title : 'UPDATE PRODUCT', row:rows[0]});
+      res.render('update_product', {web_name : 'Pit-A-Pet', id: session.user_id, title : 'UPDATE PRODUCT', row:rows[0]});
       connection.release();
     });
   });
