@@ -5,18 +5,17 @@ var fs = require('fs');
 
 router.use(express.static('public'));
 
-var storage = multer.diskStorage({
+//이미지 업로드
+var upload = multer({
+  storage: multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/infoboardimg/')
+      cb(null, 'public/uploads/infoboardimg/');
     },
     filename: function (req, file, cb) {
-        //req.body is empty...
-        //cb(null, file.originalname);
-        cb(null, new Date().valueOf()+file.originalname);
+      cb(null, new Date().valueOf() + file.originalname);
     }
+  }),
 });
-
-var upload = multer({ storage: storage });
 
 //MySQL 로드
 var mysql = require('mysql');
@@ -148,23 +147,22 @@ router.post('/update_info', upload.single('image'), function(req, res, next){
   var content=req.body.content;
   var passwd=req.body.passwd;
   var image=req.body.image_previous;
-  var image_new=req.body.image;
+  var newFile=null;
 
   var datas=[creator_id, title, content, passwd];
-  console.log(image_new);
-  if(req.file){
-    var newFile = req.file.filename;
-    console.log("new 파일: "+newFile);
+  if(req.file != null){
+    newFile = req.file.filename;
   }
   else {
-    var newFile = null;
+    newFile = null;
   }
   console.log("기존 파일:" + image);
+  console.log("new 파일: "+newFile);
   if(newFile != null){
     console.log("새로운 파일 업로드, 기존 이미지 삭제");
-    fs.exists('/uploads/infoboardimg/' + image, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
+    fs.exists('public/uploads/infoboardimg/' + image, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
       if(exists == true){
-        fs.unlink('/uploads/infoboardimg/' + image,function(err){ //기존 파일 삭제
+        fs.unlink('public/uploads/infoboardimg/' + image,function(err){ //기존 파일 삭제
           if(err) throw err;
           image = newFile;
           pool.getConnection(function(err,connection)
@@ -200,7 +198,7 @@ router.post('/update_info', upload.single('image'), function(req, res, next){
 
           connection.query(sql,[creator_id, title, content, image, idx, passwd],function(err,result){
             console.log(result);
-            if(err) console.error("수정 중 에러 발생 err: ",err);
+            if(err) console.error("수정 중 에러 발생 err:",err);
 
             if(result.affectedRows==0)
             {
@@ -239,30 +237,6 @@ router.post('/update_info', upload.single('image'), function(req, res, next){
       });
     });
   }
-  /*if (!req.file) {
-    var image=null;
-    //return res.send('Please upload a file');
-  }
-  else {
-    var image=req.file.filename;
-  }
-
-  pool.getConnection(function(err, connection){
-    var sql="update infoboard set creator_id=?, title=?, content=?, image=? where idx=?";
-    connection.query(sql, [creator_id, title, content, image, idx], function(err, result){
-      //console.log(result);
-      //if(err) console.error("글 수정 중 에러 발생 err:", err);
-      if(err) res.send(err);
-      if(result.affectedRows == 0){
-        res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 값이 변경되지 않았습니다.');history.back();</script>");
-      }
-      else{
-        res.redirect('/infoboard/read_info/'+idx);
-        //res.redirect('/board/');
-      }
-      connection.release();
-    });
-  });*/
 });
 
 router.post('/delete_info', function (req, res, next) {

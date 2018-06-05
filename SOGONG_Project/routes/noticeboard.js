@@ -4,18 +4,17 @@ var multer = require('multer');
 
 router.use(express.static('public'));
 
-var storage = multer.diskStorage({
+//이미지 업로드
+var upload = multer({
+  storage: multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/noticeboardimg/')
+      cb(null, 'public/uploads/noticeboardimg/');
     },
     filename: function (req, file, cb) {
-        //req.body is empty...
-        //cb(null, file.originalname);
-        cb(null, new Date().valueOf()+file.originalname);
+      cb(null, new Date().valueOf() + file.originalname);
     }
+  }),
 });
-
-var upload = multer({ storage: storage });
 
 //MySQL 로드
 var mysql = require('mysql');
@@ -136,31 +135,103 @@ router.get('/update_notice', function(req, res, next){
 });
 
 //글수정 로직 처리 POST
-router.post('/update_notice', function(req, res, next){
+router.post('/update_notice', upload.single('image'), function(req, res, next){
   var idx=req.body.idx;
   var creator_id=req.body.creator_id;
   var title=req.body.title;
   var content=req.body.content;
   var passwd=req.body.passwd;
-  var image=req.body.image;
-  var datas=[creator_id, title, content, passwd];
+  var image=req.body.image_previous;
+  var newFile=null;
 
-  pool.getConnection(function(err, connection){
-    var sql="update noticeboard set creator_id=?, title=?, content=?, image=? where idx=? and passwd=?";
-    connection.query(sql, [creator_id, title, content, image, idx, passwd], function(err, result){
-      //console.log(result);
-      //if(err) console.error("글 수정 중 에러 발생 err:", err);
-      if(err) res.send(err);
-      if(result.affectedRows == 0){
-        res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 값이 변경되지 않았습니다.');history.back();</script>");
+  var datas=[creator_id, title, content, passwd];
+  if(req.file != null){
+    newFile = req.file.filename;
+  }
+  else {
+    newFile = null;
+  }
+  console.log("기존 파일:" + image);
+  console.log("new 파일: "+newFile);
+  if(newFile != null){
+    console.log("새로운 파일 업로드, 기존 이미지 삭제");
+    fs.exists('public/uploads/noticeboardimg/' + image, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
+      if(exists == true){
+        fs.unlink('public/uploads/noticeboardimg/' + image,function(err){ //기존 파일 삭제
+          if(err) throw err;
+          image = newFile;
+          pool.getConnection(function(err,connection)
+          {
+            //데이터베이스의 파일명 등을 바꿔준다.
+            //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
+            var sql = "update noticeboard set creator_id=?, title=?, content=?, image=? where idx=? and passwd=?";
+
+            connection.query(sql,[creator_id, title, content, image, idx, passwd],function(err,result){
+              console.log(result);
+              if(err) console.error("수정 중 에러 발생 err:",err);
+
+              if(result.affectedRows==0)
+              {
+                res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 값이 변경되지 않았습니다.');history.back();</script>");
+              }
+              else
+              {
+                res.redirect('/noticeboard/read_notice/'+idx);
+              }
+              connection.release();
+            });
+
+          });
+        });
       }
-      else{
-        res.redirect('/noticeboard/read_notice/'+idx);
-        //res.redirect('/board/');
+      else{ //기존 파일이 업로드 되지 않았을 경우
+        image = newFile;
+        pool.getConnection(function(err,connection)
+        {
+          //새로운 파일명만 업로드, 삭제 필요 x
+          var sql = "update noticeboard set creator_id=?, title=?, content=?, image=? where idx=? and passwd=?";
+
+          connection.query(sql,[creator_id, title, content, image, idx, passwd],function(err,result){
+            console.log(result);
+            if(err) console.error("수정 중 에러 발생 err:",err);
+
+            if(result.affectedRows==0)
+            {
+              res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 값이 변경되지 않았습니다.');history.back();</script>");
+            }
+            else
+            {
+              res.redirect('/noticeboard/read_notice/'+idx);
+            }
+            connection.release();
+          });
+        });
       }
-      connection.release();
     });
-  });
+  }
+  else{//새로 파일을 업로드 하지 않을 시, 기존 파일 그대로 다른 수정사항만 반영
+    pool.getConnection(function(err,connection)
+    {
+      //데이터베이스의 파일명 등을 바꿔준다.
+      //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
+      var sql = "update noticeboard set creator_id=?, title=?, content=?, image=? where idx=? and passwd=?";
+
+      connection.query(sql,[creator_id, title, content, image, idx, passwd],function(err,result){
+        console.log(result);
+        if(err) console.error("수정 중 에러 발생 err: ",err);
+
+        if(result.affectedRows==0)
+        {
+          res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 값이 변경되지 않았습니다.');history.back();</script>");
+        }
+        else
+        {
+          res.redirect('/noticeboard/read_notice/'+idx);
+        }
+        connection.release();
+      });
+    });
+  }
 });
 
 router.post('/delete_notice', function (req, res, next) {
