@@ -27,7 +27,6 @@
     </style>
   </head>
   <body>
-
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -42,10 +41,10 @@
                 Shop
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="/productBoard/list/1">Dog Food</a>
-                <a class="dropdown-item" href="portfolio-2-col.html">Dog Clothes</a>
-                <a class="dropdown-item" href="portfolio-3-col.html">Dog House</a>
-                <a class="dropdown-item" href="portfolio-4-col.html">Dog Snack</a>
+                <a class="dropdown-item" href="/productBoard/foodList/1">Food</a>
+                <a class="dropdown-item" href="/productBoard/clothesList/1">Clothes</a>
+                <a class="dropdown-item" href="/productBoard/toyList/1">Toy</a>
+                <a class="dropdown-item" href="/productBoard/healthCareList/1">Health Care</a>
               </div>
             </li>
             <li class="nav-item">
@@ -89,34 +88,66 @@
         <div class="col-lg-9">
           <form action="/productBoard/write_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
-              <div class="card-header">
-                Product Name
+              <div class="form-group" style="padding-left:5px; padding-top:5px;">
+                <h5>카테고리
+                <small><select name="category" id="category" >
+                  <option value="0">FOOD</option>
+                  <option value="1">CLOTHES</option>
+                  <option value="2">HOUSE</option>
+                  <option value="3">HEALTH CARE</option>
+                </select></small>
+                </h5>
               </div>
-              <div class="card-body">
-                <input type="text" name="prd_name" id="prd_name" size="40" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상품이름
+                  <small><input type="text" name="prd_name" id="prd_name" size="20" maxLength="20" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"placeholder="상품명을 입력하세요"required/></small>
+                </h5>
               </div>
-              <hr>
-              <div class="card-header">
-                Product Image
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상품사진
+                  <small><input type="file" name="main_img" id="main_img" accept="image/*" required/></small>
+                </h5>
               </div>
-              <div class="card-body">
-                <input type="file" name="main_img" id="main_img" accept="image/*" required/>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>상세설명</h5>
+                <div style="padding-left:15px">
+                  <small><textarea name="prd_des" id="prd_des"  cols="90" rows="15" required/></textarea></small>
+                </div>
+
               </div>
-              <hr>
-              <div class="card-header">
-                Product Description
+
+              <div class="form-group" style="padding-left:5px">
+                <h5>판매가격
+                  <small><input type="text" name="price" id="price" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
+                  </small></h5>
               </div>
-              <div class="card-body">
-                <textarea name="prd_des" id="prd_des" cols="90" rows="15" required/></textarea>
-              </div>
-              <hr>
-              <div class="card-header">
-                Product Price
-              </div>
-              <div class="card-body">
-                <input type="text" name="price" id="price" size="10" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>원
-              </div>
+
+              <div class="form-group" style="padding-left:5px">
+                <h5> 관심사 분류 </h5>
+                    <div class="checkbox" style="padding-left:15px">
+                      <label for="checkbox-0">
+                        <input type="checkbox" name="tear" id="tear" value="1">
+                        눈물 개선
+                      </label>
+                      <label for="checkbox-1">
+                        <input type="checkbox" name="joint" id="joint" value="2">
+                        관절 개선
+                      </label>
+                      <label for="checkbox-2">
+                        <input type="checkbox" name="hair" id="hair" value="3">
+                        모질 개선
+                      </label>
+                      <label for="checkbox-3">
+                        <input type="checkbox" name="diet" id="diet" value="4">
+                        다이어트
+                      </label>
+                    </div>
+                </div>
             </div>
+
             <div align="right">
               <button type="upload" class="btn btn-success"><span>SAVE</span></button>
             </div>
