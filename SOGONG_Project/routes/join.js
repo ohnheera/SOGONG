@@ -30,12 +30,10 @@ var pool = mysql.createPool({
 //회원가입 get
 router.get('/', function (req, res, next) {
     res.render('join',{title:'회원가입', id:null});
-
-  var session = req.session;
-  var id=session.user_id;
+    var session = req.session;
+    var id=session.user_id;
 
     res.render('join',{title:'회원가입', id: session.user_id});
-
 });
 
 //회원가입 post

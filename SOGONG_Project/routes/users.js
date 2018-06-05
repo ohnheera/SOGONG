@@ -53,6 +53,31 @@ router.get('/', function(req, res, next) {
   }
 });
 
+//주문내역 조회
+router.get('/history', function(req, res, next) {
+  var id = null;
+  var session = req.session;
+  var user_id = session.user_id;
+  if(user_id)
+  {
+    pool.getConnection(function(err,connection)
+    {
+      var sql="select product,date,price from payment where id = ?";
+
+      connection.query(sql,[user_id],function(err,row)
+      {
+        if(err) console.error(err);
+        console.log("주문조회 정보:", row);
+        res.render('history_view',{title:"View", row, id:user_id});
+        connection.release();
+      });
+    });
+  }
+  else{
+    res.redirect('/login')
+  }
+});
+
 router.post('/', function(req, res, next) {
   var id = null;
   var session = req.session;
