@@ -350,6 +350,7 @@ router.get('/update_product', function(req, res, next){
   var idx = req.query.idx;
   var session = req.session;
   var id=session.user_id;
+
   pool.getConnection(function(err, connection){
     if(err) console.error("커넥션 객체 얻어오기 에러 : ", err);
 
@@ -357,6 +358,7 @@ router.get('/update_product', function(req, res, next){
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
+
       res.render('update_product', {web_name : 'Pit-A-Pet', id: session.user_id, title : 'UPDATE PRODUCT', row:rows[0]});
       connection.release();
     });

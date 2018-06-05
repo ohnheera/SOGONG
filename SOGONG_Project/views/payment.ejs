@@ -85,13 +85,13 @@
               <a class="nav-link" href="/productBoard/list/1">Shop</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Cart</a>
+              <a class="nav-link" href="/cart">Cart
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
             <li class="nav-item active">
               <!-- 왜 안될까 -->
-              <a class="nav-link" href="/noticeboard/list_notice/1">Community
-                <span class="sr-only">(current)</span>
-              </a>
+              <a class="nav-link" href="/noticeboard/list_notice/1">Community</a>
             </li>
             <li class="nav-item">
               <%
@@ -142,17 +142,22 @@
                 <%
                 var total_price=0;
                 var total_discount=0;
+                var product_name='';
                 for(var i=0;i<(leng);i++){
+                  product_name=product_name+row_cart[i].name+" "+row_cart[i].amount+"개"+" ";
                   var cart=row_cart[i];
                 %>
                 <tr>
-                  <td><img src= "<%=cart.pic%>" style="max-width: 50%; height: auto;"><%=cart.name%></td>
+                  <td>
+                    <img src= "<%=cart.pic%>" style="max-width: 50%; height: auto;"><%=cart.name%>
+                    <input type="hidden" name="product_name" id="product_name" value="<%=product_name%>"/>
+                  </td>
                   <td><%=cart.price%></td>
                   <td>
                     <%
-                      if(cart.sale==1){
+                      if(cart.event!=0&&cart.event!=null){
                     %>
-                    -10%
+                    -<%=cart.event%>%
                     <%
                       }
                     %>
@@ -163,7 +168,8 @@
                       var before=cart.price;
                       var amount=cart.amount;
                       var discount=0;
-                      if(cart.sale==1){
+                      if(cart.event!=0&&cart.event!=null){
+                        var rate=cart.event;
                         discount=before*amount*0.1;
                       }
                       var after=(before*amount)-discount;
@@ -211,6 +217,7 @@
                       }
                     %>
                     <%=real_price%>원
+                    <input type="hidden" name="product_price" id="product_price" value="<%=real_price%>"/>
                   </td>
                 </tr>
               </tbody>
@@ -245,6 +252,7 @@
             var getp = real_price2 * 0.05;
           %>
           * 적립혜택 : <%=getp%>원
+          <input type="hidden" name="earnPoint" value="<%=getp%>"/>
         </div>
       </div>
       <!-- /.row -->
@@ -275,7 +283,7 @@
             <table border="1" class="table table-striped table-bordered">
               <tr>
                 <th width="20%">받는 분 이름</th>
-                <td width="80%"><input type="text" name="name" id="name" class="form-control input-lg" placeholder="이름" value="<%=row_user.name%>" tabindex="3" required></td>
+                <td width="80%"><input type="text" name="name_get" id="name_get" class="form-control input-lg" placeholder="이름" value="<%=row_user.name%>" tabindex="3" required></td>
               </tr>
               <tr>
                 <th width="20%">배송주소</th>
@@ -314,7 +322,7 @@
               </tr>
               <tr>
                 <th width="30%">핸드폰</th>
-                <td width="70%"><input type="hidden" name="tel" id="tel" required>
+                <td width="70%"><input type="hidden" name="tel" id="tel" value="<%=row_user.tel%>" required>
                   <select name="tel1" id="tel1" >
                     <option value="010">010</option>
                     <option value="011">011</option>
@@ -351,7 +359,6 @@
       <!-- Project Three -->
       <div class="row">
         <div class="col-md-7">
-          <h4 class="my-4">* 결제하기</h4>
           <div class="container">
               <div class="row">
                   <!-- You can make it whatever width you want. I'm making it full width
@@ -378,8 +385,8 @@
                                                       type="tel"
                                                       class="form-control"
                                                       name="cardNumber"
+                                                      id="cardNumber"
                                                       placeholder="Valid Card Number"
-                                                      autocomplete="cc-number"
                                                       required
                                                   />
                                                   <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
@@ -395,8 +402,8 @@
                                                   type="tel"
                                                   class="form-control"
                                                   name="cardExpiry"
+                                                  id="cardExpiry"
                                                   placeholder="MM / YY"
-                                                  autocomplete="cc-exp"
                                                   required
                                               />
                                           </div>
@@ -408,8 +415,8 @@
                                                   type="tel"
                                                   class="form-control"
                                                   name="cardCVC"
+                                                  id="cardCVC"
                                                   placeholder="CVC"
-                                                  autocomplete="cc-csc"
                                                   required
                                               />
                                           </div>
@@ -451,9 +458,15 @@
               <td><%=real_price%>원</td>
             </tr>
           </table>
-          <small>* 주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?<small>
+          <small>
+            * 주문하실 상품, 가격, 배송정보, 할인정보 등을 확인하였으며, 구매에 동의하시겠습니까?
+            <label class="container">
+              <input type="checkbox" name="agreeBox" id="agreeBox" required/>
+              <span class="checkmark"></span>동의합니다.
+            </label>
+          </small>
           <div class="col-xs-7 col-md-4">
-            <form action="/payment/ordercomplete" method="post">
+            <form action="/payment/ordered" method="post" onsubmit="return onPaymentSubmit()">
               <button class="subscribe btn btn-success btn-lg btn-block" type="submit" onclick="return confirm('결제하시겠습니까?')">결제하기</button>
             </form>
           </div>
@@ -474,6 +487,98 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function onPaymentSubmit()
+    {
+      if( $("#name_get").val().trim()=="")
+      {
+        var message = "받는 분 이름을 입력해 주세요";
+        $("#name_get").val("");
+        $("#name_get").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#address").val().trim()=="")
+      {
+        var message = "주소를 입력해 주세요";
+        $("#address").val("");
+        $("#address").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#tel2").val().trim()=="")
+      {
+        var message = "휴대전화번호를 입력해 주세요";
+        $("#tel2").val("");
+        $("#tel2").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#tel3").val().trim()=="")
+      {
+        var message = "휴대전화번호를 입력해 주세요";
+        $("#tel3").val("");
+        $("#tel3").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#id").val().trim()=="")
+      {
+        var message = "아이디를 입력해 주세요";
+        $("#id").val("");
+        $("#id").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#email").val().trim()=="")
+      {
+        var message = "이메일을 입력해 주세요";
+        $("#email").val("");
+        $("#email").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#cardNumber").val()=="")
+      {
+        var message = "카드번호를 입력해 주세요";
+        $("#cardNumber").val("");
+        $("#cardNumber").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#cardExpiry").val().trim()=="")
+      {
+        var message = "카드정보를 입력해 주세요";
+        $("#cardExpiry").val("");
+        $("#cardExpiry").focus();
+        alert(message);
+        return false;
+      }
+
+      if($("#cardCVC").val().trim()=="")
+      {
+        var message = "CVC번호를 입력해 주세요";
+        $("#cardCVC").val("");
+        $("#cardCVC").focus();
+        alert(message);
+        return false;
+      }
+
+      if(document.getElementById("agreeBox").checked == false){
+        var message = "구매에 동의해주세요";
+        $("#agreeBox").focus();
+        alert(message);
+        return false;
+      }
+    }
+    </script>
     <script>
     /*
     The MIT License (MIT)
