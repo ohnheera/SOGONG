@@ -148,18 +148,23 @@
     <h1 class="my-4" align="center">Special Offer</h1>
 
     <!-- Marketing Icons Section -->
+    <% event_rand = Math.floor(Math.random()*4 + 3); %>
+
     <div class="row" align="center" >
+      <%if(prd[event_rand] != null){%>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #FF80B5; color: white;">이벤트</h4>
           <div class="card-body">
-            <p class="card-text">상품정보</p>
+            <a href="/productBoard/product_food/<%=prd[event_rand].idx%>"><img class="card-img-top" src=<%=prd[event_rand].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+            <p class="card-text"><%=prd[event_rand].prd_name%></p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn" style="background-color: #FF80B5; color: white;">Learn More</a>
+            <a href="/productBoard/product_food/<%=prd[event_rand].idx%>" class="btn" style="background-color: #FF80B5; color: white;">Learn More</a>
           </div>
         </div>
       </div>
+      <%}%>
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
           <h4 class="card-header" style="background-color: #C593FF; color: white;">오늘의 특가<small>
