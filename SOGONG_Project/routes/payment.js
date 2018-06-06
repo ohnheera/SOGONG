@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
       var sql="select id,passwd,name,email,tel,address,gen,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3,point from userinfo where id = ?";
       connection.query(sql, [id], function(err, rows){
         if(err) res.send(err);
-        console.log("사용자 정보 조회 결과 확인:", rows);
+        console.log("사용자 정보 조회 결과 확인 :", rows);
         var sql2="select id,product_num,price,amount,name,pic,sell_rate,event from cart where id = ?";
         connection.query(sql2, [id], function(err, row){
           if(err) console.error(err);
@@ -112,7 +112,7 @@ router.post('/ordered', function(req, res, next){
                       var sql5="update product_health set sell_rate = ? where prd_name=?";
                       var sql6="select sell_rate from product_health where prd_name = ?";
                     }
-                  } 
+                  }
                   var prdname = product_names[i];
                   var amount = product_amounts[i];
 
