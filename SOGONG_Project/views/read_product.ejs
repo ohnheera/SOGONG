@@ -107,7 +107,7 @@
           <%}
           else {%>
             <div align="right" id="forMaster">
-              <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">Delete</a>
+              <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">Delete /</a>
               <script>
                 function deleteProduct(idx) {
                   if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
@@ -115,8 +115,7 @@
                   }
                 }
               </script>
-              /
-              <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">Edit</a>
+              <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)"> Edit</a>
               <script>
                 function updateProduct(idx) {
                   location.href = "/productBoard/update_product?idx=<%=row.idx%>&category=<%=row.category%>";

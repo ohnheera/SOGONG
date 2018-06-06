@@ -33,11 +33,11 @@ router.get('/foodList/:page', function(req, res, next){
 
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price FROM product_food";
+    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by idx DESC";
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'FOOD', id: session.user_id, web_product : 'foodList', product : "product_food", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'FOOD', id: session.user_id, category:0, web_product : 'foodList', product : "product_food", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -51,11 +51,11 @@ router.get('/clothesList/:page', function(req, res, next){
 
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price FROM product_clothes";
+    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by idx DESC";
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, category:1, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -69,11 +69,11 @@ router.get('/toyList/:page', function(req, res, next){
 
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price FROM product_toy";
+    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by idx DESC";
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, category:2, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -87,11 +87,11 @@ router.get('/healthCareList/:page', function(req, res, next){
 
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price FROM product_health";
+    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by idx DESC";
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  category:3, web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
