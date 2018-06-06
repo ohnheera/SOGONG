@@ -34,6 +34,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Shop
@@ -49,6 +51,18 @@
               <a class="nav-link" href="/infoboard">Community</a>
             </li>
             <%
+            if(id == "seller" || id == "manager"){
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="/chart">Seller</a>
+              </li>
+                <%if(id == "manager"){%>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/users/manage">Manager</a>
+                  </li>
+                <%}%>
+              <%}%>
+            <%
             if(id == null){
               %>
               <li class="nav-item">
@@ -56,7 +70,7 @@
               </li>
               <%
             }
-            else{
+            else if(id != "seller" && id != "manager"){
               %>
               <li class="nav-item">
                 <a class="nav-link" href="/cart">Cart</a>
@@ -64,19 +78,25 @@
               <li class="nav-item">
                 <a class="nav-link" href="/users">Mypage</a>
               </li>
+              <%
+            }
+            %>
+            <%
+            if(id != null){
+              %>
               <li class="nav-item">
                 <a class="nav-link" href="/login/logout">Logout</a>
               </li>
               <%
-            }
-            %>
+              }
+              %>
           </ul>
         </div>
       </div>
     </nav>
+
     <!-- Page Content -->
     <div class="container">
-
       <div class="row" align="center">
         <div class="col-lg-3">
           <%if(category==0) {%>
@@ -116,16 +136,34 @@
               </script>
             </div>
           <%}%>
-          <!--
           <div align="right">
-            <select name="star" id="star" >
-              <option value="1">신상순</option>
-              <option value="2">인기순</option>
-              <option value="3">낮은가격부터</option>
-              <option value="4">높은가격부터</option>
+            <select name="order" id="order" onchange="window.open(value, '_self');">
+              <%if(order==0) {%>
+                <option value="/productBoard/<%=web_product%>/1?order=0" selected>신상순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=1">인기순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=2">낮은가격부터</option>
+                <option value="/productBoard/<%=web_product%>/1?order=3">높은가격부터</option>
+              <%}
+              else if(order==1) {%>
+                <option value="/productBoard/<%=web_product%>/1?order=0" >신상순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=1"selected>인기순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=2">낮은가격부터</option>
+                <option value="/productBoard/<%=web_product%>/1?order=3">높은가격부터</option>
+              <%}
+              else if(order==2) {%>
+                <option value="/productBoard/<%=web_product%>/1?order=0" >신상순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=1">인기순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=2"selected>낮은가격부터</option>
+                <option value="/productBoard/<%=web_product%>/1?order=3">높은가격부터</option>
+              <%}
+              else if(order==3) {%>
+                <option value="/productBoard/<%=web_product%>/1?order=0" >신상순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=1">인기순</option>
+                <option value="/productBoard/<%=web_product%>/1?order=2">낮은가격부터</option>
+                <option value="/productBoard/<%=web_product%>/1?order=3"selected>높은가격부터</option>
+              <%}%>
             </select>
           </div>
-        -->
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           </div>
           <div class="row">
@@ -184,9 +222,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container text-right">
-        <!--
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      -->
+        <p class="m-0 text-center text-white">Copyright &copy; 소공녀 2018</p>
       </div>
     </footer>
 

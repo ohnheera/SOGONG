@@ -50,6 +50,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Shop
@@ -65,11 +66,16 @@
             <a class="nav-link" href="/infoboard">Community</a>
           </li>
           <%
-          if(id == "seller"){
+          if(id == "seller" || id == "manager"){
             %>
             <li class="nav-item">
-              <a class="nav-link" href="/chart"><strong>Manage</strong></a>
+              <a class="nav-link" href="/chart">Seller</a>
             </li>
+              <%if(id == "manager"){%>
+                <li class="nav-item">
+                  <a class="nav-link" href="/users/manage">Manager</a>
+                </li>
+              <%}%>
             <%}%>
           <%
           if(id == null){
@@ -79,7 +85,7 @@
             </li>
             <%
           }
-          else{
+          else if(id != "seller" && id != "manager"){
             %>
             <li class="nav-item">
               <a class="nav-link" href="/cart">Cart</a>
@@ -87,12 +93,18 @@
             <li class="nav-item">
               <a class="nav-link" href="/users">Mypage</a>
             </li>
+            <%
+          }
+          %>
+          <%
+          if(id != null){
+            %>
             <li class="nav-item">
               <a class="nav-link" href="/login/logout">Logout</a>
             </li>
             <%
-          }
-          %>
+            }
+            %>
         </ul>
       </div>
     </div>
@@ -143,6 +155,12 @@
   </header>
 
   <!-- Page Content -->
+  <script>
+  if(<%=pic[0].pic%> != null){
+   var url="http://localhost:3000/user/petimg/<%=pic[0].pic%>";
+   window.open(url,"","width=400,height=400,left=600");
+ }
+   </script>
   <div class="container">
     <h1 class="my-4" align="center">Special Offer</h1>
 
@@ -196,7 +214,7 @@
               </h4>
               <div class="card-body">
                 <%
-                var rand_ = Math.floor(Math.random() * prd5.length) - 1;
+                var rand_ = Math.floor(Math.random() * prd5.length);
                 if(prd5[rand_].category == 0) product = "product_food";
                 else if(prd5[rand_].category == 1) product = "product_clothes";
                 else if(prd5[rand_].category == 2) product = "product_toy";

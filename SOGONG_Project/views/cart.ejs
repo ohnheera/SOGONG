@@ -24,6 +24,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Shop
@@ -39,6 +41,18 @@
             <a class="nav-link" href="/infoboard">Community</a>
           </li>
           <%
+          if(id == "seller" || id == "manager"){
+            %>
+            <li class="nav-item">
+              <a class="nav-link" href="/chart">Seller</a>
+            </li>
+              <%if(id == "manager"){%>
+                <li class="nav-item">
+                  <a class="nav-link" href="/users/manage">Manager</a>
+                </li>
+              <%}%>
+            <%}%>
+          <%
           if(id == null){
             %>
             <li class="nav-item">
@@ -46,7 +60,7 @@
             </li>
             <%
           }
-          else{
+          else if(id != "seller" && id != "manager"){
             %>
             <li class="nav-item">
               <a class="nav-link" href="/cart">Cart</a>
@@ -54,16 +68,23 @@
             <li class="nav-item">
               <a class="nav-link" href="/users">Mypage</a>
             </li>
+            <%
+          }
+          %>
+          <%
+          if(id != null){
+            %>
             <li class="nav-item">
               <a class="nav-link" href="/login/logout">Logout</a>
             </li>
             <%
-          }
-          %>
+            }
+            %>
         </ul>
       </div>
     </div>
   </nav>
+
   <!-- Custom styles for this template -->
 
 
@@ -99,7 +120,7 @@
               <tr>
                 <td class="col-sm-8 col-md-6">
                   <div class="media">
-                    <a class="thumbnail pull-left"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                    <a class="thumbnail pull-left"> <img class="media-object" src="<%=oneItem.pic%>" style="width: 72px; height: 72px;"> </a>
                     <div class="media-body">
                       <h4 class="media-heading"><%=oneItem.name%> <small><%=oneItem.product_num%></small></h4>
                     </div>
@@ -107,7 +128,7 @@
                   <td class="col-sm-1 col-md-1 text-center"><strong><%=oneItem.price%></strong></td>
                   <td class="col-sm-1 col-md-1 text-center"><strong><%=total%></strong></td>
                   <td class="col-sm-1 col-md-1">
-                    <button type="button" class="btn btn-danger">
+                    <a href="/cart/delete/<%=oneItem.name%>" button type="button" class="btn btn-danger">
                       <span class="glyphicon glyphicon-remove"></span> 취소
                     </button></td>
                   </tr>
@@ -125,7 +146,7 @@
                   TOTAL += shipping;%>
                 <tr>
                   <td>   </td>
-                  <td><h5>배송비</h5></td>
+                  <td><h5>배송비 <p><small>3만원 이상 구매시 무료</small></p></h5></td>
                   <td class="text-right"><h5><strong><%=shipping%></strong></h5></td>
                 </tr>
                 <tr>
@@ -136,7 +157,7 @@
                 <tr>
                   <td>   </td>
                   <td>
-                    <a href="/productBoard" button type="button" class="btn btn-default">
+                    <a href="/" button type="button" class="btn btn-default">
                       <span class="glyphicon glyphicon-shopping-cart"></span> 쇼핑 계속하기
                     </button></td>
                     <td>

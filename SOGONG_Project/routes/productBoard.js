@@ -24,20 +24,43 @@ var pool = mysql.createPool({
   password: '12345'
 });
 
+router.get('/', function(req, res, next){
+  res.redirect('clothesList/1')
+});
+
+
 /***********************************PRODUCT LIST****************************************/
 //FOOD LIST
 router.get('/foodList/:page', function(req, res, next){
   var page = req.params.page;
   var session = req.session;
   var id=session.user_id;
-
+  var order = req.query.order;
+  if(order) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@ : ", order);
+  }
+  else {
+    order=0;
+  }
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by idx DESC";
+    if(order==0) { //신상순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by idx DESC";
+    }
+    else if(order==1) { //인기순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by sell_rate DESC";
+    }
+    else if(order==2) { //낮은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by price ASC";
+    }
+    else if(order==3) { //높은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_food order by price DESC";
+    }
+
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'FOOD', id: session.user_id, category:0, web_product : 'foodList', product : "product_food", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'FOOD', id: session.user_id, order:order, category:0, web_product : 'foodList', product : "product_food", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -48,14 +71,31 @@ router.get('/clothesList/:page', function(req, res, next){
   var page = req.params.page;
   var session = req.session;
   var id=session.user_id;
-
+  var order = req.query.order;
+  if(order) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@ : ", order);
+  }
+  else {
+    order=0;
+  }
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by idx DESC";
+    if(order==0) { //신상순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by idx DESC";
+    }
+    else if(order==1) { //인기순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by sell_rate DESC";
+    }
+    else if(order==2) { //낮은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by price ASC";
+    }
+    else if(order==3) { //높은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_clothes order by price DESC";
+    }
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, category:1, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, order:order, category:1, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -66,14 +106,31 @@ router.get('/toyList/:page', function(req, res, next){
   var page = req.params.page;
   var session = req.session;
   var id=session.user_id;
-
+  var order = req.query.order;
+  if(order) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@ : ", order);
+  }
+  else {
+    order=0;
+  }
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by idx DESC";
+    if(order==0) { //신상순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by idx DESC";
+    }
+    else if(order==1) { //인기순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by sell_rate DESC";
+    }
+    else if(order==2) { //낮은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by price ASC";
+    }
+    else if(order==3) { //높은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_toy order by price DESC";
+    }
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, category:2, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, order:order, category:2, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -84,14 +141,31 @@ router.get('/healthCareList/:page', function(req, res, next){
   var page = req.params.page;
   var session = req.session;
   var id=session.user_id;
-
+  var order = req.query.order;
+  if(order) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@ : ", order);
+  }
+  else {
+    order=0;
+  }
   pool.getConnection(function(err, connection){
     //Use the connection
-    var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by idx DESC";
+    if(order==0) { //신상순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by idx DESC";
+    }
+    else if(order==1) { //인기순
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by sell_rate DESC";
+    }
+    else if(order==2) { //낮은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by price ASC";
+    }
+    else if(order==3) { //높은가격부터
+      var sqlForSelectList = "SELECT idx, main_img, prd_name, price, td_special, event FROM product_health order by price DESC";
+    }
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  category:3, web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  order:order, category:3, web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -204,7 +278,7 @@ router.get('/product_food/:idx', function(req, res, next){
   var web_product = req.params.web_product;
 
   pool.getConnection(function(err, connection) {
-    var sql = "select idx, category, main_img, prd_name, prd_des, price from product_food where idx=?";
+    var sql = "select idx, category, main_img, prd_name, prd_des, price, tear, joint, hair, diet from product_food where idx=?";
 
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
@@ -380,16 +454,16 @@ router.get('/addProduct', function(req, res){
         console.log("rows : " + JSON.stringify(result));
 
         if(category==0) {
-          res.redirect('/productBoard/foodList/1');
+          res.redirect('/productBoard/product_food/'+idx);
         }
         else if(category==1) {
-          res.redirect('/productBoard/clothesList/1');
+          res.redirect('/productBoard/product_clothes/'+idx);
         }
         else if(category==2) {
-          res.redirect('/productBoard/toyList/1');
+          res.redirect('/productBoard/product_toy/'+idx);
         }
         else if(category==3) {
-          res.redirect('/productBoard/healthCareList/1');
+          res.redirect('/productBoard/product_health/'+idx);
         }
         connection.release();
       });
@@ -428,16 +502,16 @@ router.post('/write_review', upload.single('image'), function(req, res, next){
       //console.log("rows : " + JSON.stringify(rows));
 
       if(category==0) {
-        res.redirect('/productBoard/foodList/'+prd_idx);
+        res.redirect('/productBoard/product_food/'+prd_idx);
       }
       else if(category==1) {
-        res.redirect('/productBoard/clothesList/'+prd_idx);
+        res.redirect('/productBoard/product_clothes/'+prd_idx);
       }
       else if(category==2) {
-        res.redirect('/productBoard/toyList/'+prd_idx);
+        res.redirect('/productBoard/product_toey/'+prd_idx);
       }
       else if(category==3) {
-        res.redirect('/productBoard/healthCareList/'+prd_idx);
+        res.redirect('/productBoard/product_health/'+prd_idx);
       }
       connection.release();
 
