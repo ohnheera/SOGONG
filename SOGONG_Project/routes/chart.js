@@ -17,7 +17,15 @@ router.get('/', function(req, res, next) {
   var id = null;
   var session = req.session;
   var user_id = session.user_id;
-  res.render('chart', { title: '매출통계 ', id:user_id});
+  pool.getConnection(function(err, connection){
+    var sql="select product, date, price, id from payment";
+    connection.query(sql, function(err, rowpayment){
+      if(err) res.send(err);
+      console.log("판매 정보 조회 결과 확인:", rowpayment);
+      res.render('chart', { title: '매출통계 ', id:user_id, row:rowpayment, leng: Object.keys(rowpayment).length});
+      connection.release();
+    });
+  });
 });
 
 
