@@ -44,7 +44,7 @@ router.post('/ordered', function(req, res, next){
   var session = req.session;
   var id = session.user_id;
   var date = new Date();
-  var result = Math.floor(Math.random() * 20000) + 10000;
+  var result = Math.floor(Math.random() * 200000) + 100000;
 
   if(id){
     pool.getConnection(function(err,connection){
@@ -56,14 +56,13 @@ router.post('/ordered', function(req, res, next){
         var product = '';
         var price = 0;
         var earnPoint=0;
-        var ordernum='2018'+'-'+result;
+        var ordernum=result;
 
         for(var i=0;i<leng;i++){
           product=product+rowcart[i].name+" "+rowcart[i].amount+"개"+" ";
           var origin = rowcart[i].price * rowcart[i].amount;
           var discount = origin * rowcart[i].event * 0.01;
           price = price + origin - discount;
-          ordernum=ordernum+'-'+rowcart[i].name;
         }
 
         earnPoint = price * 0.05;
