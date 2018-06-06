@@ -19,6 +19,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Shop
@@ -34,6 +36,18 @@
             <a class="nav-link" href="/infoboard">Community</a>
           </li>
           <%
+          if(id == "seller" || id == "manager"){
+            %>
+            <li class="nav-item">
+              <a class="nav-link" href="/chart">Seller</a>
+            </li>
+              <%if(id == "manager"){%>
+                <li class="nav-item">
+                  <a class="nav-link" href="/users/manage">Manager</a>
+                </li>
+              <%}%>
+            <%}%>
+          <%
           if(id == null){
             %>
             <li class="nav-item">
@@ -41,7 +55,7 @@
             </li>
             <%
           }
-          else{
+          else if(id != "seller" && id != "manager"){
             %>
             <li class="nav-item">
               <a class="nav-link" href="/cart">Cart</a>
@@ -49,16 +63,23 @@
             <li class="nav-item">
               <a class="nav-link" href="/users">Mypage</a>
             </li>
+            <%
+          }
+          %>
+          <%
+          if(id != null){
+            %>
             <li class="nav-item">
               <a class="nav-link" href="/login/logout">Logout</a>
             </li>
             <%
-          }
-          %>
+            }
+            %>
         </ul>
       </div>
     </div>
   </nav>
+
 
   <!-- Page Content -->
   <div class="container">

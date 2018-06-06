@@ -24,6 +24,11 @@ var pool = mysql.createPool({
   password: '12345'
 });
 
+router.get('/', function(req, res, next){
+  res.redirect('clothesList/1')
+});
+
+
 /***********************************PRODUCT LIST****************************************/
 //FOOD LIST
 router.get('/foodList/:page', function(req, res, next){
