@@ -45,6 +45,9 @@ router.post('/ordered', function(req, res, next){
   var id = session.user_id;
   var date = new Date();
   var result = Math.floor(Math.random() * 200000) + 100000;
+  var product_names=[];
+  var category=[];
+  var product_amounts=[];
 
   if(id){
     pool.getConnection(function(err,connection){
@@ -63,6 +66,9 @@ router.post('/ordered', function(req, res, next){
           var origin = rowcart[i].price * rowcart[i].amount;
           var discount = origin * rowcart[i].event * 0.01;
           price = price + origin - discount;
+          product_names[i]=rowcart[i].name;
+          category[i]=rowcart[i].product_num;
+          product_amounts[i]=rowcart[i].amount;
         }
 
         earnPoint = price * 0.05;
@@ -88,6 +94,39 @@ router.post('/ordered', function(req, res, next){
               connection.query(sql4, [earnPoint, id], function(err, rowuser){
                 if(err) res.send(err);
                 console.log("user DB 포인트 수정 결과 확인:", rowuser);
+
+                for(var i=0;i<leng;i++){
+                    if(category[i]==0){
+                      var sql5="update product_food set sell_rate = ? where prd_name=?";
+                      var sql6="select sell_rate from product_food where prd_name = ?";
+                    }
+                    else if(category[i]==1){
+                      var sql5="update product_clothes set sell_rate = ? where prd_name=?";
+                      var sql6="select sell_rate from product_clothes where prd_name = ?";
+                    }
+                    else if(category[i]==2){
+                      var sql5="update product_toy set sell_rate = ? where prd_name=?";
+                      var sql6="select sell_rate from product_toy where prd_name = ?";
+                    }
+                    else if(category[i]==3){
+                      var sql5="update product_health set sell_rate = ? where prd_name=?";
+                      var sql6="select sell_rate from product_health where prd_name = ?";
+                    }
+                  } 
+                  var prdname = product_names[i];
+                  var amount = product_amounts[i];
+
+                  connection.query(sql6, [prdname], function(err, sellrate){
+                    if(err) res.send(err);
+                    console.log("물건 sell rate 확인:", sellrate);
+                    var sell_rate=sellrate[0].sell_rate + amount;
+
+                    connection.query(sql5, [sell_rate, prdname], function(err, rowproduct){
+                      if(err) res.send(err);
+                      console.log("물건 sell rate 증가", rowproduct);
+                    });
+                  });
+
                 res.render('ordered', { title: '결제완료', id: id});
                 connection.release();
               });
