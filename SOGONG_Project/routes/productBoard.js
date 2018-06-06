@@ -95,7 +95,7 @@ router.get('/clothesList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, category:1, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'CLOTHES', id: session.user_id, order:order, category:1, web_product : 'clothesList', product : "product_clothes", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -130,7 +130,7 @@ router.get('/toyList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, category:2, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'TOY', id: session.user_id, order:order, category:2, web_product : 'toyList', product : "product_toy", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
@@ -165,7 +165,7 @@ router.get('/healthCareList/:page', function(req, res, next){
     connection.query(sqlForSelectList, function(err, rows){
       if(err) console.error("err : " + err);
       console.log("rows : " + JSON.stringify(rows));
-      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  category:3, web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
+      res.render('list_product', {web_name : 'PITAPET', title : 'HEALTH CARE',id: session.user_id,  order:order, category:3, web_product : 'healthCareList', product : "product_health", rows: rows, page:page, len:Object.keys(rows).length-1, pageNum: 6, pass: true} );
       connection.release();
     });
   });
