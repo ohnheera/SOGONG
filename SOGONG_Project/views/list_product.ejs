@@ -77,31 +77,23 @@
     <!-- Page Content -->
     <div class="container">
 
-      <div class="row">
+      <div class="row" align="center">
 
         <div class="col-lg-3">
-
+          <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/list.png" alt="">
           <h1 class="my-4"><%=title%></h1>
-          <img class="img-fluid" style="width: 100px; height:auto;" src="http://localhost:3000/icons/list.png" alt="">
-          <!--
-          <div class="list-group">
-            <a href="1" class="list-group-item">Category 1</a>
-            <a href="2" class="list-group-item">Category 2</a>
-            <a href="3" class="list-group-item">Category 3</a>
-          </div>
-        -->
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+            <!--
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <!-- FOR THE BEST PRODUCT -->
+
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
@@ -121,6 +113,7 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
+          -->
           </div>
           <div class="row">
           <%
@@ -137,7 +130,7 @@
                           <a href="/productBoard/<%=product%>/<%=oneItem.idx%>" style="align: center;color: black;" class="nav-list"><%=oneItem.prd_name%></a>
                         </h4>
                         <h5><%=oneItem.price%>원</h5>
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+
                         <!--
                         <p class="card-text">간략한 설명</p>
                       -->
