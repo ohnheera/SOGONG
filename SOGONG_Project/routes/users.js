@@ -78,6 +78,98 @@ router.get('/history', function(req, res, next) {
   }
 });
 
+//관리자 메뉴, seller와 manager의 비밀번호를 변경할수 있다.
+router.get('/manage', function(req, res, next) {
+  var id = null;
+  var session = req.session;
+  var user_id = session.user_id;
+  if(user_id == "manager")
+  {
+    pool.getConnection(function(err,connection)
+    {
+      var sql="select pic from userinfo where id = ?";
+      connection.query(sql,[user_id],function(err,row)
+      {
+        if(err) console.error(err);
+        console.log("기존 팝업 이미지 조회: ", row[0].pic);
+        res.render('manage',{title:"Manage",pic:row[0].pic, id:user_id});
+        connection.release();
+      });
+    });
+  }
+  else{
+    res.redirect('/login')
+  }
+});
+
+//관리자, 판매자 비밀번호 수정 및 팝업창 관리
+router.post('/manager',upload.single('popup'),function(req,res,next){
+  var pwd_seller = req.body.password_seller;
+  var pwd_manager = req.body.password_manager;
+  var original_file = req.body.pic;
+  var newFile = req.body.pic;
+  if(req.file != null){
+    newFile =  req.file.filename;
+  }
+  pool.getConnection(function(err,connection)
+  {
+    if(err) console.error("커넥션 객체 얻어오기 에러 : ",err);
+    var sql = "update userinfo set pic=?,passwd=? where id = ?";
+    if(newFile != original_file && original_file != null){
+      fs.exists('uploads-/user/petimg/' + original_file, function(exists){ //기존 파일 존재 확인
+        if(exists == true){
+          console.log("기존 팝업 이미지 존재, 삭제", original_file);
+          fs.unlink('uploads-/user/petimg/' + original_file,function(err){ //기존 파일 삭제
+            if(err) throw err;
+          });
+        }});
+        connection.query(sql,[newFile,pwd_manager,"manager"],function(err,row){
+          console.log(row);
+          if(err) console.error("관리 중 에러 발생 err: ",err);
+          if(row == 0)
+          {
+            res.send("<script>alert('오류 발생.');history.back();</script>");
+          }
+            sql = "update userinfo set passwd=? where id = ?";
+            connection.query(sql,[pwd_seller,"seller"],function(err,row){
+              console.log(row);
+              if(err) console.error("관리 중 에러 발생 err: ",err);
+              if(row == 0)
+              {
+                res.send("<script>alert('오류 발생.');history.back();</script>");
+              }
+              res.redirect('/');
+              connection.release();
+          });
+        });
+    }
+    else{
+      connection.query(sql,[newFile,pwd_manager,"manager"],function(err,row){
+        console.log(row);
+        if(err) console.error("관리 중 에러 발생 err: ",err);
+        if(row == 0)
+        {
+          res.send("<script>alert('오류 발생.');history.back();</script>");
+        }
+          sql = "update userinfo set passwd=? where id = ?";
+          connection.query(sql,[pwd_seller,"seller"],function(err,row){
+            console.log(row);
+            if(err) console.error("관리 중 에러 발생 err: ",err);
+            if(row == 0)
+            {
+              res.send("<script>alert('오류 발생.');history.back();</script>");
+            }
+            res.redirect('/');
+            connection.release();
+        });
+      });
+    }
+
+
+
+  });
+});
+
 router.post('/', function(req, res, next) {
   var id = null;
   var session = req.session;

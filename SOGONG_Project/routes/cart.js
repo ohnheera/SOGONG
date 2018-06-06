@@ -31,5 +31,26 @@ router.get('/', function(req, res, next) {
   });
 });
 
+//글 조회 로직 처리 get
+router.get('/delete/:name',function(req,res,next){
+  var id = null;
+  var session = req.session;
+  id = session.user_id;
+  var name = req.params.name;
+  pool.getConnection(function(err,connection)
+  {
+    var sql="DELETE FROM cart WHERE name=? and id = ?";
+    console.log("아이템과 아이디: ", name, id);
+
+    connection.query(sql,[name,id],function(err,row)
+    {
+      if(err) console.error(err);
+      console.log("장바구니의 아이템 삭제: ", row);
+      res.redirect('/cart')
+      connection.release();
+    });
+  });
+});
+
 
 module.exports = router;
