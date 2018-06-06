@@ -112,7 +112,7 @@ router.post('/ordered', function(req, res, next){
                       var sql5="update product_health set sell_rate = ? where prd_name=?";
                       var sql6="select sell_rate from product_health where prd_name = ?";
                     }
-                  }
+                  
                   var prdname = product_names[i];
                   var amount = product_amounts[i];
 
@@ -126,7 +126,7 @@ router.post('/ordered', function(req, res, next){
                       console.log("물건 sell rate 증가", rowproduct);
                     });
                   });
-
+                }
                 res.render('ordered', { title: '결제완료', id: id});
                 connection.release();
               });
