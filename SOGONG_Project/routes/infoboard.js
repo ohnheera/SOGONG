@@ -69,6 +69,7 @@ router.post('/write_info', upload.single('image'), function(req, res, next){
   var title = req.body.title;
   var content = req.body.content;
   var passwd = req.body.passwd;
+  console.log(req.body);
 
   if (!req.file) {
     var image=null;
