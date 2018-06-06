@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+<html>
+<head>
+    <meta charset="utf-8"/>
     <title>PITAPET</title>
-
+    <script src="/javascripts/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="css/1-col-portfolio.css" rel="stylesheet">
-
+    <link href="css/1-col-portfolio.css" rel="stylesheet"/>
     <style>
       /* CSS for Credit Card Payment form */
       .credit-card-box .panel-title {
@@ -59,11 +51,8 @@
         min-width: 180px;
       }
     </style>
-
-  </head>
-
-  <body>
-
+</head>
+<body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -117,114 +106,117 @@
 
       <!-- Page Heading -->
       <h1 class="my-4">주문서
-        <small>결제 하기</small>
+        <small>결제하기</small>
       </h1>
       <%
         var user=id;
       %>
 
       <h4 class="my-4">* 상품확인</h4>
+      <form>
       <!-- Project One -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="project_table">
-            <table border="1" class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th width="60%">상품명</th>
-                  <th width="10%">정가</th>
-                  <th width="10%">할인</th>
-                  <th width="10%">수량</th>
-                  <th width="10%">합계</th>
-                </tr>
-              </thead>
-              <tbody>
-                <%
-                var total_price=0;
-                var total_discount=0;
-                var product_name='';
-                for(var i=0;i<(leng);i++){
-                  product_name=product_name+row_cart[i].name+" "+row_cart[i].amount+"개"+" ";
-                  var cart=row_cart[i];
-                %>
-                <tr>
-                  <td>
-                    <img src= "<%=cart.pic%>" style="max-width: 50%; height: auto;"><%=cart.name%>
-                    <input type="hidden" name="product_name" id="product_name" value="<%=product_name%>"/>
-                  </td>
-                  <td><%=cart.price%></td>
-                  <td>
-                    <%
-                      if(cart.event!=0&&cart.event!=null){
-                    %>
-                    -<%=cart.event%>%
-                    <%
-                      }
-                    %>
-                  </td>
-                  <td><%=cart.amount%></td>
-                  <td>
-                    <%
-                      var before=cart.price;
-                      var amount=cart.amount;
-                      var discount=0;
-                      if(cart.event!=0&&cart.event!=null){
-                        var rate=cart.event;
-                        discount=before*amount*0.1;
-                      }
-                      var after=(before*amount)-discount;
-                      total_price+=after;
-                      total_discount+=discount;
-                    %>
-                    <%=after%>원
-                  </td>
-                </tr>
-                <%
-                }
-                %>
-              </tbody>
-            </table>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="project_table">
+              <table border="1" class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th width="60%">상품명</th>
+                    <th width="10%">정가</th>
+                    <th width="10%">할인</th>
+                    <th width="10%">수량</th>
+                    <th width="10%">합계</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%
+                  var total_price=0;
+                  var total_discount=0;
+                  var product_name='';
+                  for(var i=0;i<(leng);i++){
+                    product_name=product_name+row_cart[i].name+" "+row_cart[i].amount+"개"+" ";
+                    var cart=row_cart[i];
+                  %>
+                  <tr>
+                    <td>
+                      <!--<img src="<%=cart.pic%>" name="image" style="max-width: 50%; height: auto;">-->
+                      <%=cart.name%>
+                    </td>
+                    <td><%=cart.price%></td>
+                    <td>
+                      <%
+                        if(cart.event!=0&&cart.event!=null){
+                      %>
+                      -<%=cart.event%>%
+                      <%
+                        }
+                      %>
+                    </td>
+                    <td><%=cart.amount%></td>
+                    <td>
+                      <%
+                        var before=cart.price;
+                        var amount=cart.amount;
+                        var discount=0;
+                        if(cart.event!=0&&cart.event!=null){
+                          var rate=cart.event;
+                          discount=before*amount*rate*0.01;
+                        }
+                        var after=(before*amount)-discount;
+                        total_price+=(before*amount);
+                        total_discount+=discount;
+                      %>
+                      <%=after%>원
+                    </td>
+                  </tr>
+                  <%
+                  }
+                  %>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
       <form action="/cart">
         * 상품변경을 원하시면 <button type="submit" class="btn" onclick="return confirm('장바구니로 이동하시겠습니까?')">장바구니 ></button>
       </form>
       <hr>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="price">
-            <table border="1" class="table table-striped table-bordered" id="price_table">
-              <thead>
-                <tr>
-                  <th width="20%">총 상품금액</th>
-                  <th width="20%">총 할인금액</th>
-                  <th width="20%">사용할 적립금</th>
-                  <th width="40%">최종결제금액</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><%=total_price%>원</td>
-                  <td><%=total_discount%>원</td>
-                  <td><%=row_user.point%>원</td>
-                  <td>
-                    <%
-                      var real_price=total_price-total_discount;
-                      var real_price2=total_price-total_discount;
-                      if(row_user.point!=null){
-                        real_price=real_price-row_user.point;
-                      }
-                    %>
-                    <%=real_price%>원
-                    <input type="hidden" name="product_price" id="product_price" value="<%=real_price%>"/>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <form>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="price">
+              <table border="1" class="table table-striped table-bordered" id="price_table">
+                <thead>
+                  <tr>
+                    <th width="20%">총 상품금액</th>
+                    <th width="20%">총 할인금액</th>
+                    <th width="20%">사용할 적립금</th>
+                    <th width="40%">최종결제금액</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%=total_price%>원</td>
+                    <td><%=total_discount%>원</td>
+                    <td><%=row_user.point%>원</td>
+                    <td>
+                      <%
+                        var real_price=total_price-total_discount;
+                        var real_price2=total_price-total_discount;
+                        if(row_user.point!=null){
+                          real_price=real_price-row_user.point;
+                        }
+                      %>
+                      <%=real_price%>원
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
       <div class="row">
         <div class="col-md-6">
           <form>
@@ -252,28 +244,9 @@
             var getp = real_price2 * 0.05;
           %>
           * 적립혜택 : <%=getp%>원
-          <input type="hidden" name="earnPoint" value="<%=getp%>"/>
         </div>
       </div>
       <!-- /.row -->
-      <script>
-        function point_apply(){
-          var point = document.getElementById('point').value;
-          var table1 = document.getElementById("price_table");
-          var table2=document.getElementById("final_check");
-          var have = "<%=row_user.point%>";
-          var tp="<%=real_price2%>";
-          if(point>have){
-            alert("보유 포인트를 초과하여 입력하였습니다.");
-          }
-          else{
-            tp=tp-point;
-            table1.rows[1].cells[2].innerHTML = point+"원";
-            table1.rows[1].cells[3].innerHTML = tp+"원";
-            table2.rows[2].cells[1].innerHTML = tp+"원";
-          }
-        }
-      </script>
       <hr>
       <!-- Project Two -->
       <div class="row">
@@ -314,7 +287,7 @@
             <table border="1" class="table table-striped table-bordered">
               <tr>
                 <th width="30%">아이디</th>
-                <td width="70%"><input type="text" name="id" id="id" class="form-control input-lg" placeholder="아이디" value="<%=user%>" tabindex="2" required></td>
+                <td width="70%"><input type="text" name="id_user" id="id_user" class="form-control input-lg" placeholder="아이디" value="<%=user%>" tabindex="2" required></td>
               </tr>
               <tr>
                 <th width="30%">이름</th>
@@ -322,8 +295,8 @@
               </tr>
               <tr>
                 <th width="30%">핸드폰</th>
-                <td width="70%"><input type="hidden" name="tel" id="tel" value="<%=row_user.tel%>" required>
-                  <select name="tel1" id="tel1" >
+                <td width="70%"><input type="hidden" name="tel_user" id="tel_user" value="<%=row_user.tel%>" required>
+                  <select name="tel1_user" id="tel1_user" >
                     <option value="010">010</option>
                     <option value="011">011</option>
                     <option value="016">016</option>
@@ -332,9 +305,9 @@
                     <option value="019">019</option>
                   </select>
                   -
-                  <input type="text" name="tel2" id="tel2" size="4" maxLength="4" required>
+                  <input type="text" name="tel2_user" id="tel2_user" size="4" maxLength="4" required>
                   -
-                  <input type="text" name="tel3" id="tel3" size="4" maxLength="4" required><br>
+                  <input type="text" name="tel3_user" id="tel3_user" size="4" maxLength="4" required><br>
                   <small>* 이 번호로 주문진행과정이 SMS로 안내됩니다.</small>
                 </td>
               </tr>
@@ -375,20 +348,13 @@
                               </div>
                           </div>
                           <div class="panel-body">
-                              <form role="form" id="payment-form" method="POST">
+                              <form role="form" id="payment-form">
                                   <div class="row">
                                       <div class="col-xs-7 col-md-7">
                                           <div class="form-group">
                                               <label for="cardNumber">CARD NUMBER</label>
                                               <div class="input-group">
-                                                  <input
-                                                      type="tel"
-                                                      class="form-control"
-                                                      name="cardNumber"
-                                                      id="cardNumber"
-                                                      placeholder="Valid Card Number"
-                                                      required
-                                                  />
+                                                  <input type="tel" class="form-control" name="cardNumber" id="cardNumber" placeholder="Valid Card Number" required/>
                                                   <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                               </div>
                                           </div>
@@ -398,27 +364,13 @@
                                       <div class="col-xs-7 col-md-7">
                                           <div class="form-group">
                                               <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                              <input
-                                                  type="tel"
-                                                  class="form-control"
-                                                  name="cardExpiry"
-                                                  id="cardExpiry"
-                                                  placeholder="MM / YY"
-                                                  required
-                                              />
+                                              <input type="tel" class="form-control" name="cardExpiry" id="cardExpiry" placeholder="MM / YY" required/>
                                           </div>
                                       </div>
                                       <div class="col-xs-5 col-md-5 pull-right">
                                           <div class="form-group">
                                               <label for="cardCVC">CV CODE</label>
-                                              <input
-                                                  type="tel"
-                                                  class="form-control"
-                                                  name="cardCVC"
-                                                  id="cardCVC"
-                                                  placeholder="CVC"
-                                                  required
-                                              />
+                                              <input type="tel" class="form-control" name="cardCVC" id="cardCVC" placeholder="CVC" required/>
                                           </div>
                                       </div>
                                   </div>
@@ -466,7 +418,10 @@
             </label>
           </small>
           <div class="col-xs-7 col-md-4">
-            <form action="/payment/ordered" method="post" onsubmit="return onPaymentSubmit()">
+            <form action="/payment/ordered" method="post" onsubmit="return onPaymentSubmit()" enctype='multipart/form-data'>
+              <input type="hidden" name="productName" id="productName" value="aaaaaa" />
+              <input type="hidden" name="productPrice" id="productPrice" value="1234" />
+              <input type="hidden" name="earnPoint" value="1234"/>
               <button class="subscribe btn btn-success btn-lg btn-block" type="submit" onclick="return confirm('결제하시겠습니까?')">결제하기</button>
             </form>
           </div>
@@ -487,6 +442,25 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+    <script>
+      function point_apply(){
+        var point = document.getElementById('point').value;
+        var table1 = document.getElementById("price_table");
+        var table2=document.getElementById("final_check");
+        var have = "<%=row_user.point%>";
+        var tp="<%=real_price2%>";
+        if(point>have){
+          alert("보유 포인트를 초과하여 입력하였습니다.");
+        }
+        else{
+          tp=tp-point;
+          table1.rows[1].cells[2].innerHTML = point+"원";
+          table1.rows[1].cells[3].innerHTML = tp+"원";
+          table2.rows[2].cells[1].innerHTML = tp+"원";
+        }
+      }
+    </script>
     <script>
     function onPaymentSubmit()
     {
@@ -579,159 +553,5 @@
       }
     }
     </script>
-    <script>
-    /*
-    The MIT License (MIT)
-
-    Copyright (c) 2015 William Hilton
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
-    */
-    /* GET users listing. */
-
-    var $form = jQuery('#payment');
-    $form.find('.subscribe').on('click', payWithStripe);
-
-    /* If you're using Stripe for payments */
-    function payWithStripe(e) {
-        e.preventDefault();
-
-        /* Abort if invalid form data */
-        if (!validator.form()) {
-            return;
-        }
-
-        /* Visual feedback */
-        $form.find('.subscribe').html('Validating <i class="fa fa-spinner fa-pulse"></i>').prop('disabled', true);
-
-        var PublishableKey = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'; // Replace with your API publishable key
-        Stripe.setPublishableKey(PublishableKey);
-
-        /* Create token */
-        var expiry = $form.find('[name=cardExpiry]').payment('cardExpiryVal');
-        var ccData = {
-            number: $form.find('[name=cardNumber]').val().replace(/\s/g,''),
-            cvc: $form.find('[name=cardCVC]').val(),
-            exp_month: expiry.month,
-            exp_year: expiry.year
-        };
-
-        Stripe.card.createToken(ccData, function stripeResponseHandler(status, response) {
-            if (response.error) {
-                /* Visual feedback */
-                $form.find('.subscribe').html('Try again').prop('disabled', false);
-                /* Show Stripe errors on the form */
-                $form.find('.payment-errors').text(response.error.message);
-                $form.find('.payment-errors').closest('.row').show();
-            } else {
-                /* Visual feedback */
-                $form.find('.subscribe').html('Processing <i class="fa fa-spinner fa-pulse"></i>');
-                /* Hide Stripe errors on the form */
-                $form.find('.payment-errors').closest('.row').hide();
-                $form.find('.payment-errors').text("");
-                // response contains id and card, which contains additional card details
-                console.log(response.id);
-                console.log(response.card);
-                var token = response.id;
-                // AJAX - you would send 'token' to your server here.
-                $.post('/account/stripe_card_token', {
-                        token: token
-                    })
-                    // Assign handlers immediately after making the request,
-                    .done(function(data, textStatus, jqXHR) {
-                        $form.find('.subscribe').html('Payment successful <i class="fa fa-check"></i>');
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        $form.find('.subscribe').html('There was a problem').removeClass('success').addClass('error');
-                        /* Show Stripe errors on the form */
-                        $form.find('.payment-errors').text('Try refreshing the page and trying again.');
-                        $form.find('.payment-errors').closest('.row').show();
-                    });
-                  }
-              });
-          }
-          /* Fancy restrictive input formatting via jQuery.payment library*/
-          $('input[name=cardNumber]').payment('formatCardNumber');
-          $('input[name=cardCVC]').payment('formatCardCVC');
-          $('input[name=cardExpiry').payment('formatCardExpiry');
-
-          /* Form validation using Stripe client-side validation helpers */
-          jQuery.validator.addMethod("cardNumber", function(value, element) {
-              return this.optional(element) || Stripe.card.validateCardNumber(value);
-          }, "Please specify a valid credit card number.");
-
-          jQuery.validator.addMethod("cardExpiry", function(value, element) {
-              /* Parsing month/year uses jQuery.payment library */
-              value = $.payment.cardExpiryVal(value);
-              return this.optional(element) || Stripe.card.validateExpiry(value.month, value.year);
-          }, "Invalid expiration date.");
-
-          jQuery.validator.addMethod("cardCVC", function(value, element) {
-              return this.optional(element) || Stripe.card.validateCVC(value);
-          }, "Invalid CVC.");
-
-          validator = $form.validate({
-              rules: {
-                  cardNumber: {
-                      required: true,
-                      cardNumber: true
-                  },
-                  cardExpiry: {
-                      required: true,
-                      cardExpiry: true
-                  },
-                  cardCVC: {
-                      required: true,
-                      cardCVC: true
-                  }
-              },
-              highlight: function(element) {
-                  $(element).closest('.form-control').removeClass('success').addClass('error');
-              },
-              unhighlight: function(element) {
-                  $(element).closest('.form-control').removeClass('error').addClass('success');
-              },
-              errorPlacement: function(error, element) {
-                  $(element).closest('.form-group').append(error);
-              }
-          });
-
-          paymentFormReady = function() {
-              if ($form.find('[name=cardNumber]').hasClass("success") &&
-                  $form.find('[name=cardExpiry]').hasClass("success") &&
-                  $form.find('[name=cardCVC]').val().length > 1) {
-                  return true;
-              } else {
-                  return false;
-              }
-          }
-
-          $form.find('.subscribe').prop('disabled', true);
-          var readyInterval = setInterval(function() {
-              if (paymentFormReady()) {
-                  $form.find('.subscribe').prop('disabled', false);
-                  clearInterval(readyInterval);
-              }
-          }, 250);
-
-    </script>
-
-  </body>
-
+</body>
 </html>
