@@ -310,14 +310,39 @@ router.get('/product_health/:idx', function(req, res, next){
 });
 /*****************************************************************************************************/
 //상품 삭제
-router.get('/delete_product/:idx', function(req, res){
-  var idx = req.params.idx;
+router.get('/delete_product/', function(req, res){
+  var idx = req.query.idx;
+  var category = req.query.category;
+
   pool.getConnection(function(err, connection) {
-    var sql = "delete from product_food where idx=?";
+    if(category==0) {
+      var sql = "delete from product_food where idx=?";
+    }
+    else if(category==1) {
+      var sql = "delete from product_clothes where idx=?";
+    }
+    else if(category==2) {
+      var sql = "delete from product_toy where idx=?";
+    }
+    else if(category==3) {
+      var sql = "delete from product_health where idx=?";
+    }
+
     connection.query(sql, [idx], function(err, result){
       console.log(result);
       if(err) console.error("글 삭제 중 에러 발생 err : ", err);
-      res.redirect('/productBoard/foodList/1');
+      if(category==0) {
+        res.redirect('/productBoard/foodList/1');
+      }
+      else if(category==1) {
+        res.redirect('/productBoard/clothesList/1');
+      }
+      else if(category==2) {
+        res.redirect('/productBoard/toyList/1');
+      }
+      else if(category==3) {
+        res.redirect('/productBoard/healthCareList/1');
+      }
       connection.release();
     });
   });
@@ -354,7 +379,18 @@ router.get('/addProduct', function(req, res){
         if(err) console.error("err : " + err);
         console.log("rows : " + JSON.stringify(result));
 
-        res.redirect('/productBoard/foodList/1');
+        if(category==0) {
+          res.redirect('/productBoard/foodList/1');
+        }
+        else if(category==1) {
+          res.redirect('/productBoard/clothesList/1');
+        }
+        else if(category==2) {
+          res.redirect('/productBoard/toyList/1');
+        }
+        else if(category==3) {
+          res.redirect('/productBoard/healthCareList/1');
+        }
         connection.release();
       });
     });
@@ -391,7 +427,18 @@ router.post('/write_review', upload.single('image'), function(req, res, next){
       if(err) console.error("ERROR: ", err);
       //console.log("rows : " + JSON.stringify(rows));
 
-      res.redirect('/productBoard/foodList/1');
+      if(category==0) {
+        res.redirect('/productBoard/foodList/'+prd_idx);
+      }
+      else if(category==1) {
+        res.redirect('/productBoard/clothesList/'+prd_idx);
+      }
+      else if(category==2) {
+        res.redirect('/productBoard/toyList/'+prd_idx);
+      }
+      else if(category==3) {
+        res.redirect('/productBoard/healthCareList/'+prd_idx);
+      }
       connection.release();
 
       //Don't use the connection here, it has been returned to the pool.
@@ -402,13 +449,26 @@ router.post('/write_review', upload.single('image'), function(req, res, next){
 //상품 수정 화면 가져오기
 router.get('/update_product', function(req, res, next){
   var idx = req.query.idx;
+  var category = req.query.category;
   var session = req.session;
   var id=session.user_id;
 
   pool.getConnection(function(err, connection){
     if(err) console.error("커넥션 객체 얻어오기 에러 : ", err);
 
-    var sql = "select idx, main_img, prd_name, prd_des, price from product_food where idx=?";
+    if(category==0) {
+      var sql = "select idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet from product_food where idx=?";
+    }
+    else if(category==1) {
+      var sql = "select idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet from product_clothes where idx=?";
+    }
+    else if(category==2) {
+      var sql = "select idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet from product_toy where idx=?";
+    }
+    else if(category==3) {
+      var sql = "select idx, category, main_img, prd_name, prd_des, price, td_special, event, tear, joint, hair, diet from product_health where idx=?";
+    }
+
     connection.query(sql, [idx], function(err, rows){
       if(err) console.error(err);
       console.log("수정 할 상품 호출 : ", rows);
@@ -421,20 +481,62 @@ router.get('/update_product', function(req, res, next){
 
 //상품 수정하기
 router.post('/update_product', upload.single('main_img'), function(req, res, next){
+  var category= req.body.category;
   var idx = req.body.idx;
   var main_img = "/uploads/productImg/"+req.file.filename;
   var prd_name = req.body.prd_name;
   var prd_des = req.body.prd_des;
   var price = req.body.price;
-  var datas = [main_img, prd_name, prd_des, price, idx];
+  var tear = 0;
+  var joint = 0;
+  var hair = 0;
+  var diet = 0;
+  if(req.body.tear){
+    tear = 1;
+  }
+  if(req.body.joint){
+    joint = 1;
+  }
+  if(req.body.hair){
+    hair = 1;
+  }
+  if(req.body.diet){
+    diet = 1;
+  }
+  var td_special = req.body.td_special;
+  var price_event = req.body.price_event;
+  var datas = [main_img, prd_name, prd_des, price, td_special, price_event, tear, joint, hair, diet, idx];
 
   pool.getConnection(function(err, connection) {
-    var sql = "update product_food set main_img=?, prd_name=?, prd_des=?, price=? where idx=?";
+    if(category==0) {
+      var sql = "update product_food set main_img=?, prd_name=?, prd_des=?, price=?, td_special=?, event=?, tear=?, joint=?, hair=?, diet=? where idx=?";
+    }
+    else if(category==1) {
+      var sql = "update product_clothes set main_img=?, prd_name=?, prd_des=?, price=?, td_special=?, event=?, tear=?, joint=?, hair=?, diet=? where idx=?";
+    }
+    else if(category==2) {
+      var sql = "update product_toy set main_img=?, prd_name=?, prd_des=?, price=?, td_special=?, event=?, tear=?, joint=?, hair=?, diet=? where idx=?";
+    }
+    else if(category==3) {
+      var sql = "update product_health set main_img=?, prd_name=?, prd_des=?, price=?, td_special=?, event=?, tear=?, joint=?, hair=?, diet=? where idx=?";
+    }
     connection.query(sql, datas, function(err, result){
       console.log(result);
       if(err) console.error("글 수정 중 에러 발생 err : ", err);
 
-      res.redirect('/productBoard/product/'+idx);
+      if(category==0) {
+        res.redirect('/productBoard/foodList/1');
+      }
+      else if(category==1) {
+        res.redirect('/productBoard/clothesList/1');
+      }
+      else if(category==2) {
+        res.redirect('/productBoard/toyList/1');
+      }
+      else if(category==3) {
+        res.redirect('/productBoard/healthCareList/1');
+      }
+
       connection.release();
     });
   });

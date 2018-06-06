@@ -91,6 +91,8 @@
           <form action="/productBoard/update_product" onsubmit="return onWriteSubmit()" method="post"  enctype = "multipart/form-data">
             <div class="card card-outline-secondary my-4">
               <input type="hidden" name="idx" value="<%=row.idx%>"/>
+              <input type="hidden" name="category" id="category" value="<%=row.category%>"/>
+              <!--
               <div class="form-group" style="padding-left:5px; padding-top:5px;">
               <h5>카테고리
               <small><select name="category" id="category" value=<%=row.category%> >
@@ -100,7 +102,7 @@
                 <option value="3">HEALTH CARE</option>
               </select></small>
               </h5>
-            </div>
+            </div> -->
 
               <div class="form-group" style="padding-left:5px">
                 <h5>상품이름
@@ -110,10 +112,8 @@
 
               <div class="form-group" style="padding-left:5px">
                 <h5>상품사진
-                  <p>
-                    <input type="hidden" name="image_previous" value="<%=row.main_img%>" />
-                    <img src= "<%=row.main_img%>" width="200" height="200">
-                  </p>
+                  <p><input type="hidden" name="image_previous" value="<%=row.main_img%>" /></p>
+                  <p><img src= "<%=row.main_img%>" width="200" height="200"></p>
                   <small><input type="file" name="main_img" id="main_img" accept="image/*" required/></small>
                 </h5>
               </div>
@@ -155,19 +155,46 @@
                 <!-- 특가 퍼센트가 0이면 오늘의 특가 적용 안한다는 의미 -->
                 <div class="form-group" style="padding-left:5px">
                   <h5>오늘의 특가
-                    <small><input type="text" name="td_special" id="td_special" size="5" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>%
-                    </small></h5>
+                    <small>
+                      <select name="td_special" id="td_special" >
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                      </select>%
+                    </small>
+                  </h5>
                 </div>
-
                 <!-- 이벤트 퍼센트가 0이면 이벤트 적용 안한다는 의미 -->
                 <div class="form-group" style="padding-left:5px">
                   <h5>이벤트
-                    <small><input type="text" name="event" id="event" size="5" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;" required/>%
-                    </small></h5>
+                    <small>
+                      <select name="price_event" id="price_event" >
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                      </select>%
+                    </small>
+                  </h5>
                 </div>
-              </div>
-              <div align="right">
-                <button type="submit" class="btn btn-success"><span>SAVE</span></button>
+                <div align="right" style="padding:5px;">
+                  <button type="submit" class="btn"><span>SAVE</span></button>
+                </div>
               </div>
             </form>
           <script>
