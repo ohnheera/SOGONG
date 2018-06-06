@@ -80,28 +80,72 @@
     </nav>
     <!-- Page Content -->
     <div class="container">
-
       <div class="row">
-
         <div class="col-lg-3">
           <h1 class="my-4"><%=title%></h1>
         </div>
         <!-- /.col-lg-3 -->
-
         <div class="col-lg-9">
-          <div class="card mt-4">
-            <image src = <%=row.main_img%> width = "300" height = "300" alt="">
+          <%
+          if(id == "manager" | id=="seller") {%>
+            <div align="right" id="forMaster">
+              <a class="text-black text-left" onclick="deleteProduct(<%=row.idx%>)">Delete</a>
+              <script>
+                function deleteProduct(idx) {
+                  if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
+                    location.href = "/productBoard/delete_product/?idx=<%=row.idx%>&category=<%=row.category%>";
+                  }
+                }
+              </script>
+              /
+              <a class="m-0 text-black" onclick="updateProduct(<%=row.idx%>)">Edit</a>
+              <script>
+                function updateProduct(idx) {
+                  location.href = "/productBoard/update_product?idx=<%=row.idx%>&category=<%=row.category%>";
+                }
+              </script>
+          <%}
+          else {%>
+            <div align="right" id="forMaster">
+              <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">Delete</a>
+              <script>
+                function deleteProduct(idx) {
+                  if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
+                    location.href = "/productBoard/delete_product/?idx=<%=row.idx%>&category=<%=row.category%>";
+                  }
+                }
+              </script>
+              /
+              <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">Edit</a>
+              <script>
+                function updateProduct(idx) {
+                  location.href = "/productBoard/update_product?idx=<%=row.idx%>&category=<%=row.category%>";
+                }
+              </script>
+          <%}%>
+          <%if(id!=null) {%>
+
+          <%}%>
+
+          </div>
+          <div class="card mt-4" align="center">
+            <image style="padding:5px;"src = <%=row.main_img%> width = "300" height = "300" alt="">
             <div class="card-body">
               <h3 class="card-title"><%=row.prd_name%></h3>
               <h4><%=row.price%>원</h4>
-              <p class="card-text">Content</p>
-              <!--
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
-            -->
-
-            <small><input type="text" name="num_prd" id="num_prd" size="20" maxLength="20" style="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 1px solid;"required/></small>
-            <a onclick="addProduct(<%=row.idx%>,<%=row.category%>)">장바구니에 추가</a>
+              <select name="num_prd" id="num_prd" >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            <a onclick="addProduct(<%=row.idx%>,<%=row.category%>)" class="btn">장바구니에 추가</a>
             <script>
               function addProduct(idx, category) {
                 if(confirm("상품을 장바구니에 추가하시겠습니까?")==true) {
@@ -112,6 +156,14 @@
               }
             </script>
             </div>
+          </div>
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              상품 설명
+            </div>
+              <div class="card-body">
+                <%=row.prd_des%>
+              </div>
           </div>
           <!-- /.card -->
           <div class="card card-outline-secondary my-4">
@@ -141,7 +193,7 @@
                   <small class = "text-muted">Posted by <%=oneReview.creator_id%></small>
                   <hr>
                 <%}%>
-                <a href="/productBoard/write_review?idx=<%=row.idx%>&category=<%=row.category%>" class="btn btn-success">Leave a Review</a>
+                <a href="/productBoard/write_review?idx=<%=row.idx%>&category=<%=row.category%>" style="border:none;background-color:#C593FF;"class="btn btn-success btn-block btn-lg">Leave a Review</a>
               </div>
           </div>
           <!-- /.card -->
@@ -153,23 +205,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container text-right">
-        <a class="text-white text-left" onclick="deleteProduct(<%=row.idx%>)">Delete</a>
-        <script>
-          function deleteProduct(idx) {
-            if(confirm("상품을 목록에서 삭제하시겠습니까?")==true) {
-              location.href = "/productBoard/delete_product/"+idx;
-            }
-          }
-        </script>
-        <a class="m-0 text-white" onclick="updateProduct(<%=row.idx%>)">Edit</a>
-        <script>
-          function updateProduct(idx) {
-            location.href = "/productBoard/update_product?idx="+idx;
-          }
-        </script>
-        <!--
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      -->
+        <p class="m-0 text-center text-white">Copyright &copy; PITAPET 2018</p>
       </div>
       <!-- /.container -->
     </footer>
