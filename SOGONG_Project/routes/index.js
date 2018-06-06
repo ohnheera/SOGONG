@@ -22,6 +22,8 @@ router.get('/', function(req, res, next) {
 
   pool.getConnection(function(err,connection)
   {
+    var sql0 = "SELECT pic FROM userinfo WHERE id = ?"
+    //popup img get
     var sql1 = "SELECT category,idx,main_img,prd_name,prd_des,price,sell_rate FROM product_food UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_toy UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_health UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,sell_rate FROM  product_clothes ORDER BY sell_rate LIMIT 3"
     //best3
     var sql2 = "SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_food WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_health WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_toy WHERE event > 0  UNION ALL SELECT  category,idx,main_img,prd_name,prd_des,price,event FROM product_clothes WHERE event > 0 ORDER BY event LIMIT 1";
@@ -41,7 +43,8 @@ router.get('/', function(req, res, next) {
     //0: best from food / 1: best from health / 2: best from toy
     //3: event / 4: today's deal / 8: match to user
     //5: new1 / 6: new2 / 7: new3
-
+    connection.query(sql0 ,["manager"],function(err,pic)
+    {
     connection.query(sql1 ,function(err,prd1)
     {
       if(err) console.error(err);
@@ -75,19 +78,20 @@ router.get('/', function(req, res, next) {
                 if(err) console.error(err);
                 console.log("interested product: ", prd5);
 
-                res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5, id:user_id});
+                res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5,pic, id:user_id});
                 connection.release();
               });
             });
           }
           else {
-            res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5:null, id:user_id});
+            res.render('index',{title:"Home", prd1,prd2,prd3,prd4,prd5:null,pic, id:user_id});
             connection.release();
           }
           });
         });
       });
     });
+  });
     });
 });
 
