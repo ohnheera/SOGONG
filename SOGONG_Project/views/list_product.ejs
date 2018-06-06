@@ -79,7 +79,18 @@
 
       <div class="row" align="center">
         <div class="col-lg-3">
-          <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/list.png" alt="">
+          <%if(category==0) {%>
+            <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/food.png" alt="">
+          <%}
+          else if(category==1) {%>
+            <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/clothes.png" alt="">
+          <%}
+          else if(category==2) {%>
+            <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/toy.png" alt="">
+          <%}
+          else if(category==3) {%>
+            <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/health.png" alt="">
+          <%}%>
           <h1 class="my-4"><%=title%></h1>
         </div>
         <!-- /.col-lg-3 -->
@@ -105,7 +116,16 @@
               </script>
             </div>
           <%}%>
-
+          <!--
+          <div align="right">
+            <select name="star" id="star" >
+              <option value="1">신상순</option>
+              <option value="2">인기순</option>
+              <option value="3">낮은가격부터</option>
+              <option value="4">높은가격부터</option>
+            </select>
+          </div>
+        -->
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           </div>
           <div class="row">
@@ -123,16 +143,21 @@
                           <a href="/productBoard/<%=product%>/<%=oneItem.idx%>" style="align: center;color: black;" class="nav-list"><%=oneItem.prd_name%></a>
                         </h4>
                         <h5><%=oneItem.price%>원</h5>
-
-                        <!--
-                        <p class="card-text">간략한 설명</p>
-                      -->
+                        <%if(oneItem.td_special!=0) {%>
+                          <p class="card-text" style="color: red;">
+                            <img class="img-fluid" style="width: 25px; height:auto;" src="http://localhost:3000/icons/star.png" alt="">
+                            오늘의 특가 : <%=oneItem.td_special%>%
+                            <img class="img-fluid" style="width: 25px; height:auto;" src="http://localhost:3000/icons/star.png" alt="">
+                          </p>
+                        <%}%>
+                        <%if(oneItem.event!=0) {%>
+                          <p class="card-text" style="color: red;">
+                            <img class="img-fluid" style="width: 25px; height:auto;" src="http://localhost:3000/icons/star.png" alt="">
+                            할인 이벤트 : <%=oneItem.td_special%>%
+                            <img class="img-fluid" style="width: 25px; height:auto;" src="http://localhost:3000/icons/star.png" alt="">
+                          </p>
+                        <%}%>
                       </div>
-                      <!--
-                      <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                      </div>
-                    -->
                     </div>
                   </div>
           <% }
