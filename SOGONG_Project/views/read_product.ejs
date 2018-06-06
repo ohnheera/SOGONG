@@ -81,7 +81,8 @@
     <!-- Page Content -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3" align="center">
+          <img class="img-fluid" style="width: 150px; height:auto; padding-top:10px;" src="http://localhost:3000/icons/shopping.png" alt="">
           <h1 class="my-4"><%=title%></h1>
         </div>
         <!-- /.col-lg-3 -->
@@ -161,6 +162,30 @@
               상품 설명
             </div>
               <div class="card-body">
+                <%if(row.tear==1) {%>
+                  <p>
+                  <img class="img-fluid" style="width: 20px; height:auto; " src="http://localhost:3000/icons/checked.png" alt="">
+                  눈물개선
+                  </p>
+                <%}%>
+                <%if(row.joint==1) {%>
+                  <p>
+                  <img class="img-fluid" style="width: 20px; height:auto; " src="http://localhost:3000/icons/checked.png" alt="">
+                  관절개선
+                  </p>
+                <%}%>
+                <%if(row.hair==1) {%>
+                  <p>
+                  <img class="img-fluid" style="width: 20px; height:auto; " src="http://localhost:3000/icons/checked.png" alt="">
+                  모질개선
+                  </p>
+                <%}%>
+                <%if(row.diet==1) {%>
+                  <p>
+                  <img class="img-fluid" style="width: 20px; height:auto; " src="http://localhost:3000/icons/checked.png" alt="">
+                  다이어트
+                  </p>
+                <%}%>
                 <%=row.prd_des%>
               </div>
           </div>
