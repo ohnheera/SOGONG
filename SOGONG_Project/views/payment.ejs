@@ -54,48 +54,70 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="/">PITAPET</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home
+
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop
               </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="/productBoard/foodList/1">Food</a>
+                <a class="dropdown-item" href="/productBoard/clothesList/1">Clothes</a>
+                <a class="dropdown-item" href="/productBoard/toyList/1">Toy</a>
+                <a class="dropdown-item" href="/productBoard/healthCareList/1">Health Care</a>
+              </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/users">MyPage
-              </a>
+              <a class="nav-link" href="/infoboard">Community</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/productBoard/list/1">Shop</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/cart">Cart
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <!-- 왜 안될까 -->
-              <a class="nav-link" href="/noticeboard/list_notice/1">Community</a>
-            </li>
-            <li class="nav-item">
-              <%
-                if(id==null){
+            <%
+            if(id == "seller" || id == "manager"){
               %>
-              <a class="nav-link" href="/login">LogIn</a>
-              <%
-                }
-                else{
+              <li class="nav-item">
+                <a class="nav-link" href="/chart">Seller</a>
+              </li>
+                <%if(id == "manager"){%>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/users/manage">Manager</a>
+                  </li>
+                <%}%>
+              <%}%>
+            <%
+            if(id == null){
               %>
-              <a class="nav-link" href="/login/logout">LogOut</a>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <%
+            }
+            else if(id != "seller" && id != "manager"){
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="/cart">Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/users">Mypage</a>
+              </li>
+              <%
+            }
+            %>
+            <%
+            if(id != null){
+              %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login/logout">Logout</a>
+              </li>
               <%
               }
               %>
-            </li>
           </ul>
         </div>
       </div>

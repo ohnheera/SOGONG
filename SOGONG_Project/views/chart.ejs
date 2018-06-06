@@ -27,9 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
 
-          <%
-          if(id != "seller" && id != "manager"){
-            %>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="/productBoard" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Shop
@@ -44,7 +42,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/infoboard">Community</a>
           </li>
-          <%}%>
           <%
           if(id == "seller" || id == "manager"){
             %>
@@ -89,6 +86,7 @@
       </div>
     </div>
   </nav>
+
 
   <div class="content-wrapper">
     <div class="container-fluid">
