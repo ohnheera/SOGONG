@@ -209,7 +209,7 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
     newFile =  req.file.filename;
   }
   console.log("기존 파일: " + pic);
-  if(pic != null){ //기존 파일 존재, 삭제 후 새로운 파일 업로드
+  if(pic != null && newFile != null){ //기존 파일 존재, 삭제 후 새로운 파일 업로드
     console.log("새로운 파일 업로드, 기존 이미지 삭제");
     fs.exists('uploads-/user/petimg/' + pic, function(exists){ //기존 파일이 존재할 시 아래의 코드 실행
       if(exists == true){
@@ -222,8 +222,9 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
             //데이터베이스의 파일명 등을 바꿔준다.
             //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
             var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=?,interest0=?,interest1=?,interest2=?,interest3=? where id=? and passwd=?";
+            console.log("정보 수정 data: ",name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3);
 
-            connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,id,passwd,interest0,interest1,interest2,interest3],function(err,result){
+            connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,,interest0,interest1,interest2,interest3,id,passwd],function(err,result){
               console.log(result);
               if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
 
@@ -246,10 +247,11 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
         pool.getConnection(function(err,connection)
         {
           if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
+          console.log("정보 수정 data: ",name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3);
           //새로운 파일명만 업로드, 삭제 필요 x
-          var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=? where id=? and passwd=?";
+          var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=?,interest0=?,interest1=?,interest2=?,interest3=? where id=? and passwd=?";
 
-          connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,id,passwd],function(err,result){
+          connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3,id,passwd],function(err,result){
             console.log(result);
             if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
 
@@ -272,9 +274,10 @@ router.post('/edit',upload.single('pic'),function(req,res,next){
     {
       //데이터베이스의 파일명 등을 바꿔준다.
       //파일 삭제 -> 데이터베이스 업데이트의 순서를 맞추기 위해 함수 안에 사용
-      var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=? where id=? and passwd=?";
+      var sql = "update userinfo set name=?,email=?,tel=?,address=?,birth=?,pic=?,petname=?,petage=?,petbirth=?,petgen=?,pettype=?,interest0=?,interest1=?,interest2=?,interest3=? where id=? and passwd=?";
+      console.log("정보 수정 data: ",name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3);
 
-      connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,id,passwd],function(err,result){
+      connection.query(sql,[name,email,tel,address,birth,pic,petname,petage,petbirth,petgen,pettype,interest0,interest1,interest2,interest3,id,passwd],function(err,result){
         console.log(result);
         if(err) console.error("회원정보 수정 중 에러 발생 err: ",err);
 
