@@ -150,14 +150,9 @@
               %>
               <form action="<%=act%>">
                 <%
-                  if(id==null){
+                  if(id=="manager"){
                 %>
-                <button type="submit" class="btn" onclick="return confirm('로그인 후 이용가능합니다.')">글쓰기</button>
-                <%
-                  }
-                  else{
-                %>
-                <button type="submit" class="btn">글쓰기</button>
+                <button type="submit" class="btn">관리자 공지쓰기</button>
                 <%
                   }
                 %>

@@ -68,7 +68,7 @@
           if(id == "seller"){
             %>
             <li class="nav-item">
-              <a class="nav-link" href="#"><strong>Manage</strong></a>
+              <a class="nav-link" href="/chart"><strong>Manage</strong></a>
             </li>
             <%}%>
           <%
@@ -188,26 +188,45 @@
       </div>
       <%}%>
       <%if(prd5 != null){%>
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header" style="background-color: #9ECEFF; color: white;">맞춤상품<small>
-            <div class="body_" id="body_"><div id="timediv"></div></div></small>
-          </h4>
-          <div class="card-body">
-            <%
-            var rand_ = Math.floor(Math.random() * prd5.length);
-            if(prd5[rand_].category == 0) product = "product_food";
-            else if(prd5[rand_].category == 1) product = "product_clothes";
-            else if(prd5[rand_].category == 2) product = "product_toy";
-            else if(prd5[rand_].category == 3) product = "product_health";%>
-            <a href="/productBoard/<%=product%>/<%=prd5[rand_].idx%>"><img class="card-img-top" src=<%=prd5[rand_].main_img%> alt="prd_imgs" width="auto" height="300"></a>
-            <p class="card-text"><%=prd5[rand_].prd_name%></p>
+        <%if(prd5[0] != null){%>
+          <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+              <h4 class="card-header" style="background-color: #9ECEFF; color: white;">맞춤상품<small>
+                <div class="body_" id="body_"><div id="timediv"></div></div></small>
+              </h4>
+              <div class="card-body">
+                <%
+                var rand_ = Math.floor(Math.random() * prd5.length) - 1;
+                if(prd5[rand_].category == 0) product = "product_food";
+                else if(prd5[rand_].category == 1) product = "product_clothes";
+                else if(prd5[rand_].category == 2) product = "product_toy";
+                else if(prd5[rand_].category == 3) product = "product_health";%>
+                <a href="/productBoard/<%=product%>/<%=prd5[rand_].idx%>"><img class="card-img-top" src=<%=prd5[rand_].main_img%> alt="prd_imgs" width="auto" height="300"></a>
+                <p class="card-text"><%=prd5[rand_].prd_name%></p>
+              </div>
+              <div class="card-footer">
+                <a href="/productBoard/<%=product%>/<%=prd5[rand_].idx%>" class="btn" style="background-color: #9ECEFF; color: white;">Learn More</a>
+              </div>
+            </div>
           </div>
-          <div class="card-footer">
-            <a href="/productBoard/<%=product%>/<%=prd5[rand_].idx%>" class="btn" style="background-color: #9ECEFF; color: white;">Learn More</a>
-          </div>
-      </div>
-    </div>
+          <%}
+          else{%>
+            <div class="col-lg-4 mb-4">
+              <div class="card h-100">
+                <h4 class="card-header" style="background-color: #9ECEFF; color: white;">맞춤상품<small>
+                  <div class="body_" id="body_"><div id="timediv"></div></div></small>
+                </h4>
+                <div class="card-body">
+                  <p class="card-text"><a href ="/users/edit">정보 수정</a>을 통해 관심사를 선택해주세요.</p><p>더 많은 혜택을 드립니다.</p>
+                  <P></p>
+                  <img class="img-fluid" style="width: 200px; height:auto;" src="http://localhost:3000/icons/settings.png" alt="">
+                </div>
+                <div class="card-footer">
+                  <a href="/join%>" class="btn" style="background-color: #9ECEFF; color: white;">Learn More</a>
+                </div>
+            </div>
+            </div>
+          <%}%>
     <%}
     else{%>
       <div class="col-lg-4 mb-4">
